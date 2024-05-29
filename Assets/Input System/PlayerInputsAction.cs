@@ -53,6 +53,33 @@ public partial class @PlayerInputsAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""8df4b439-6142-42bd-b637-58bf1f48cb75"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""07d79454-cf7c-4d2a-89f4-69e8847758cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CharacterMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""86268a19-a2d0-489e-9145-0a96f60f4c2b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +159,39 @@ public partial class @PlayerInputsAction: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c8008b6-a1fc-44e3-9fd8-6a3262822e4a"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""994c044d-5d6d-4901-ad96-e7021dfe3250"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02df7871-c842-4237-b99b-ce5ec0c7ea2b"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CharacterMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +203,9 @@ public partial class @PlayerInputsAction: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_CharacterMenu = m_Player.FindAction("CharacterMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +270,9 @@ public partial class @PlayerInputsAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Run;
+    private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_CharacterMenu;
     public struct PlayerActions
     {
         private @PlayerInputsAction m_Wrapper;
@@ -214,6 +280,9 @@ public partial class @PlayerInputsAction: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Run => m_Wrapper.m_Player_Run;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @CharacterMenu => m_Wrapper.m_Player_CharacterMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +301,15 @@ public partial class @PlayerInputsAction: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @CharacterMenu.started += instance.OnCharacterMenu;
+            @CharacterMenu.performed += instance.OnCharacterMenu;
+            @CharacterMenu.canceled += instance.OnCharacterMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -245,6 +323,15 @@ public partial class @PlayerInputsAction: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @CharacterMenu.started -= instance.OnCharacterMenu;
+            @CharacterMenu.performed -= instance.OnCharacterMenu;
+            @CharacterMenu.canceled -= instance.OnCharacterMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -267,5 +354,8 @@ public partial class @PlayerInputsAction: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnCharacterMenu(InputAction.CallbackContext context);
     }
 }
