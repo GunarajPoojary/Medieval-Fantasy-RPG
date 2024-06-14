@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Poly HeavySword
   Icon: {fileID: 21300000, guid: 9234645993e91e54b9eec2690448662f, type: 3}
-  Description: Great Wepipdajsajbasmb d abssssssssssssssss  ansjddbwhafhfb nasdb
-    bna sbasbd
+  Description: Great HeavySword
   Type: 0
+  ID: fd55d54d-c7a8-4eb5-9540-d043a38902fd
   EquipmentStats: {fileID: 11400000, guid: 871860cbe85f0bc458314669af0ed2db, type: 2}
   AnimatorOverride: {fileID: 22100000, guid: 5deb54ba38db95d4fb079af2fcc0bd4b, type: 2}
   WeaponPrefabs:
-  - {fileID: 1248900812697881122, guid: 6dee48fcb1db4644cb54374b86fef2f8, type: 3}
+  - {fileID: 1248900812697881122, guid: f7a21ab2e8b4f3d41928361011bce63e, type: 3}

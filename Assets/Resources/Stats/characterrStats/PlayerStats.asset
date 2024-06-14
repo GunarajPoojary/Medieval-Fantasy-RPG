@@ -16,10 +16,14 @@ MonoBehaviour:
   - StatType: 0
     StatValue: 100
   - StatType: 1
-    StatValue: 0
+    StatValue: 100
   - StatType: 2
     StatValue: 10
   - StatType: 3
-    StatValue: 2
+    StatValue: 0
   - StatType: 5
+    StatValue: 0
+  - StatType: 6
+    StatValue: 0
+  - StatType: 7
     StatValue: 0

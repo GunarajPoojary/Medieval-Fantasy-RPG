@@ -16,6 +16,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: f3a9fad9509659044969d5cf2352a778, type: 3}
   Description: Great Weapon for slicing
   Type: 0
+  ID: 9f3943cc-1b82-41c6-965c-948587a3437d
   EquipmentStats: {fileID: 11400000, guid: 8553caea9ddfd7a408a0c0f913e57a67, type: 2}
   AnimatorOverride: {fileID: 22100000, guid: e3a6e1aa36d5a2e4d96f085852caf08a, type: 2}
   WeaponPrefabs:

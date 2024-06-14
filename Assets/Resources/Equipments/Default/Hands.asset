@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Hands
   m_EditorClassIdentifier: 
   DisplayName: 
+  Icon: {fileID: 0}
   Description: 
   Type: 1
-  Icon: {fileID: 0}
+  ID: 48fa3101-076b-4a1b-bdd0-9a02d1f8ec91
   EquipmentStats: {fileID: 0}
   IsDefault: 1
   SkinnedMesh: {fileID: 1526093245024180261, guid: 0c3bdc2e84bd7ca4bbb1e644fcaf7235,

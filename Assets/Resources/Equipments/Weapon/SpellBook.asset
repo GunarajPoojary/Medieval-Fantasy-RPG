@@ -16,6 +16,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 305751abd17b7eb45baf47b9fd6e8e7e, type: 3}
   Description: 
   Type: 0
+  ID: 33c5259d-dc19-45e9-84c8-82f74a365757
   EquipmentStats: {fileID: 11400000, guid: d76c58b6c42299444a02e3d3fb204a32, type: 2}
   AnimatorOverride: {fileID: 22100000, guid: e685b674b615e4d4fb144157bc48d949, type: 2}
   WeaponPrefabs:

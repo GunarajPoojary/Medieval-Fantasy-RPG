@@ -12,14 +12,14 @@ namespace GunarajCode
     /// </summary>
     public class InventoryUI : MonoBehaviour
     {
-        private PlayerInputsAction _inputActions;
+        private PlayerInputAction _inputActions;
 
-        private Inventory _inventory;
+        //private Inventory _inventory;
 
         [SerializeField] private InventoryItemInfo _inventoryItemInfo;
         [SerializeField] private Transform _weaponsContainer;
         [SerializeField] private Transform _armorsContainer;
-        [SerializeField] private Transform _questItemsContainer;
+        [SerializeField] private Transform _consumablesContainer;
         [SerializeField] private Transform _questItemContainer;
 
         [SerializeField] private GameObject _inventorySlotPrefab;
@@ -30,15 +30,15 @@ namespace GunarajCode
 
         private void Awake()
         {
-            _inventory = Inventory.Instance;
+            //_inventory = Inventory.Instance;
 
-            _inputActions = new PlayerInputsAction();
+            _inputActions = new PlayerInputAction();
 
             _itemTypeToContainerMap = new Dictionary<ItemType, Transform>
             {
                 { ItemType.Weapon, _weaponsContainer },
                 { ItemType.Armor, _armorsContainer },
-                { ItemType.Consumable, _questItemsContainer },
+                { ItemType.Consumable, _consumablesContainer },
                 { ItemType.QuestItem, _questItemContainer }
             };
         }
@@ -48,8 +48,8 @@ namespace GunarajCode
             _inputActions.Player.Enable();
             _inputActions.Player.Inventory.performed += ToggleInventory;
 
-            if (_inventory != null)
-                _inventory.OnItemAdded += OnItemAdded;
+            if (Inventory.Instance != null)
+                Inventory.Instance.OnItemAdded += OnItemAdded;
         }
 
         private void OnDisable()
@@ -57,8 +57,8 @@ namespace GunarajCode
             _inputActions.Player.Inventory.performed -= ToggleInventory;
             _inputActions.Player.Disable();
 
-            if (_inventory != null)
-                _inventory.OnItemAdded -= OnItemAdded;
+            if (Inventory.Instance != null)
+                Inventory.Instance.OnItemAdded -= OnItemAdded;
         }
 
         private void Start() => _inventoryContainer.SetActive(false);

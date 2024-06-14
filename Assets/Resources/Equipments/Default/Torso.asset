@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Torso
   m_EditorClassIdentifier: 
   DisplayName: 
+  Icon: {fileID: 0}
   Description: 
   Type: 1
-  Icon: {fileID: 0}
+  ID: 5c4b6d07-0370-40d5-97f0-7391560d6f44
   EquipmentStats: {fileID: 0}
   IsDefault: 1
   SkinnedMesh: {fileID: 8116746188123248792, guid: 4f9afd2326dd6b747bee2e44d9a3223f,

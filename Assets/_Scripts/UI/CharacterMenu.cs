@@ -1,4 +1,3 @@
-using Cinemachine;
 using GunarajCode.Inventories;
 using GunarajCode.ScriptableObjects;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace GunarajCode
             public Transform Content;
         }
 
-        private PlayerInputsAction _inputActions;
+        private PlayerInputAction _inputActions;
         private Inventory _inventory;
 
         [SerializeField] private CharacterScreenItemInfo _characterScreenItemInfo;
@@ -28,7 +27,6 @@ namespace GunarajCode
         [SerializeField] private Transform _weaponsContainer;
         [SerializeField] private GameObject _slotPrefab;
         [SerializeField] private GameObject _characterMenuContainer;
-        [SerializeField] private CinemachineFreeLook _thirdPersonCam;
         public Dictionary<ItemObject, GameObject> _itemObjectToGameobjectMap = new Dictionary<ItemObject, GameObject>();
 
         // Dictionary to map armor slots to their corresponding UI transforms
@@ -36,7 +34,7 @@ namespace GunarajCode
 
         private void Awake()
         {
-            _inputActions = new PlayerInputsAction();
+            _inputActions = new PlayerInputAction();
             InitializeArmorSlotUI();
         }
 
@@ -76,7 +74,6 @@ namespace GunarajCode
         {
             bool isActive = _characterMenuContainer.activeSelf;
             _characterMenuContainer.SetActive(!isActive);
-            _thirdPersonCam.Priority = isActive ? 10 : 0;
         }
 
         private void OnItemAdded(ItemObject item)

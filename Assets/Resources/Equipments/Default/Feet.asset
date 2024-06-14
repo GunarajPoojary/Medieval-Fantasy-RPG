@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Feet
   m_EditorClassIdentifier: 
   DisplayName: 
+  Icon: {fileID: 0}
   Description: 
   Type: 1
-  Icon: {fileID: 0}
+  ID: e18a4316-694d-4233-9955-79e6bec8d11e
   EquipmentStats: {fileID: 0}
   IsDefault: 1
   SkinnedMesh: {fileID: 3164055589542873977, guid: 075fd3dea74387346954ed593836bfe2,

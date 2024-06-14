@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Legs
   m_EditorClassIdentifier: 
   DisplayName: 
+  Icon: {fileID: 0}
   Description: 
   Type: 1
-  Icon: {fileID: 0}
+  ID: 0a54cb4b-53cc-4449-8542-bf6bd871cc9d
   EquipmentStats: {fileID: 0}
   IsDefault: 1
   SkinnedMesh: {fileID: 6238532421569554892, guid: b9379788b5597e748b0417889b483a85,

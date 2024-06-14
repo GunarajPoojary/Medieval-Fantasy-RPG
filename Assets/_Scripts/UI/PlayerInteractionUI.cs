@@ -9,7 +9,7 @@ namespace GunarajCode.UI
     public class PlayerInteractionUI : MonoBehaviour
     {
         [SerializeField] private GameObject _interactionUI;
-        [SerializeField] private PlayerInteract _playerInteract;
+        [SerializeField] private Interact _playerInteract;
 
         private void Awake() => _playerInteract.OnGetInteractable += OnGetInteractable;
 

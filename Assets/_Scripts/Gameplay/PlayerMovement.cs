@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator _animator;
     private CharacterController _controller;
-    private PlayerInputsAction _inputActions;
+    private PlayerInputAction _inputActions;
 
     [Header("Slope Variables")]
     [Tooltip("Used to add downward force when on slope")]
@@ -48,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _groundDist = 0.28f;
     private bool _isGrounded;
 
-    private float _terminalVelocity = 53f;
     private Vector3 _verticalVel;
 
     [Header("Jump Cooldown")]
@@ -77,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void InitializeInputActions()
     {
-        _inputActions = new PlayerInputsAction();
+        _inputActions = new PlayerInputAction();
         _inputActions.Player.Enable();
         _inputActions.Player.Jump.performed += ctx => _isJumpPressed = true;
         _inputActions.Player.Jump.canceled += ctx => _isJumpPressed = false;
@@ -101,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         HandleMovement();
         HandleJumpAndGravity();
+        //HandleGravity();
         JumpCooldown();
         SetSlopeType();
     }
@@ -143,8 +143,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void HandleGravity()
+    {
+        if (_isGrounded && _verticalVel.y < 0.0f) _verticalVel.y = _groundedGravity;
+    }
+
     private void HandleJumpAndGravity()
     {
+        float gravityMultiplier = 2f;
+
         // Set Idle, Walk and Run blend parameters
         _animator.SetFloat(_inputMagnitudeHash, _inputMagnitude, 0.1f, Time.deltaTime);
 
@@ -184,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Apply gravity
-        if (_verticalVel.y < _terminalVelocity) _verticalVel.y += Physics.gravity.y * 2 * Time.deltaTime;
+        _verticalVel.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
 
         _controller.Move(_verticalVel * Time.deltaTime);
     }

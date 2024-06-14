@@ -367,8 +367,7 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: Motion
-    rigImportErrors: "Copied Avatar Rig Configuration mis-match. Transform hierarchy
-      does not match:\n\tTransform 'PT_Hips' for human bone 'Hips' not found\n"
+    rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -409,8 +408,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.44941095
-        functionName: Hit
+      - time: 0.37920243
+        functionName: StartDealingDamage
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.59601176
+        functionName: StartDealingDamage
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

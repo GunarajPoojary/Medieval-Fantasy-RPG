@@ -24,7 +24,7 @@ namespace GunarajCode
             public Transform HandTransform;
         }
 
-        private Inventory _inventory;
+        //private Inventory _inventory;
 
         // Player's head mesh renderer used to set armors(SkinnedMeshRenderer) bones
         [SerializeField] private SkinnedMeshRenderer _playerHeadMesh;
@@ -41,16 +41,21 @@ namespace GunarajCode
         private SkinnedMeshRenderer[] _currentArmorMeshes;
         private ArmorObject[] _currentArmorObjects;
         private WeaponObject _currentWeaponObject;
-        private List<GameObject> _currentWeapons = new List<GameObject>();
+        private List<GameObject> _currentWeapons;
         private Dictionary<GameObject, Transform> _weaponToHandTransformMap = new Dictionary<GameObject, Transform>();
 
         private RuntimeAnimatorController _defaultAnimatorController;
+
+        public SkinnedMeshRenderer[] CurrentArmorMeshes { get => _currentArmorMeshes; set => _currentArmorMeshes = value; }
+        public ArmorObject[] CurrentArmorObjects { get => _currentArmorObjects; set => _currentArmorObjects = value; }
+        public WeaponObject CurrentWeaponObject { get => _currentWeaponObject; set => _currentWeaponObject = value; }
+        public List<GameObject> CurrentWeapons { get => _currentWeapons; set => _currentWeapons = value; }
 
         public event Action<EquipmentObject, EquipmentObject> OnEquipmentChanged;
 
         private void OnEnable()
         {
-            _inventory = Inventory.Instance;
+            //_inventory = Inventory.Instance;
             InitializeWeaponHandTransformMap();
         }
 
@@ -67,8 +72,8 @@ namespace GunarajCode
 
         private void DestroyDefaultBodyPrefabs()
         {
-            foreach (var obj in _defaultBodyPrefabs)
-                Destroy(obj);
+            foreach (var prefabs in _defaultBodyPrefabs)
+                Destroy(prefabs);
         }
 
         private void InitializeEquipmentSlots()
@@ -110,7 +115,7 @@ namespace GunarajCode
                 oldItem = _currentArmorObjects[slotIndex];
 
                 if (!oldItem.IsDefault)
-                    _inventory.Add(oldItem);
+                    Inventory.Instance.Add(oldItem);
             }
 
             _currentArmorObjects[slotIndex] = newItem;
@@ -130,7 +135,7 @@ namespace GunarajCode
             {
                 oldItem = _currentWeaponObject;
 
-                _inventory.Add(oldItem);
+                Inventory.Instance.Add(oldItem);
             }
 
             _currentWeaponObject = newItem;
@@ -143,13 +148,12 @@ namespace GunarajCode
         // Equips the weapon prefabs to the corresponding hand transforms.
         private void EquipWeaponPrefabs(WeaponObject newItem)
         {
+            _currentWeapons = new List<GameObject>();
+
             foreach (var gameObject in newItem.WeaponPrefabs)
             {
                 if (_weaponToHandTransformMap.TryGetValue(gameObject, out var weaponHandTransform))
                 {
-                    if (gameObject.TryGetComponent<ItemPickUp>(out ItemPickUp item))
-                        item.enabled = false;
-
                     var newWeapon = Instantiate(gameObject, weaponHandTransform);
                     newWeapon.transform.localPosition = Vector3.zero;
                     newWeapon.transform.localRotation = Quaternion.identity;
@@ -184,7 +188,7 @@ namespace GunarajCode
 
             _currentArmorObjects[slotIndex] = null;
             if (!oldItem.IsDefault)
-                _inventory.Add(oldItem);
+                Inventory.Instance.Add(oldItem);
 
             OnEquipmentChanged?.Invoke(null, oldItem);
             return oldItem;
@@ -206,7 +210,7 @@ namespace GunarajCode
             }
 
             var oldItem = _currentWeaponObject;
-            _inventory.Add(oldItem);
+            Inventory.Instance.Add(oldItem);
 
             _currentWeaponObject = null;
             OnEquipmentChanged?.Invoke(null, oldItem);
