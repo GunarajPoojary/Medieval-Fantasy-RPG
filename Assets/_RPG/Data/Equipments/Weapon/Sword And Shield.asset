@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942e917f7131d83489fc6f993d2500a9, type: 3}
+  m_Name: Sword And Shield
+  m_EditorClassIdentifier: 
+  DisplayName: Poly Axe
+  Icon: {fileID: 21300000, guid: 88d54175732302349b9790ee5fbc7cf7, type: 3}
+  Description: Great HeavySword
+  ItemType: 0
+  ID: 9edc67a9-bb89-4209-a186-84d7233c7a4c
+  EquipmentStats: {fileID: 11400000, guid: 871860cbe85f0bc458314669af0ed2db, type: 2}
+  AnimatorOverride: {fileID: 22100000, guid: d31e14fb46f9d094eb0b26fa8498321d, type: 2}
+  WeaponPrefabs:
+  - {fileID: 5120254613038864355, guid: 60d140b5b0933fe4eaafe3d6c77cade1, type: 3}
+  - {fileID: 1040447105255850086, guid: 599fa1d9905a18a4f993e3dd1ff91a0d, type: 3}
+  WeaponType: 2
