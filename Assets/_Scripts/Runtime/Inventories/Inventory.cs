@@ -43,21 +43,8 @@ namespace RPG.Inventories
 
         public void AddItem(ItemSO item)
         {
-            if (_items.Count >= _maxCapacity)
+            if (_items.Count >= _maxCapacity || _items.Contains(item) || item == null)
             {
-                Debug.LogError("Inventory is full. Cannot add more items.");
-                return;
-            }
-
-            if (item == null)
-            {
-                Debug.LogError("Cannot add null item.");
-                return;
-            }
-
-            if (_items.Contains(item))
-            {
-                Debug.LogError("Duplicate item detected in the inventory.");
                 return;
             }
 
@@ -69,17 +56,12 @@ namespace RPG.Inventories
         {
             if (item == null)
             {
-                Debug.LogError("Cannot remove null item.");
                 return;
             }
 
             if (_items.Remove(item))
             {
                 _itemRemoved.RaiseEvent(item);
-            }
-            else
-            {
-                Debug.LogError("Item not found in the inventory.");
             }
         }
 
@@ -96,10 +78,6 @@ namespace RPG.Inventories
                 {
                     _items.Add(item);
                 }
-                else
-                {
-                    Debug.LogWarning($"Item with ID {itemID} not found in the database.");
-                }
             }
         }
 
@@ -109,11 +87,6 @@ namespace RPG.Inventories
 
             foreach (ItemSO item in _items)
             {
-                if (data.ItemIDs.Contains(item.ID))
-                {
-                    Debug.LogError("Duplicate item ID detected during save.");
-                    continue;
-                }
                 data.ItemIDs.Add(item.ID);
             }
         }

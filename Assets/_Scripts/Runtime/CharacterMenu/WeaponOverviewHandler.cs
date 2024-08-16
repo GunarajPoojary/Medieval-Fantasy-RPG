@@ -18,21 +18,20 @@ namespace RPG.CharacterMenu
 
         private Dictionary<ItemSO, GameObject> _itemObjectToGameobjectMap = new Dictionary<ItemSO, GameObject>();
 
+        #region IEquipmentOverviewDisplayer Method
         // Displays the overview of a random active weapon slot.
-        public void DisplayWeaponOverview()
+        public void DisplayEquipmentOverview()
         {
-            List<IOverviewDisplayer> weaponSlots = _weaponsContainer.GetComponentsInChildren<IOverviewDisplayer>().ToList();
+            List<EquipmentSlotUI> weaponSlots = _weaponsContainer.GetComponentsInChildren<EquipmentSlotUI>().ToList();
 
             if (weaponSlots.Count != 0)
             {
                 weaponSlots[Random.Range(0, weaponSlots.Count)].DisplayItemOverview();
             }
-            else
-            {
-                Debug.LogWarning("You don't have any weapon to equip");
-            }
         }
+        #endregion
 
+        #region IEquipmentAddable Method
         // Adds a new weapon to the appropriate slot in the weapons container.
         public void AddEquipment(EquipmentSO equipment)
         {
@@ -40,7 +39,6 @@ namespace RPG.CharacterMenu
 
             if (_itemObjectToGameobjectMap.ContainsKey(weapon))
             {
-                Debug.LogWarning($"Item '{weapon.name}' is already in the container.");
                 return;
             }
 
@@ -50,5 +48,6 @@ namespace RPG.CharacterMenu
             itemSlot.SetItem(weapon);
             _itemObjectToGameobjectMap.Add(weapon, slot);
         }
+        #endregion
     }
 }

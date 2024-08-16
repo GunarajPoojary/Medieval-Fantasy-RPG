@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RPG.UI
 {
@@ -9,31 +8,25 @@ namespace RPG.UI
     /// </summary>
     public class TabGroup : MonoBehaviour
     {
-        [SerializeField]
-        private Color _tabIdleColor;
+        [SerializeField] private Color _tabIdleColor;
 
-        [SerializeField]
-        private Color _tabHoverColor;
+        [SerializeField] private Color _tabHoverColor;
 
-        [SerializeField]
-        private Color _tabSelectedColor;
+        [SerializeField] private Color _tabSelectedColor;
 
         // List of GameObjects to swap when a tab is selected.
-        [SerializeField]
-        private List<GameObject> _objectsToSwap;
+        [SerializeField] private List<GameObject> _objectsToSwap;
 
         private ITabButtonStateChanger _stateChanger;
 
-        [field: SerializeField]
-        public List<TabButton> TabButtons { get; private set; } = new List<TabButton>();
+        [field: SerializeField] public List<TabButton> TabButtons { get; private set; } = new List<TabButton>();
 
         public TabButton SelectedTab { get; private set; }
-
-        public UnityEvent OnTabSelect;
 
         private void Awake()
         {
             _stateChanger = new TabButtonStateChanger(_tabIdleColor, _tabHoverColor, _tabSelectedColor);
+
             SetDefaultTab();
         }
 
@@ -52,7 +45,7 @@ namespace RPG.UI
         public void OnTabClick(TabButton button)
         {
             SelectedTab = button;
-            _stateChanger.ChangeStateOnClick(button, SelectedTab, _objectsToSwap, OnTabSelect);
+            _stateChanger.ChangeStateOnClick(button, SelectedTab, _objectsToSwap);
         }
     }
 }

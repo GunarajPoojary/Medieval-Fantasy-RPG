@@ -9,7 +9,7 @@ namespace RPG.Stats
         [SerializeField] private Slider _defenseSlider;
         [SerializeField] private Image _characterImage;
 
-        private ICharacterHealthDefenseProvider _characterHealthDefenseProvider;
+        private ICharacterStatsProvider _characterHealthDefenseProvider;
 
         private void Awake() => _characterHealthDefenseProvider = GetComponentInParent<CharacterStatsHandler>();
 

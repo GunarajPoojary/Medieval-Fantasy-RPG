@@ -76,6 +76,7 @@ namespace RPG.EquipmentSystem.UI
         public override void GetEquipmentSlots()
         {
             _wearableSlots = new List<EquipmentSlotUI>();
+
             foreach (var container in _wearableSlotTypeToContentMap.Values)
             {
                 if (container.childCount > 0)

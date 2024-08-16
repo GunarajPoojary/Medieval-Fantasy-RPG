@@ -16,9 +16,11 @@ namespace RPG.UI
             _selectSound = selectSound;
         }
 
+        #region IButtonSoundPlayer Methods
         public void OnPointerEnter(BaseEventData data) => PlaySound(_hoverSound);
 
         public void OnPointerClick(BaseEventData data) => PlaySound(_selectSound);
+        #endregion
 
         private void PlaySound(AudioClip clip)
         {

@@ -6,10 +6,9 @@ namespace RPG.UI
     /// <summary>
     /// Toggles the visibility of On-Screen UI elements, When UI's such as Inventory is set active.
     /// </summary>
-    public class UIManager : SimpleSingleton<UIManager>, IUIElement
+    public class UIManager : SimpleSingleton<UIManager>, IUIVisibilityHandler
     {
-        [SerializeField]
-        private GameObject[] _backgroundUIs;
+        [SerializeField] private GameObject[] _backgroundUIs;
 
         public void ToggleUIs(bool shouldSetActive)
         {

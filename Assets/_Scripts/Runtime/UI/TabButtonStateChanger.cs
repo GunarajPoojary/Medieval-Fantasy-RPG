@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RPG.UI
 {
@@ -20,6 +19,7 @@ namespace RPG.UI
             _tabSelectedColor = tabSelectedColor;
         }
 
+        #region ITabButtonStateChanger Methods
         public void ChangeStateOnEnter(TabButton hoveredButton, TabButton selectedTab)
         {
             ResetTabs(hoveredButton.TabGroup);
@@ -43,7 +43,7 @@ namespace RPG.UI
             }
         }
 
-        public void ChangeStateOnClick(TabButton clickedButton, TabButton selectedTab, List<GameObject> objectsToSwap, UnityEvent onTabSelect)
+        public void ChangeStateOnClick(TabButton clickedButton, TabButton selectedTab, List<GameObject> objectsToSwap)
         {
             if (clickedButton == null || clickedButton.Background == null)
             {
@@ -60,7 +60,6 @@ namespace RPG.UI
             {
                 if (i == index)
                 {
-                    onTabSelect?.Invoke();
                     objectsToSwap[i].SetActive(true);
                 }
                 else
@@ -69,6 +68,7 @@ namespace RPG.UI
                 }
             }
         }
+        #endregion
 
         private void ResetTabs(TabGroup tabGroup)
         {

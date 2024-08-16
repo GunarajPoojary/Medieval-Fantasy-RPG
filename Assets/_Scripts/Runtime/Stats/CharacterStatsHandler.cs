@@ -8,11 +8,14 @@ namespace RPG.Stats
     /// Handles a character's stats, including taking damage and death, and providing stat values in Gameplay Scene.
     /// </summary>
     [SelectionBase]
-    public class CharacterStatsHandler : MonoBehaviour, IDamageable, ICharacterHealthDefenseProvider
+    public class CharacterStatsHandler : MonoBehaviour, IDamageable, ICharacterStatsProvider
     {
         [SerializeField] private GameObject _ragdoll;
-        [SerializeField] private Animator _animator;
         [SerializeField] private RuntimeStats _runtimeStats;
+
+        private Animator _animator;
+
+        private void Awake() => _animator = GetComponentInChildren<Animator>();
 
         //private void Update()
         //{
@@ -53,7 +56,7 @@ namespace RPG.Stats
         }
         #endregion
 
-        #region ICharacterHealthDefenseProvider Methods
+        #region ICharacterStatsProvider Methods
         public float GetCurrentHealth() => _runtimeStats.GetCurrentStatValue(StatType.Health);
 
         public float GetCurrentDefense() => _runtimeStats.GetCurrentStatValue(StatType.Defense);

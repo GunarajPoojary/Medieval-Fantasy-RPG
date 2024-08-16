@@ -54,12 +54,12 @@ namespace RPG.CharacterMenu
             if (equipmentSelectionScreen == _characterMenuUIHandler.GetWeaponSelectionContainer())
             {
                 _characterMenuUIHandler.SetPanels(mainPanelSetActive: false, weaponSelectionSetActive: true, armorSelectionSetActive: false);
-                _weaponOverviewHandler.DisplayWeaponOverview();
+                _weaponOverviewHandler.DisplayEquipmentOverview();
             }
             else if (equipmentSelectionScreen == _characterMenuUIHandler.GetArmorSelectionContainer())
             {
                 _characterMenuUIHandler.SetPanels(mainPanelSetActive: false, weaponSelectionSetActive: false, armorSelectionSetActive: true);
-                _wearableOverviewHandler.DisplayWeaponOverview();
+                _wearableOverviewHandler.DisplayEquipmentOverview();
             }
             else if (equipmentSelectionScreen == _characterMenuUIHandler.GetMainPanelContainer())
             {

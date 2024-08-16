@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RPG.UI
 {
@@ -13,6 +12,6 @@ namespace RPG.UI
 
         void ChangeStateOnExit(List<TabButton> tabButtons, TabButton selectedTab);
 
-        void ChangeStateOnClick(TabButton clickedButton, TabButton selectedTab, List<GameObject> objectsToSwap, UnityEvent onTabSelect);
+        void ChangeStateOnClick(TabButton clickedButton, TabButton selectedTab, List<GameObject> objectsToSwap);
     }
 }

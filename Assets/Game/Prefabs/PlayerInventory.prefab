@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a237b911fe0bb44b9caa94d4542dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxCapacity: 100
+  _maxCapacity: 2000
   _itemLookupEvent: {fileID: 11400000, guid: 12294cb3d83a3744f95ad63e8439f883, type: 2}
   _addItem: {fileID: 11400000, guid: fdac549627f1ed74ebdb47f8059a575c, type: 2}
   _removeItem: {fileID: 11400000, guid: 017167cfe3abc6a4580e534ac36ff90c, type: 2}

@@ -4,20 +4,17 @@ using UnityEngine;
 
 namespace RPG.World
 {
-    public class ItemPickUp : MonoBehaviour, IPickable, IIdentifiable, ISaveable
+    public class ItemPickUp : MonoBehaviour, IPickable, ISaveable
     {
         [Tooltip("Use context menu to generate ID")]
-        [SerializeField] private string _id;
+        [field: SerializeField] public string Id { get; private set; }
+
         [field: SerializeField] public ItemSO Item { get; private set; }
 
         private bool _collected = false;
 
-        public string Id => _id;
-
-        #region IIdentifiable Methods
         [ContextMenu("Generate guid for id")]
-        public void GenerateGuid() => _id = System.Guid.NewGuid().ToString();
-        #endregion
+        public void GenerateGuid() => Id = System.Guid.NewGuid().ToString();
 
         #region IPickable Methods
         public ItemSO GetPickUpItem()
@@ -39,13 +36,13 @@ namespace RPG.World
         #region ISaveable Methods
         public void LoadData(GameData data)
         {
-            if (data.ItemCollected.TryGetValue(_id, out _collected) && _collected)
+            if (data.ItemCollected.TryGetValue(Id, out _collected) && _collected)
             {
                 Destroy(gameObject);
             }
         }
 
-        public void SaveData(GameData data) => data.ItemCollected[_id] = _collected;
+        public void SaveData(GameData data) => data.ItemCollected[Id] = _collected;
         #endregion
     }
 }

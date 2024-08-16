@@ -8,6 +8,6 @@ namespace RPG.Inventories.UI
     public interface IItemOverviewDisplay
     {
         void DisplayItemOverview(ItemSO item);
-        void HideDetails();
+        void HideOverviewLayout();
     }
 }

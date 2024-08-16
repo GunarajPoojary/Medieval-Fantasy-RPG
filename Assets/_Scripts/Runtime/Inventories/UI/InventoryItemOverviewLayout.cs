@@ -17,10 +17,9 @@ namespace RPG.Inventories.UI
         [SerializeField] private Image _image;
         [Space]
         [SerializeField] private VoidReturnItemSOAndGameObjectParameterEventChannelSO _inventorySlotSelectionEventChannelSO;  // Event channel for item selection
-        [Space]
-        [SerializeField] private VoidReturnItemSOParameterEventChannelSO _removeItem;  // Event channel to remove items
-        [Space]
+
         private ItemSO _item;
+
         private GameObject _selectedSlotGameObject;
 
         private IItemActionHandler _itemActionHandler;
@@ -29,12 +28,13 @@ namespace RPG.Inventories.UI
 
         private void OnEnable()
         {
-            HideDetails();
+            HideOverviewLayout();
             _inventorySlotSelectionEventChannelSO.OnEventRaised += HandleSlotSelection;
         }
 
         private void OnDisable() => _inventorySlotSelectionEventChannelSO.OnEventRaised -= HandleSlotSelection;
 
+        #region IItemOverviewDisplay Methods
         public void DisplayItemOverview(ItemSO item)
         {
             _nameText.text = item.Name;
@@ -46,7 +46,8 @@ namespace RPG.Inventories.UI
         /// <summary>
         /// Hides the item overview UI.
         /// </summary>
-        public void HideDetails() => _container.SetActive(false);
+        public void HideOverviewLayout() => _container.SetActive(false);
+        #endregion
 
         public void SellItem() => _itemActionHandler.SellItem(_item, _selectedSlotGameObject);
 

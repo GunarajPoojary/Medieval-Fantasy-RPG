@@ -1,6 +1,6 @@
 ﻿namespace RPG.Stats
 {
-    public interface ICharacterHealthDefenseProvider
+    public interface ICharacterStatsProvider
     {
         float GetCurrentHealth();
         float GetCurrentDefense();

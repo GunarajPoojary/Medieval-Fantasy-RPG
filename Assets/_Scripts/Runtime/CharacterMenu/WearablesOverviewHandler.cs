@@ -20,8 +20,9 @@ namespace RPG.CharacterMenu
 
         private Dictionary<ItemSO, GameObject> _itemObjectToGameobjectMap = new Dictionary<ItemSO, GameObject>();
 
+        #region IWeaponOverviewDisplayer Method
         // Displays the overview of the first active armor slot.
-        public void DisplayWeaponOverview()
+        public void DisplayEquipmentOverview()
         {
             List<EquipmentSlotUI> wearableSlots = new List<EquipmentSlotUI>();
 
@@ -43,12 +44,10 @@ namespace RPG.CharacterMenu
                     }
                 }
             }
-            else
-            {
-                Debug.LogWarning("You don't have any armor to equip");
-            }
         }
+        #endregion
 
+        #region IEquipmentAddable Method
         // Adds a new piece of equipment to the appropriate armor slot.
         public void AddEquipment(EquipmentSO equipment)
         {
@@ -56,7 +55,6 @@ namespace RPG.CharacterMenu
 
             if (_itemObjectToGameobjectMap.ContainsKey(wearable))
             {
-                Debug.LogWarning($"Item '{wearable.name}' is already in the container.");
                 return;
             }
 
@@ -64,10 +62,11 @@ namespace RPG.CharacterMenu
             if (_armorSlotsContentMap.TryGetValue(wearable.EquipSlot, out Transform slotTransform))
             {
                 var slot = Instantiate(_slotPrefab, slotTransform);
-                IItemSetter itemSlot = slot.GetComponent<IItemSetter>();
+                IItemSetter itemSlot = slot.GetComponent<EquipmentSlotUI>();
                 itemSlot.SetItem(wearable);
                 _itemObjectToGameobjectMap.Add(wearable, slot);
             }
         }
+        #endregion
     }
 }
