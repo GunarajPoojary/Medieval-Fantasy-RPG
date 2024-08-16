@@ -1,0 +1,17 @@
+{
+    "name": "RPG.UI",
+    "rootNamespace": "RPG.UI",
+    "references": [
+        "GUID:29602826598ee664d8d656041407899e",
+        "GUID:80ecea0b6b50c774aa0f16b088a09916"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

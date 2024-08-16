@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42adc4d648e2624a93f94b824c96d39, type: 3}
+  m_Name: Knight's Gauntlets
+  m_EditorClassIdentifier: 
+  Name: 
+  Icon: {fileID: 21300000, guid: b301d3c5040a11d4bbf91e75ed1d79f6, type: 3}
+  Description: 
+  Type: 2
+  ID: d2440f74-6137-40f7-8364-193ec045a254
+  EquipmentStats: {fileID: 11400000, guid: a4253398987d827448f26a5e1c62fcc8, type: 2}
+  EquipSlot: 3
+  WearableType: 2
+  SkinnedMesh: {fileID: 2386910398529769232, guid: cd317d2766c87e641901a5f032780302, type: 3}

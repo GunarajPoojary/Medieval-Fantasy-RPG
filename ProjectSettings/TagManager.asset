@@ -4,10 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
-  - PlayerHeadMesh
-  - PlayerVisual
-  - SceneLoader
+  - PickupItem
   layers:
   - Default
   - TransparentFX
@@ -15,11 +12,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
   - Pickable
   - Interactable
-  - Enemy
-  - Weapon
   - 
   - 
   - 
@@ -33,6 +27,9 @@ TagManager:
   - 
   - 
   - 
+  - 
+  - Environment
+  - GroundCheck
   - 
   - 
   - 

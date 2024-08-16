@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42adc4d648e2624a93f94b824c96d39, type: 3}
+  m_Name: Assassin's Gauntlets
+  m_EditorClassIdentifier: 
+  Name: 
+  Icon: {fileID: 21300000, guid: b92d6a4d7be6d224f8fe529c8f5241eb, type: 3}
+  Description: 
+  Type: 2
+  ID: 074ecfe2-78a8-4e2b-b861-a379b39960e0
+  EquipmentStats: {fileID: 11400000, guid: 731c39547dfd69a4f9351345b537a74e, type: 2}
+  EquipSlot: 3
+  WearableType: 2
+  SkinnedMesh: {fileID: 3437816127564584902, guid: afc6b480f60319d468bea1c1488ab34a, type: 3}

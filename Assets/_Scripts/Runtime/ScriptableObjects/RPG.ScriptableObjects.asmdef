@@ -1,0 +1,17 @@
+{
+    "name": "RPG.ScriptableObjects",
+    "rootNamespace": "RPG.ScriptableObjects",
+    "references": [
+        "GUID:d525ad6bd40672747bde77962f1c401e",
+        "GUID:29602826598ee664d8d656041407899e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

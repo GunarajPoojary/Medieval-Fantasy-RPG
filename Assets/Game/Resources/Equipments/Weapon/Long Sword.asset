@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942e917f7131d83489fc6f993d2500a9, type: 3}
+  m_Name: Long Sword
+  m_EditorClassIdentifier: 
+  Name: 
+  Icon: {fileID: 21300000, guid: 0a1a94c241321164d960b8c550ce20a9, type: 3}
+  Description: Great HeavySword
+  Type: 1
+  ID: ec838ec9-2eb1-4e11-a92c-492a29ea832d
+  EquipmentStats: {fileID: 11400000, guid: 8fe5c98c68d3d2f48ace544b16fd76e7, type: 2}
+  WeaponType: 4
+  GameplayAnimatorOverrideController: {fileID: 22100000, guid: 5deb54ba38db95d4fb079af2fcc0bd4b, type: 2}
+  CharacterMenuAnimatorOverrideController: {fileID: 22100000, guid: 84bc572098b12c34db1dbd013206367a, type: 2}
+  WeaponPrefabs:
+  - {fileID: 112619148030476810, guid: 8ed3422e11032be458c7d687da29bc1b, type: 3}

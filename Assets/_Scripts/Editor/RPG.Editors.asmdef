@@ -1,0 +1,20 @@
+{
+    "name": "RPG.Editors",
+    "rootNamespace": "RPG.Editors",
+    "references": [
+        "GUID:108d5abe153ed6a44b0a7543ea32be26",
+        "GUID:f0348b6f5e5724d4da11b37d3a51086b",
+        "GUID:41ae90cd15435774493c1cd0cdceb8ab"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

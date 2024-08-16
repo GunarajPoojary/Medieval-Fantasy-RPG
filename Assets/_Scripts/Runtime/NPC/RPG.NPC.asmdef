@@ -1,0 +1,17 @@
+{
+    "name": "RPG.NPC",
+    "rootNamespace": "RPG.NPC",
+    "references": [
+        "GUID:f341c3b00b0ffc34b81d14d277febe1d",
+        "GUID:f0348b6f5e5724d4da11b37d3a51086b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
