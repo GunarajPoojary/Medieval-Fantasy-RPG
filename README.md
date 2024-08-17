@@ -1,3 +1,10 @@
+## Resources
+
+### Unity State Machine Implementation
+
+I used the following video to guide my implementation of the state machine in this project:
+[Genshin Impact Movement in Unity](https://www.youtube.com/watch?v=kluTqsSUyN0&t=16274s)
+This video provided valuable insights into setting up different states. The explanation of how to manage state transitions based on the player's velocity and input was particularly helpful in refining the Player Movement system in this project.
 ## New Input System
 
 This project utilizes Unity's **New Input System** to manage player inputs more effectively. The New Input System allows for the addition of callbacks whenever a key is pressed, changed, or released, corresponding to the actions of `started`, `performed`, and `canceled`.
