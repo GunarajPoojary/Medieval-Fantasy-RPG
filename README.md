@@ -1,3 +1,36 @@
+## Project Status
+
+### Implemented
+
+- **New Input System**: Managed player inputs with callbacks for actions like `started`, `performed`, and `canceled`. Implemented input interactions and camera control using Unity's New Input System.
+- **Movement System**: Includes features such as:
+  - **Cinemachine**: Orbital rotation and zoom functionality for the camera.
+  - **State Machines**: Efficient state transitions and state caching.
+  - **Floating Capsule**: Prevents the player from getting stuck or falling improperly with dynamic capsule adjustments.
+  - **Physics-Based Movement**: Character movement handled via Rigidbody and Unity's physics system.
+  - **Player Movement**: States including Walking, Running, Dashing, Sprinting, Jumping, and Falling.
+  - **Player Rotation**: Rotation relative to the camera and automatic rotation handling.
+  - **Player Dash**: Allows dashing with cooldown management.
+  - **Player Jump**: Directional jumping and force adjustments based on state and slope.
+  - **Player Fall**: Handling falling transitions and velocity limits.
+  - **Player Landing**: Different landing states for varied fall heights.
+  - **Player Stopping**: Different stopping states for varied velocities.
+- **Equipments**: Used Scriptable Objects.
+- **Inventory System**: Integrated to manage items and interactions.
+- **Equipment System**: Includes a Character Menu for equipping items.
+- **Save/Load System**: Added functionality for saving and loading game states.
+  - **Animations**: Utilized Mixamo animations with reusable sub-state machines in the Animator Controller.
+### Not Implemented
+
+-**Animations**: Some Animations for Equipments.
+- **Combat System**: The project does not include a combat system or predefined control scheme for combat.
+- **Enemy AI**: The project does not yet include enemy AI systems.
+- **NPC**: There are no NPCs (Non-Player Characters) or associated systems implemented in the project.
+
+### Next To Work
+
+- **UI Improvements**
+
 ## Resources
 
 ### Unity State Machine Implementation
@@ -97,3 +130,9 @@ When the Player collides with the ground after being airborne, it enters a Landi
 ### Animations
 
 Animations are handled through an Animator Controller using **Reusable Sub-State Machines** (No Blend Trees are used).
+
+### Mixamo Animations
+
+For animations, this project utilizes assets from **Mixamo**. Mixamo provides a variety of pre-made animations that were integrated into the Animator Controller. These animations include walking, running, jumping, and landing, which were essential for creating a responsive and dynamic player movement system.
+
+- **Mixamo Animations**: You can explore Mixamo's animation library [here](https://www.mixamo.com/). The animations were imported into Unity and used to set up the Player's movement and action states effectively.
