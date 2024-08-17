@@ -31,11 +31,13 @@
 
 ### Next To Work
 
-- **UI Improvements**
+- **Player Combat States**
 
 ## Resources
 
 ### Unity State Machine Implementation
+
+![Hierarchical StateMachine](https://github.com/user-attachments/assets/6242946d-25aa-46c4-9a62-32cda5048389)
 
 I used the following video to guide my implementation of the state machine in this project:
 [Genshin Impact Movement in Unity](https://www.youtube.com/watch?v=kluTqsSUyN0&t=16274s)
