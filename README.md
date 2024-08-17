@@ -18,11 +18,13 @@
 - **Equipments**: Used Scriptable Objects.
 - **Inventory System**: Integrated to manage items and interactions.
 - **Equipment System**: Includes a Character Menu for equipping items.
+- **Stats System**: Uses Scriptable Objects.
 - **Save/Load System**: Added functionality for saving and loading game states.
 - **Animations**: Utilized Mixamo animations with reusable sub-state machines in the Animator Controller.
 ### Not Implemented
 
--**Animations**: Some Animations for Equipments.
+- **Animations**: Some Animations for Equipments.
+- **UI Design**: UI designs are not completed. 
 - **Combat System**: The project does not include a combat system or predefined control scheme for combat.
 - **Enemy AI**: The project does not yet include enemy AI systems.
 - **NPC**: There are no NPCs (Non-Player Characters) or associated systems implemented in the project.
