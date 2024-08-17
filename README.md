@@ -19,7 +19,7 @@
 - **Inventory System**: Integrated to manage items and interactions.
 - **Equipment System**: Includes a Character Menu for equipping items.
 - **Save/Load System**: Added functionality for saving and loading game states.
-  - **Animations**: Utilized Mixamo animations with reusable sub-state machines in the Animator Controller.
+- **Animations**: Utilized Mixamo animations with reusable sub-state machines in the Animator Controller.
 ### Not Implemented
 
 -**Animations**: Some Animations for Equipments.
