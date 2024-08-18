@@ -138,7 +138,7 @@ MonoBehaviour:
   _minimumDistance: 1
   _maximumDistance: 6
   _smoothing: 4
-  _zoomSensitivity: 1
+  _zoomSensitivity: 4
 --- !u!114 &7522247111663242661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,11 +152,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraToggleInputAction: {fileID: 8631321381509113979, guid: 01d4947ae43b83e43bd641ff3cf71d8f, type: 3}
-  _startHidden: 1
+  _startHidden: 0
   _inputProvider: {fileID: 7522247111663242662}
-  _disableCameraLookOnCursorVisible: 1
-  _disableCameraZoomOnCursorVisible: 1
-  _fixedCinemachineVersion: 0
+  _disableCameraLookOnCursorVisible: 0
+  _disableCameraZoomOnCursorVisible: 0
 --- !u!1 &7522247112809039680
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +224,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 4.400001
+  m_CameraDistance: 6
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0

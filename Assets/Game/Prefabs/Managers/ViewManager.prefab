@@ -46,7 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startDelay: 0
   _transition: {fileID: 11400000, guid: b0126e1e0c6c2a04895d564bd230dfb9, type: 2}
-  _continueGameChannelSO: {fileID: 11400000, guid: 88c9739ca47a5804bbf553318de5d679,
-    type: 2}
-  _loadSceneChannelSO: {fileID: 11400000, guid: 1bf764cf095dcad4dac4c50120959594,
-    type: 2}
+  _continueGameChannelSO: {fileID: 11400000, guid: 88c9739ca47a5804bbf553318de5d679, type: 2}
+  _loadSceneChannelSO: {fileID: 11400000, guid: 1bf764cf095dcad4dac4c50120959594, type: 2}
+  _getCurrentSceneIndexEventChannelSO: {fileID: 11400000, guid: 080d89ed8ccc5bc4196cef64f996f672, type: 2}

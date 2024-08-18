@@ -9,8 +9,6 @@ AnimatorOverrideController:
   m_Name: Knight(Gameplay)
   m_Controller: {fileID: 9100000, guid: 234dfc8ca3a622348b4ccf94055b813f, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -203655887218126122, guid: bb5848ec1fb2d9d43a1812a6c0f70334, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: f2c1d48120ff49c419050488b5fdfe8d, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 156d9fc5fc4248a458b454ad7ee9712e, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 7af4ffd003e001d4483cca86ca62e55b, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 0fab7fce3ea4928458d3aa38ff30b633, type: 2}
@@ -23,3 +21,5 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: 7400000, guid: 6c933b9bff095584f92b2164bffe2ee5, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 1b8d64c4af1b9d945b37f717674f42a9, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: a7babd8380da09846a78125ec0937f82, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 373e6a5e951f6a948b0c85a7aecb3478, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a7424bd8ea107474db67e9d7c6c884eb, type: 2}

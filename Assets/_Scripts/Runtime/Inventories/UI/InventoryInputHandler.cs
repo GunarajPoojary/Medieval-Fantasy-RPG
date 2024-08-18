@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace RPG.Inventories.UI
 {
-    public class InventoryInputHandler : IInputHandler
+    public class InventoryInputHandler : IInventoryInputHandler
     {
         private readonly GameObject _inventoryPanel;
 
@@ -15,14 +15,14 @@ namespace RPG.Inventories.UI
         }
 
         #region IInputHandler Methods
-        public void Enable() => UIInputManager.Instance.UIInputActions.Inventory.started += HandleInventoryInput;
+        public void Enable() => PlayerUIInputManager.Instance.UIInputActions.Inventory.started += HandleInventoryInput;
 
-        public void Disable() => UIInputManager.Instance.UIInputActions.Inventory.started -= HandleInventoryInput;
+        public void Disable() => PlayerUIInputManager.Instance.UIInputActions.Inventory.started -= HandleInventoryInput;
         #endregion
 
         private void HandleInventoryInput(InputAction.CallbackContext context)
         {
-            IUIVisibilityHandler uIElement = UIManager.Instance;
+            IUIVisibilityToggler uIElement = UIManager.Instance;
 
             bool isActive = _inventoryPanel.activeSelf;
             Time.timeScale = isActive ? 1.0f : 0.0f;

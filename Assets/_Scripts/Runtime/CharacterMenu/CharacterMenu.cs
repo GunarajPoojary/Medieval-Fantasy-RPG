@@ -15,8 +15,8 @@ namespace RPG.CharacterMenu
 
         private IEquipmentOverviewDisplayer _weaponOverviewHandler;
         private IEquipmentOverviewDisplayer _wearableOverviewHandler;
-        private IEquipmentAddable _weaponAdder;
-        private IEquipmentAddable _wearableAdder;
+        private IEquipmentAdder _weaponAdder;
+        private IEquipmentAdder _wearableAdder;
 
         private void Awake()
         {

@@ -7,7 +7,6 @@ namespace RPG.Stats
     /// <summary>
     /// Handles a character's stats, including taking damage and death, and providing stat values in Gameplay Scene.
     /// </summary>
-    [SelectionBase]
     public class CharacterStatsHandler : MonoBehaviour, IDamageable, ICharacterStatsProvider
     {
         [SerializeField] private GameObject _ragdoll;

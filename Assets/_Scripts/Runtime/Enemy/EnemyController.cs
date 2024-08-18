@@ -29,7 +29,7 @@ namespace RPG.Enemy
 
         private void Start()
         {
-            _target = Player.PlayerManager.Instance.Player.transform;
+            _target = null;//Player.PlayerManager.Instance.Player.transform;
             _lastAttackTime = -_attackCooldown;
         }
 

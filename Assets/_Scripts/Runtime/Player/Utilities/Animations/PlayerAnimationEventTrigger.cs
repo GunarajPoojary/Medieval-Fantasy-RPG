@@ -9,7 +9,7 @@ namespace RPG.Player.Utils
         [SerializeField] private AudioSource _audioSource;
 
         private Player _player;
-        private IFootstepHandler _footstepHandler;
+        private IFootstepPlayer _footstepHandler;
 
         private void Awake()
         {

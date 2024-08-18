@@ -797,14 +797,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ViewManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8995892031725790852, guid: a1a59b4256e68894fb8cb952e198790d, type: 3}
-      propertyPath: _loadSceneChannelSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 1bf764cf095dcad4dac4c50120959594, type: 2}
-    - target: {fileID: 8995892031725790852, guid: a1a59b4256e68894fb8cb952e198790d, type: 3}
-      propertyPath: _continueGameChannelSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 88c9739ca47a5804bbf553318de5d679, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

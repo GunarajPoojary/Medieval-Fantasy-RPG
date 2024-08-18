@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 272013317879954841}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a3820221a0f5a145bcda4d6fc7a4aa5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c8069759c37db54f9755b952d6b57d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _itemTypeToPanelsMap:
@@ -1162,9 +1162,6 @@ MonoBehaviour:
   - {fileID: 6085009730955969706}
   - {fileID: 4323070460322181906}
   - {fileID: 8430962522324758436}
-  OnTabSelect:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1258424967334132340
 GameObject:
   m_ObjectHideFlags: 0
@@ -4880,10 +4877,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameText: {fileID: 8832890514041408305}
   _itemDescription: {fileID: 8098885906667799211}
-  _container: {fileID: 4757977335859187122}
+  _overviewContainer: {fileID: 4757977335859187122}
   _image: {fileID: 5118689141592595429}
   _inventorySlotSelectionEventChannelSO: {fileID: 11400000, guid: ef3fed123a2d36045b26a444ca2b9f84, type: 2}
-  _removeItem: {fileID: 11400000, guid: 017167cfe3abc6a4580e534ac36ff90c, type: 2}
 --- !u!114 &7316324637584142382
 MonoBehaviour:
   m_ObjectHideFlags: 0

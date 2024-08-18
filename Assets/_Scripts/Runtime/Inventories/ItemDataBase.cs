@@ -1,4 +1,3 @@
-using RPG.Core.Utils;
 using RPG.ScriptableObjects.EventChannels;
 using RPG.ScriptableObjects.Items;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace RPG.Inventories
     /// <summary>
     /// Class that serves as a database for storing and managing item data.
     /// </summary>
-    public class ItemDataBase : SimpleSingleton<ItemDataBase>
+    public class ItemDataBase : MonoBehaviour
     {
         [SerializeField] private List<WearableSO> _wearables;
         [Space]

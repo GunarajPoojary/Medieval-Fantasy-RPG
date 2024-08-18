@@ -6,11 +6,9 @@ namespace RPG.UI
 {
     public class MainMenuButton : MonoBehaviour
     {
-        [SerializeField]
-        private VoidReturnIntParameterEventChannelSO _loadSceneChannelSO;
-
-        [SerializeField]
-        private VoidReturnNonParameterEventChannelSO _continueGameChannelSO;
+        [SerializeField] private VoidReturnIntParameterEventChannelSO _loadSceneChannelSO;
+        [Space]
+        [SerializeField] private VoidReturnNonParameterEventChannelSO _continueGameChannelSO;
 
         private Button _button;
 

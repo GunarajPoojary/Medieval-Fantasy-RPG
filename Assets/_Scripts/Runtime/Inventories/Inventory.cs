@@ -1,5 +1,4 @@
 using RPG.Core.SaveLoad;
-using RPG.Core.Utils;
 using RPG.ScriptableObjects.EventChannels;
 using RPG.ScriptableObjects.Items;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace RPG.Inventories
 {
-    public class Inventory : SimpleSingleton<Inventory>, ISaveable
+    public class Inventory : MonoBehaviour, ISaveable
     {
         [SerializeField] private int _maxCapacity = 2000;
         [Space]

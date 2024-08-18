@@ -5415,7 +5415,7 @@ GameObject:
   - component: {fileID: 674678092546903807}
   - component: {fileID: 867787569289304339}
   m_Layer: 5
-  m_Name: Info
+  m_Name: WeaponOverview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8645,7 +8645,7 @@ GameObject:
   - component: {fileID: 5027475972586508522}
   - component: {fileID: 3666642310494903785}
   m_Layer: 5
-  m_Name: Info
+  m_Name: WearableOverview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

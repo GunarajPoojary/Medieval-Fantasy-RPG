@@ -9,8 +9,6 @@ AnimatorOverrideController:
   m_Name: Swordsman(Gameplay)
   m_Controller: {fileID: 9100000, guid: 234dfc8ca3a622348b4ccf94055b813f, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -203655887218126122, guid: bb5848ec1fb2d9d43a1812a6c0f70334, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 00660a3161469e040aa62138092242d6, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 156d9fc5fc4248a458b454ad7ee9712e, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 4fe11de85db1e904097f9bc38638a2ae, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: fb98e0d87772b13439728c2fea4b200c, type: 2}
@@ -23,3 +21,5 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: 7400000, guid: 233211d6db521954eabe9fe42620a074, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 1b8d64c4af1b9d945b37f717674f42a9, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: ecce8488d22abd64fa4ccb0bd51eb53e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 373e6a5e951f6a948b0c85a7aecb3478, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 00660a3161469e040aa62138092242d6, type: 2}

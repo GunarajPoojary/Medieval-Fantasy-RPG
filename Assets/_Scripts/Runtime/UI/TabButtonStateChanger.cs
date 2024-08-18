@@ -6,7 +6,7 @@ namespace RPG.UI
     /// <summary>
     /// Changes the visual state of tab buttons based on user interactions.
     /// </summary>
-    public class TabButtonStateChanger : ITabButtonStateChanger
+    public class TabButtonStateChanger : ITabButtonStateChangeable
     {
         private readonly Color _tabIdleColor;
         private readonly Color _tabHoverColor;

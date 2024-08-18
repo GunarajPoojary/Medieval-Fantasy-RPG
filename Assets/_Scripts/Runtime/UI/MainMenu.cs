@@ -30,12 +30,12 @@ namespace RPG.UI
         [SerializeField] private VoidReturnIntParameterEventChannelSO _loadSceneChannelSO; // This event is raised with an integer parameter representing the scene index to load.
 
         private IButtonSoundPlayer _buttonSoundPlayer;
-        private IMenuButtonStateManager _buttonStateManager;
+        private IMenuButtonStateChangeable _buttonStateManager;
 
         private void Awake()
         {
             _buttonSoundPlayer = new ButtonSoundPlayer(_audioSource, _hoverSound, _selectSound);
-            _buttonStateManager = new MenuButtonStateManager(_newGameButton, _continueGameButton, _settingsButton, _quitButton);
+            _buttonStateManager = new MenuButtonStateChanger(_newGameButton, _continueGameButton, _settingsButton, _quitButton);
 
             AddEventTrigger(_newGameButton, EventTriggerType.PointerEnter, _buttonSoundPlayer.OnPointerEnter);
             AddEventTrigger(_continueGameButton, EventTriggerType.PointerEnter, _buttonSoundPlayer.OnPointerEnter);

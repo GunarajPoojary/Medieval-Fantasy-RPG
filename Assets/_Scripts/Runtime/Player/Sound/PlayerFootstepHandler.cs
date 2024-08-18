@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RPG.Player.Sounds
 {
-    public class PlayerFootstepHandler : IFootstepHandler
+    public class PlayerFootstepHandler : IFootstepPlayer
     {
         private readonly AudioClip _footstepSound;
         private readonly AudioSource _audioSource;

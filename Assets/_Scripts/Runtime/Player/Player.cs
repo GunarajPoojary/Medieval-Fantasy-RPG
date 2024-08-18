@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace RPG.Player
 {
+    [SelectionBase]
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(PlayerResizableCapsuleCollider))]
     public class Player : MonoBehaviour, ISaveable

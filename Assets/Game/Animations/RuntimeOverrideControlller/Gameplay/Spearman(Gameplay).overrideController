@@ -9,8 +9,6 @@ AnimatorOverrideController:
   m_Name: Spearman(Gameplay)
   m_Controller: {fileID: 9100000, guid: 234dfc8ca3a622348b4ccf94055b813f, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -203655887218126122, guid: bb5848ec1fb2d9d43a1812a6c0f70334, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: a9a83b06624484d4fa3dc4ea47b3a0cb, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 156d9fc5fc4248a458b454ad7ee9712e, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: bb1a48a07b0b21b46b15ac0e51684ac3, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 51b88c068b3f6f1419ba5c6d818ca665, type: 2}
@@ -23,3 +21,5 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: 7400000, guid: 4a1d54037c7dea240bbd847f4331d93e, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 1b8d64c4af1b9d945b37f717674f42a9, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 5e78f94fac8536647bd6cbb2ddd2d073, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 373e6a5e951f6a948b0c85a7aecb3478, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a9a83b06624484d4fa3dc4ea47b3a0cb, type: 2}

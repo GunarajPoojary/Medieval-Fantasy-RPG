@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace RPG.World
 {
+    /// <summary>
+    /// This class represents a pickable Item in the world
+    /// </summary>
     public class ItemPickUp : MonoBehaviour, IPickable, ISaveable
     {
         [Tooltip("Use context menu to generate ID")]
@@ -26,11 +29,9 @@ namespace RPG.World
             }
             else
             {
-                Debug.LogError("The Item that you are trying to get is null");
                 return null;
             }
         }
-
         #endregion
 
         #region ISaveable Methods

@@ -17,18 +17,22 @@ namespace RPG.Core.Managers
         [SerializeField] private VoidReturnNonParameterEventChannelSO _continueGameChannelSO; // Event channel for continuing the game.
         [Space]
         [SerializeField] private VoidReturnIntParameterEventChannelSO _loadSceneChannelSO; // Event channel for loading a scene by index.
+        [Space]
+        [SerializeField] private IntReturnNonParameterEventChannelSO _getCurrentSceneIndexEventChannelSO;
 
-        private UIInputManager _inputManager;
+        private PlayerUIInputManager _inputManager;
 
         private void OnEnable()
         {
             _loadSceneChannelSO.OnEventRaised += HandleLoadScene;
+            _getCurrentSceneIndexEventChannelSO.OnEventRaised += GetActiveScene;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         private void OnDisable()
         {
             _loadSceneChannelSO.OnEventRaised -= HandleLoadScene;
+            _getCurrentSceneIndexEventChannelSO.OnEventRaised -= GetActiveScene;
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
@@ -44,7 +48,7 @@ namespace RPG.Core.Managers
         {
             if (_inputManager == null)
             {
-                _inputManager = UIInputManager.Instance;
+                _inputManager = PlayerUIInputManager.Instance;
 
                 if (_inputManager != null)
                 {

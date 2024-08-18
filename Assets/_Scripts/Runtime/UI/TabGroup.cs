@@ -17,7 +17,7 @@ namespace RPG.UI
         // List of GameObjects to swap when a tab is selected.
         [SerializeField] private List<GameObject> _objectsToSwap;
 
-        private ITabButtonStateChanger _stateChanger;
+        private ITabButtonStateChangeable _stateChanger;
 
         [field: SerializeField] public List<TabButton> TabButtons { get; private set; } = new List<TabButton>();
 

@@ -7,7 +7,7 @@ namespace RPG.Inventories.UI
     /// <summary>
     /// Abstract base class for item slot UI components, handling icon updates and interaction events.
     /// </summary>
-    public abstract class ItemSlotUI : MonoBehaviour, IItemSetter
+    public abstract class ItemSlotUI : MonoBehaviour, IItemSetteable
     {
         [SerializeField] protected Image _icon;
         [SerializeField] protected Button _button;

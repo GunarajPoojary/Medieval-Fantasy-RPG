@@ -6,7 +6,7 @@ namespace RPG.World
 {
     public class Collector : MonoBehaviour
     {
-        [SerializeField] private float _sphereRadius = 5f;
+        [SerializeField] private float _detectionRadius = 5f;
         [SerializeField] private float _checkInterval = 0.5f;
         [SerializeField] private LayerMask _pickables;
         [Space]
@@ -29,9 +29,11 @@ namespace RPG.World
 
         private void OnDisable() => StopAllCoroutines();
 
+        private void OnDrawGizmos() => Gizmos.DrawWireSphere(transform.position + Vector3.up, _detectionRadius);
+
         private void PickUpItems()
         {
-            var hitColliders = Physics.OverlapSphere(transform.position, _sphereRadius, _pickables);
+            var hitColliders = Physics.OverlapSphere(transform.position + Vector3.up, _detectionRadius, _pickables);
 
             foreach (var collider in hitColliders)
             {

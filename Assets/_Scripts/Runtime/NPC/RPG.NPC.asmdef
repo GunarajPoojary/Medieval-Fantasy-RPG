@@ -3,7 +3,8 @@
     "rootNamespace": "RPG.NPC",
     "references": [
         "GUID:f341c3b00b0ffc34b81d14d277febe1d",
-        "GUID:f0348b6f5e5724d4da11b37d3a51086b"
+        "GUID:f0348b6f5e5724d4da11b37d3a51086b",
+        "GUID:7f7d1af65c2641843945d409d28f2e20"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -3585,7 +3585,6 @@ MonoBehaviour:
   _healthSlider: {fileID: 9050409021021154182}
   _defenseSlider: {fileID: 4831242104114362549}
   _characterImage: {fileID: 4002190110388339794}
-  _character: {fileID: 4925399556717529705}
 --- !u!114 &4485405353806599321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3960,7 +3959,6 @@ GameObject:
   - component: {fileID: 6024954130650527572}
   - component: {fileID: 741531489848108084}
   - component: {fileID: 2116805656235438190}
-  - component: {fileID: 4925399556717529705}
   m_Layer: 9
   m_Name: Skeleton Enemy
   m_TagString: Untagged
@@ -4045,22 +4043,6 @@ MonoBehaviour:
   _lookRadius: 5
   _attackCooldown: 3
   _smoothValue: 5
---- !u!114 &4925399556717529705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7303929716166524575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9ec27dd55c67c438d52ebf0f115f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _profile: {fileID: 11400000, guid: 70daf5b12aec1bc45b14234e5d377c47, type: 2}
-  _animator: {fileID: 0}
-  _baseStats: {fileID: 11400000, guid: e92d4eccb02aca84cab398d94b657b9c, type: 2}
-  _ragdoll: {fileID: 889830576747239574, guid: f8c19d99ffbc17c41a0ebb981ee62860, type: 3}
 --- !u!1 &7341814421418638105
 GameObject:
   m_ObjectHideFlags: 0

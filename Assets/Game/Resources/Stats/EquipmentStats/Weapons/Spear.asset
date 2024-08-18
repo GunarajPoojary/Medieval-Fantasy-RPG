@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: Spear
   m_EditorClassIdentifier: 
   _baseStatTypeToValueMap:
-    _serializedList: []
+    _serializedList:
+    - Key: 2
+      Value: 92
+    - Key: 4
+      Value: 12
+    - Key: 3
+      Value: 3

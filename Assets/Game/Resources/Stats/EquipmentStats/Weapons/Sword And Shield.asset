@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: Sword And Shield
   m_EditorClassIdentifier: 
   _baseStatTypeToValueMap:
-    _serializedList: []
+    _serializedList:
+    - Key: 2
+      Value: 56
+    - Key: 3
+      Value: 1
+    - Key: 4
+      Value: 78

@@ -9,5 +9,5 @@ AnimatorOverrideController:
   m_Name: Mage(CharacterMenu)
   m_Controller: {fileID: 9100000, guid: fe75aa7a49c1d07468810daebbc49472, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -203655887218126122, guid: bb5848ec1fb2d9d43a1812a6c0f70334, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: be797334aa848784d838447aa3d3a0e4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 373e6a5e951f6a948b0c85a7aecb3478, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 404637c3613e87440a495fad474f3cb3, type: 2}

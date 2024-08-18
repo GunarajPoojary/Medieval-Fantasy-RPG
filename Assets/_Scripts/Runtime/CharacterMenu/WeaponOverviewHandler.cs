@@ -11,7 +11,7 @@ namespace RPG.CharacterMenu
     /// Manages the overview of weapon equipment in the character menu.
     /// Handles the display of weapon slots and adds new equipment to the corresponding slots.
     /// </summary>
-    public class WeaponOverviewHandler : MonoBehaviour, IEquipmentOverviewDisplayer, IEquipmentAddable
+    public class WeaponOverviewHandler : MonoBehaviour, IEquipmentOverviewDisplayer, IEquipmentAdder
     {
         [SerializeField] private Transform _weaponsContainer;
         [SerializeField] private GameObject _slotPrefab;
@@ -44,7 +44,7 @@ namespace RPG.CharacterMenu
 
             // Instantiate a new slot for the weapon and add it to the container.
             var slot = Instantiate(_slotPrefab, _weaponsContainer);
-            IItemSetter itemSlot = slot.GetComponent<EquipmentSlotUI>();
+            IItemSetteable itemSlot = slot.GetComponent<EquipmentSlotUI>();
             itemSlot.SetItem(weapon);
             _itemObjectToGameobjectMap.Add(weapon, slot);
         }

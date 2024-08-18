@@ -7,18 +7,18 @@ namespace RPG.Inventories.UI
     public class InventoryUI : MonoBehaviour
     {
         [SerializeField] private GameObject _inventoryPanel;
-
+        [Space]
         [SerializeField] private VoidReturnItemSOParameterEventChannelSO _itemAdded;  // Event channel for item addition
-
+        [Space]
         [SerializeField] private ItemSOListReturnNonParameterEventChannelSO _getItems;  // Event channel to get items
 
-        private IInventorySlotManager _inventorySlotManager;
-        private IInputHandler _inputHandler;
+        private IInventorySlotInstantiator _inventorySlotManager;
+        private IInventoryInputHandler _inputHandler;
 
         private void Awake()
         {
             _inputHandler = new InventoryInputHandler(_inventoryPanel);
-            _inventorySlotManager = GetComponent<InventorySlotManager>();
+            _inventorySlotManager = GetComponent<InventorySlotsInstantiator>();
         }
 
         private void OnEnable()
@@ -42,6 +42,6 @@ namespace RPG.Inventories.UI
             _itemAdded.OnEventRaised -= HandleItemAdd;
         }
 
-        private void HandleItemAdd(ItemSO item) => _inventorySlotManager.AddItem(item);
+        private void HandleItemAdd(ItemSO item) => _inventorySlotManager.AddItemToUI(item);
     }
 }

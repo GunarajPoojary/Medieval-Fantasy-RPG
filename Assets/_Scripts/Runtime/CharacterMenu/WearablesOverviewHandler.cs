@@ -11,7 +11,7 @@ namespace RPG.CharacterMenu
     /// Manages the overview of wearable equipment in the character menu.
     /// Handles the display of armor slots and adds new equipment to the corresponding slots.
     /// </summary>
-    public class WearablesOverviewHandler : MonoBehaviour, IEquipmentOverviewDisplayer, IEquipmentAddable
+    public class WearablesOverviewHandler : MonoBehaviour, IEquipmentOverviewDisplayer, IEquipmentAdder
     {
         [SerializedDictionary("Armor Slot", "Content Transform")]
         [SerializeField] private SerializedDictionary<WearableSlot, Transform> _armorSlotsContentMap = new SerializedDictionary<WearableSlot, Transform>(6);
@@ -62,7 +62,7 @@ namespace RPG.CharacterMenu
             if (_armorSlotsContentMap.TryGetValue(wearable.EquipSlot, out Transform slotTransform))
             {
                 var slot = Instantiate(_slotPrefab, slotTransform);
-                IItemSetter itemSlot = slot.GetComponent<EquipmentSlotUI>();
+                IItemSetteable itemSlot = slot.GetComponent<EquipmentSlotUI>();
                 itemSlot.SetItem(wearable);
                 _itemObjectToGameobjectMap.Add(wearable, slot);
             }
