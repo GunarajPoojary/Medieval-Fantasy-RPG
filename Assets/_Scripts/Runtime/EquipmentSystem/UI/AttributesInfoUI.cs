@@ -6,7 +6,7 @@ namespace RPG.EquipmentSystem.UI
 {
     public class AttributesInfoUI : MonoBehaviour
     {
-        [SerializeField] private CharacterProfile _profile;
+        [SerializeField] private Character _profile;
 
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private TextMeshProUGUI _statsText;

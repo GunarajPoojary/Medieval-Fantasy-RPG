@@ -62,7 +62,7 @@ namespace RPG.CharacterMenu
             if (_armorSlotsContentMap.TryGetValue(wearable.EquipSlot, out Transform slotTransform))
             {
                 var slot = Instantiate(_slotPrefab, slotTransform);
-                IItemSetteable itemSlot = slot.GetComponent<EquipmentSlotUI>();
+                IItemSetter itemSlot = slot.GetComponent<EquipmentSlotUI>();
                 itemSlot.SetItem(wearable);
                 _itemObjectToGameobjectMap.Add(wearable, slot);
             }

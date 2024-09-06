@@ -24,6 +24,16 @@ namespace RPG.Inventories
 
         private List<ItemSO> _items = new List<ItemSO>();
 
+        private void Awake()
+        {
+            Debug.Assert(_itemLookupEvent != null, "_itemLookupEvent is not assigned.");
+            Debug.Assert(_addItem != null, "_addItem is not assigned.");
+            Debug.Assert(_removeItem != null, "_removeItem is not assigned.");
+            Debug.Assert(_itemAdded != null, "_itemAdded is not assigned.");
+            Debug.Assert(_itemRemoved != null, "_itemRemoved is not assigned.");
+            Debug.Assert(_getItems != null, "_getItems is not assigned.");
+        }
+
         private void OnEnable()
         {
             _addItem.OnEventRaised += AddItem;
@@ -31,7 +41,7 @@ namespace RPG.Inventories
             _getItems.OnEventRaised += GetItems;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _addItem.OnEventRaised -= AddItem;
             _removeItem.OnEventRaised -= RemoveItem;
@@ -42,8 +52,21 @@ namespace RPG.Inventories
 
         public void AddItem(ItemSO item)
         {
-            if (_items.Count >= _maxCapacity || _items.Contains(item) || item == null)
+            if (_items.Count >= _maxCapacity)
             {
+                Debug.LogWarning("Inventory is full.");
+                return;
+            }
+
+            if (item == null)
+            {
+                Debug.LogWarning("Cannot add a null item.");
+                return;
+            }
+
+            if (_items.Contains(item))
+            {
+                Debug.LogWarning("Item is already in the inventory.");
                 return;
             }
 
@@ -55,6 +78,7 @@ namespace RPG.Inventories
         {
             if (item == null)
             {
+                Debug.LogWarning("Item is null, cannot remove.");
                 return;
             }
 
@@ -67,7 +91,7 @@ namespace RPG.Inventories
         #region ISaveable Methods
         public void LoadData(GameData data)
         {
-            _items = new List<ItemSO>();
+            _items.Clear();
 
             foreach (string itemID in data.ItemIDs)
             {
@@ -82,7 +106,7 @@ namespace RPG.Inventories
 
         public void SaveData(GameData data)
         {
-            data.ItemIDs = new List<string>();
+            data.ItemIDs.Clear();
 
             foreach (ItemSO item in _items)
             {

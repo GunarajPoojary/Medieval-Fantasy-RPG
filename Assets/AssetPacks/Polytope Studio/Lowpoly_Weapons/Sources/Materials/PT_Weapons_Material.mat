@@ -2,14 +2,17 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PT_Weapons_Material
   m_Shader: {fileID: 4800000, guid: d50c8cde2c95f1d43ae0b94621f0abc4, type: 3}
-  m_ShaderKeywords: _METALICON_ON _SMOOTHNESSON_ON
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _METALICON_ON
+  - _SMOOTHNESSON_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -39,13 +42,28 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - _AlphaCutoff: 0.5
     - _CEL1POWER: 0.15
     - _CEL1SIZE: 0.1
     - _CEL2POWER: 0.15
     - _CEL2SIZE: 0.4
     - _CEL3POWER: 0.15
     - _CEL3SIZE: 0.8
+    - _EnvironmentReflections: 1
     - _GEMS1SMOOTHNESS: 0.5
     - _GEMS2SMOOTHNESS: 0.4
     - _GEMS3SMOOTHNESS: 0.3
@@ -65,7 +83,11 @@ Material:
     - _PAINT1SMOOTHNESS: 1
     - _PAINT2SMOOTHNESS: 0
     - _PAINT3SMOOTHNESS: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _SmoothnessOn: 1
+    - _SpecularHighlights: 1
     - _WOOD1SMOOTHNESS: 0.432
     - _WOOD2SMOOTHNESS: 0.309
     - _WOOD3SMOOTHNESS: 0.377
@@ -75,6 +97,7 @@ Material:
     - _CEL2COLOR: {r: 1, g: 1, b: 1, a: 0}
     - _CEL3COLOR: {r: 1, g: 1, b: 1, a: 0}
     - _COATOFARMSCOLOR: {r: 1, g: 0, b: 0, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FEATHERS1COLOR: {r: 0.3301887, g: 0.1241556, b: 0.04516733, a: 0}
     - _FEATHERS2COLOR: {r: 0.509434, g: 0.4260285, b: 0.1802243, a: 0}
     - _FEATHERS3COLOR: {r: 0.509434, g: 0.25712, b: 0.25712, a: 0}
@@ -97,3 +120,4 @@ Material:
     - _WOOD1COLOR: {r: 0.1981132, g: 0.08345769, b: 0.06261124, a: 0}
     - _WOOD2COLOR: {r: 0.1320755, g: 0.06452555, b: 0.05420079, a: 0}
     - _WOOD3COLOR: {r: 0.1037736, g: 0.07509367, b: 0.04650232, a: 0}
+  m_BuildTextureStacks: []

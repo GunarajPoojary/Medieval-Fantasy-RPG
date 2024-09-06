@@ -44,7 +44,7 @@ namespace RPG.CharacterMenu
 
             // Instantiate a new slot for the weapon and add it to the container.
             var slot = Instantiate(_slotPrefab, _weaponsContainer);
-            IItemSetteable itemSlot = slot.GetComponent<EquipmentSlotUI>();
+            IItemSetter itemSlot = slot.GetComponent<EquipmentSlotUI>();
             itemSlot.SetItem(weapon);
             _itemObjectToGameobjectMap.Add(weapon, slot);
         }
