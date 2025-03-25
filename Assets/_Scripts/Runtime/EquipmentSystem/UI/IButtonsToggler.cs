@@ -1,6 +1,4 @@
-﻿using RPG.ScriptableObjects.Items;
-
-namespace RPG.EquipmentSystem.UI
+﻿namespace RPG
 {
     // Interface for toggling and enabling/disabling UI buttons based on the selected equipment
     public interface IButtonsToggler

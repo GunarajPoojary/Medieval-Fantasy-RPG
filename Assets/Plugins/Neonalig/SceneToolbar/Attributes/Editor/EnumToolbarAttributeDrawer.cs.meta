@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 26f78c4657454e868d70b444798db172
+timeCreated: 1700607693
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270768
+  packageName: Scene Toolbar - Quick Scene Management Overlay
+  packageVersion: 1.1.0
+  assetPath: Assets/Plugins/Neonalig/SceneToolbar/Attributes/Editor/EnumToolbarAttributeDrawer.cs
+  uploadId: 675946

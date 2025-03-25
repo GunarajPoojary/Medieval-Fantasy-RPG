@@ -1,14 +1,13 @@
-using RPG.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RPG.UI
+namespace RPG
 {
     public class MainMenuButton : MonoBehaviour
     {
-        [SerializeField] private VoidReturnIntParameterEventChannelSO _loadSceneChannelSO;
+        //[SerializeField] private VoidReturnIntParameterEventChannelSO _loadSceneChannelSO;
         [Space]
-        [SerializeField] private VoidReturnNonParameterEventChannelSO _continueGameChannelSO;
+        //[SerializeField] private VoidReturnNonParameterEventChannelSO _continueGameChannelSO;
 
         private Button _button;
 
@@ -16,8 +15,14 @@ namespace RPG.UI
 
         private void Start()
         {
-            _button.onClick.AddListener(() => _continueGameChannelSO.RaiseEvent());
-            _button.onClick.AddListener(() => _loadSceneChannelSO.RaiseEvent(0));
+            _button.onClick.AddListener(() =>
+            {
+                //_continueGameChannelSO.RaiseEvent();
+            });
+            _button.onClick.AddListener(() =>
+            {
+                //_loadSceneChannelSO.RaiseEvent(0);
+            });
         }
     }
 }

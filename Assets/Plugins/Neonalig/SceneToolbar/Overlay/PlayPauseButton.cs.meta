@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 1f18ac619ca441edaaff54b3ff0cf1d7
+timeCreated: 1700296624
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270768
+  packageName: Scene Toolbar - Quick Scene Management Overlay
+  packageVersion: 1.1.0
+  assetPath: Assets/Plugins/Neonalig/SceneToolbar/Overlay/PlayPauseButton.cs
+  uploadId: 675946

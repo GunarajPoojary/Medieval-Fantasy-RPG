@@ -1,105 +1,57 @@
-using RPG.Core.Utils;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RPG.Core.SaveLoad
+namespace RPG
 {
-    /// <summary>
-    /// Manages the saving and loading of game data, and persists it across scenes.
-    /// </summary>
     public class DataPersistenceManager : PersistentSingleton<DataPersistenceManager>
     {
-        [Header("File storage config")]
-        [SerializeField] private string _fileName;
-        [SerializeField] private bool _useEncryption;
-        [SerializeField] private bool _initializeDataIfNull = false;
-        [Space]
-        [SerializeField] private VoidReturnBoolParameterEventChannelSO _hasDataChannelSO; // Event channel to signal if data exists.
-        [Space]
-        [SerializeField] private VoidReturnNonParameterEventChannelSO _newGameChannelSO; // Event channel to start a new game.
-        [Space]
-        [SerializeField] private VoidReturnNonParameterEventChannelSO _continueGameChannelSO; // Event channel to continue a saved game.
+        [field: SerializeField] public GameData GameData{get; set;}
+        
+        private IDataService _dataService;
 
-        private FileDataHandler _dataHandler;
-        private List<ISaveable> _dataPersistenceObjects = new List<ISaveable>();
-
-        public GameData GameData { get; private set; }
+        private string _currentLevelName;
 
         protected override void Awake()
         {
             base.Awake();
-            _dataHandler = new FileDataHandler(Application.persistentDataPath, _fileName, _useEncryption);
+
+            _dataService = new FileDataService(new JsonSerializer());
         }
-
-        private void OnEnable()
-        {
-            SceneManager.sceneLoaded += HandleSceneLoaded;
-
-            _newGameChannelSO.OnEventRaised += HandleNewGame;
-            _continueGameChannelSO.OnEventRaised += HandleContinueGame;
-        }
-
-        private void OnDisable()
-        {
-            SceneManager.sceneLoaded -= HandleSceneLoaded;
-
-            _newGameChannelSO.OnEventRaised -= HandleNewGame;
-            _continueGameChannelSO.OnEventRaised -= HandleContinueGame;
-        }
-
-        private void OnApplicationQuit() => SaveGame();
 
         public void NewGame()
         {
-            GameData = new GameData();
-            SaveGame();
+            GameData = new GameData()
+            {
+                Name = "New Game",
+                CurrentLevelName = "Main menu"
+            };
+            
+            SceneManager.LoadScene(GameData.CurrentLevelName);
         }
 
         public void SaveGame()
         {
-            if (GameData == null)
-            {
-                Debug.LogWarning("No data was found. A new game needs to be started before data can be saved.");
-                return;
-            }
-
-            _dataPersistenceObjects.ForEach(dataPersistenceObj => dataPersistenceObj?.SaveData(GameData));
-
-            _dataHandler.Save(GameData);
+            _dataService.Save(GameData);
         }
 
-        public void LoadGame()
+        public void LoadGame(string gameName)
         {
-            GameData = _dataHandler.Load();
+            GameData = _dataService.Load(gameName);
 
-            if (GameData == null && _initializeDataIfNull)
+            if (String.IsNullOrEmpty(GameData.CurrentLevelName))
             {
-                NewGame();
-            }
-            else
-            {
-                _dataPersistenceObjects.ForEach(dataPersistenceObj => dataPersistenceObj?.LoadData(GameData));
+                GameData.CurrentLevelName = _currentLevelName;
             }
 
-            _hasDataChannelSO.RaiseEvent(GameData != null);
+            SceneManager.LoadScene(GameData.CurrentLevelName);
         }
 
-        private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+        public void ReloadGame() => LoadGame(GameData.Name);
+
+        public void DeleteGame(string gameName)
         {
-            _dataPersistenceObjects = FindAllDataPersistenceObjects();
-            LoadGame();
-        }
-
-        private void HandleContinueGame() => SaveGame();
-
-        private void HandleNewGame() => NewGame();
-
-        private List<ISaveable> FindAllDataPersistenceObjects()
-        {
-            IEnumerable<ISaveable> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>();
-            return new List<ISaveable>(dataPersistenceObjects);
+            _dataService.Delete(gameName);
         }
     }
 }

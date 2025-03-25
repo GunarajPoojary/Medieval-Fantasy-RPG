@@ -1,8 +1,8 @@
 ﻿using UnityEngine.UI;
 
-namespace RPG.UI
+namespace RPG
 {
-    public class MenuButtonStateChanger : IMenuButtonStateChangeable
+    public class MenuButtonStateChanger : IMenuButtonStateChanger
     {
         private readonly Button[] _menuButtons;
 

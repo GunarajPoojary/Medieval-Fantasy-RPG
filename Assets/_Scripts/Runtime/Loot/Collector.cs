@@ -1,16 +1,14 @@
-using RPG.ScriptableObjects.EventChannels;
 using System.Collections;
 using UnityEngine;
 
-namespace RPG.World
+namespace RPG
 {
     public class Collector : MonoBehaviour
     {
         [SerializeField] private float _detectionRadius = 5f;
         [SerializeField] private float _checkInterval = 0.5f;
         [SerializeField] private LayerMask _pickables;
-        [Space]
-        [SerializeField] private VoidReturnItemSOParameterEventChannelSO _addItem;  // Event channel to add picked up items to the inventory
+        [SerializeField] private ItemSOEventChannel _itemAdd;
 
         private WaitForSeconds _waitForSeconds;
 
@@ -39,7 +37,7 @@ namespace RPG.World
             {
                 if (collider.TryGetComponent(out IPickable pickable))
                 {
-                    _addItem.RaiseEvent(pickable.GetPickUpItem());
+                    _itemAdd.Invoke(pickable.GetPickUpItem());
                     Destroy(collider.gameObject);
                 }
             }

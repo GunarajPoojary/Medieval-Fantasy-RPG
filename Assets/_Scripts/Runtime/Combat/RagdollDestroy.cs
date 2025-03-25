@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace RPG.Combat
+namespace RPG
 {
     public class RagdollDestroy : MonoBehaviour
     {

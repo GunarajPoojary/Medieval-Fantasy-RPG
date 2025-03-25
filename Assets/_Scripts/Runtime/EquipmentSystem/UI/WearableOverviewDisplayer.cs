@@ -1,6 +1,4 @@
 using AYellowpaper.SerializedCollections;
-using RPG.ScriptableObjects.EventChannels;
-using RPG.ScriptableObjects.Items;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,19 +12,19 @@ namespace RPG.EquipmentSystem.UI
         [SerializeField] private SerializedDictionary<WearableSlot, Transform> _wearableSlotTypeToContentMap;
         [Space]
         // Event channel to handle when a wearable slot is selected
-        [SerializeField] private VoidReturnWearableSOParameterEventChannelSO _wearableSlotSelectedEventChannel;
+        //[SerializeField] private VoidReturnWearableSOParameterEventChannelSO _wearableSlotSelectedEventChannel;
         [Space]
         // Event channel to handle when a wearable is equipped or unequipped
-        [SerializeField] private VoidReturnDoubleWearableSOParameterEventChannelSO _wearableChangedEventChannelSO;
+        //[SerializeField] private VoidReturnDoubleWearableSOParameterEventChannelSO _wearableChangedEventChannelSO;
         [Space]
         // Event channel to get the currently equipped wearables
-        [SerializeField] private WearableSOArrayReturnNonParameterEventChannelSO _equippedWearableEventChannelSO;
+        //[SerializeField] private WearableSOArrayReturnNonParameterEventChannelSO _equippedWearableEventChannelSO;
         [Space]
         // Event channel to equip a wearable
-        [SerializeField] private VoidReturnWearableSOParameterEventChannelSO _equippWearableEventChannelSO;
+        //[SerializeField] private VoidReturnWearableSOParameterEventChannelSO _equippWearableEventChannelSO;
         [Space]
         // Event channel to unequip a wearable
-        [SerializeField] private WearableSOReturnIntParameterEventChannelSO _unequipWearableEventChannelSO;
+        //[SerializeField] private WearableSOReturnIntParameterEventChannelSO _unequipWearableEventChannelSO;
 
         private WearableSO _selectedWearable;
         private WearableSO[] _equippedWearables; // Array to store all currently equipped wearables
@@ -38,11 +36,11 @@ namespace RPG.EquipmentSystem.UI
         {
             base.OnEnable();
 
-            _wearableSlotSelectedEventChannel.OnEventRaised += HandleWearableSlotSelected;
+            //_wearableSlotSelectedEventChannel.OnEventRaised += HandleWearableSlotSelected;
 
             _equippedWearables = new WearableSO[System.Enum.GetNames(typeof(WearableSlot)).Length];
 
-            _wearableChangedEventChannelSO.OnEventRaised += HandleWearableChanged;
+            //_wearableChangedEventChannelSO.OnEventRaised += HandleWearableChanged;
 
             _selectedWearable = (WearableSO)GetEquippedEquipment();
 
@@ -51,16 +49,16 @@ namespace RPG.EquipmentSystem.UI
 
         private void OnDisable()
         {
-            _wearableChangedEventChannelSO.OnEventRaised -= HandleWearableChanged;
+            //_wearableChangedEventChannelSO.OnEventRaised -= HandleWearableChanged;
 
-            _wearableSlotSelectedEventChannel.OnEventRaised -= HandleWearableSlotSelected;
+            //_wearableSlotSelectedEventChannel.OnEventRaised -= HandleWearableSlotSelected;
         }
 
         #region IEquippedEquipmentsGetter Method
         // Retrieves the currently equipped wearable and stores it in _equippedWearables
         public override EquipmentSO GetEquippedEquipment()
         {
-            WearableSO[] equippedWearables = _equippedWearableEventChannelSO.RaiseEvent();
+            WearableSO[] equippedWearables = null;//_equippedWearableEventChannelSO.RaiseEvent();
 
             for (int i = 0; i < _equippedWearables.Length; i++)
             {
@@ -113,7 +111,7 @@ namespace RPG.EquipmentSystem.UI
         {
             base.Equip();
 
-            _equippWearableEventChannelSO.RaiseEvent(_selectedWearable);
+            //_equippWearableEventChannelSO.RaiseEvent(_selectedWearable);
             int index = (int)_selectedWearable.EquipSlot;
             _equippedWearables[index] = _selectedWearable;
         }
@@ -124,7 +122,7 @@ namespace RPG.EquipmentSystem.UI
             base.Unequip();
 
             int index = (int)_selectedWearable.EquipSlot;
-            _unequipWearableEventChannelSO.RaiseEvent(index);
+            //_unequipWearableEventChannelSO.RaiseEvent(index);
             _equippedWearables[index] = null;
         }
 
@@ -145,7 +143,7 @@ namespace RPG.EquipmentSystem.UI
             }
             else if (_wearableSlots.Count > 0)
             {
-                _wearableSlots[Random.Range(0, _wearableSlots.Count)].DisplayItemOverview();
+                //_wearableSlots[Random.Range(0, _wearableSlots.Count)].DisplayItemOverview();
             }
         }
 

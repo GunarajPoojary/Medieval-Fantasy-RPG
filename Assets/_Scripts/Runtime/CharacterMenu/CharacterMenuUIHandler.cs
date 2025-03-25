@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RPG.CharacterMenu
+namespace RPG
 {
     /// <summary>
     /// Handles the visibility and activation of character menu panels.

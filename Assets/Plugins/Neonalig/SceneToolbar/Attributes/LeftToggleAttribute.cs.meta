@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 80b538c245e845b18113e05fb86140fc
+timeCreated: 1700300346
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270768
+  packageName: Scene Toolbar - Quick Scene Management Overlay
+  packageVersion: 1.1.0
+  assetPath: Assets/Plugins/Neonalig/SceneToolbar/Attributes/LeftToggleAttribute.cs
+  uploadId: 675946

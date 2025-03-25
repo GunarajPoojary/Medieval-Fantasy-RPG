@@ -1,32 +1,23 @@
-using RPG.ScriptableObjects.EventChannels;
-using RPG.ScriptableObjects.Items;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-namespace RPG.Inventories.UI
+namespace RPG
 {
     /// <summary>
     /// UI component for individual inventory slots, displaying items and handling interactions.
     /// </summary>
-    public class InventorySlotUI : ItemSlotUI
+    public class InventorySlotUI : ItemSlotUI, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private VoidReturnItemSOAndGameObjectParameterEventChannelSO _inventorySlotSelectionEventChannelSO;  // Event channel for slot selection
+        public virtual void OnPointerClick(PointerEventData eventData) => inventorySlotSelectedEvent.Invoke(this);
 
-        private ItemSO _item;
-
-        /// <summary>
-        /// Sets the Item for this slot and updates the icon.
-        /// </summary>
-        public override void SetItem(ItemSO item)
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            _item = item;
-            base.SetItem(item);
+            //Debug.Log("Enter");
         }
 
-        /// <summary>
-        /// Displays the Item overview when the slot is clicked, raising the event.
-        /// </summary>
-        public override void DisplayItemOverview() => _inventorySlotSelectionEventChannelSO.RaiseEvent(_item, gameObject);
-
-        protected override void UpdateIcon() => _icon.sprite = _item.Icon;
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            //Debug.Log("Exit");
+        }
     }
 }

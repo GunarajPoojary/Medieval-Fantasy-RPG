@@ -1,6 +1,4 @@
-using RPG.ScriptableObjects.Items;
-
-namespace RPG.World
+namespace RPG
 {
     public interface IPickable
     {

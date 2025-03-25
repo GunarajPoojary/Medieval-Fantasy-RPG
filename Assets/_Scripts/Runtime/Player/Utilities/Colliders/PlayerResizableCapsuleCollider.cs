@@ -1,8 +1,6 @@
-using RPG.Player.Data;
-using RPG.Utils;
 using UnityEngine;
 
-namespace RPG.Player.Utils
+namespace RPG
 {
     public class PlayerResizableCapsuleCollider : ResizableCapsuleCollider
     {

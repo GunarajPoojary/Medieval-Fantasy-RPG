@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.UI
+namespace RPG
 {
     /// <summary>
     /// Responsible for making enemy HealthBar UI face the user camera

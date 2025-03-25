@@ -1,32 +1,28 @@
-using RPG.ScriptableObjects;
-using RPG.ScriptableObjects.EventChannels;
-using RPG.ScriptableObjects.Items;
-using RPG.ScriptableObjects.Stats;
 using UnityEngine;
 
-namespace RPG.Stats
+namespace RPG
 {
     /// <summary>
     /// Handles the character's Stats when equipment is equipped or unequipped in Character Menu
     /// </summary>
     public class EquipmentStatsHandler : MonoBehaviour
     {
-        [SerializeField] private VoidReturnDoubleWeaponSOParameterEventChannelSO _weaponChangedEventChannelSO;  // Event channel for weapon changes
+        //[SerializeField] private VoidReturnDoubleWeaponSOParameterEventChannelSO _weaponChangedEventChannelSO;  // Event channel for weapon changes
         [Space]
-        [SerializeField] private VoidReturnDoubleWearableSOParameterEventChannelSO _wearableChangedEventChannelSO;  // Event channel for wearable changes
+        //[SerializeField] private VoidReturnDoubleWearableSOParameterEventChannelSO _wearableChangedEventChannelSO;  // Event channel for wearable changes
         [Space]
         [SerializeField] private RuntimeStats _runtimeStats;
 
         private void OnEnable()
         {
-            _weaponChangedEventChannelSO.OnEventRaised += OnWeaponChanged;
-            _wearableChangedEventChannelSO.OnEventRaised += OnWearableChanged;
+            //_weaponChangedEventChannelSO.OnEventRaised += OnWeaponChanged;
+            //_wearableChangedEventChannelSO.OnEventRaised += OnWearableChanged;
         }
 
         private void OnDisable()
         {
-            _weaponChangedEventChannelSO.OnEventRaised -= OnWeaponChanged;
-            _wearableChangedEventChannelSO.OnEventRaised -= OnWearableChanged;
+            //_weaponChangedEventChannelSO.OnEventRaised -= OnWeaponChanged;
+            //_wearableChangedEventChannelSO.OnEventRaised -= OnWearableChanged;
         }
 
         private void OnWeaponChanged(WeaponSO newWeapon, WeaponSO oldWeapon)

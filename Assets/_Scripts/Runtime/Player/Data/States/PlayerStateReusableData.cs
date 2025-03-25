@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Player.Data.States
+namespace RPG
 {
     public class PlayerStateReusableData
     {
@@ -11,11 +10,7 @@ namespace RPG.Player.Data.States
         public float MovementOnSlopesSpeedModifier { get; set; } = 1f;
         public float MovementDecelerationForce { get; set; } = 1f;
 
-        public List<PlayerCameraRecenteringData> SidewaysCameraRecenteringData { get; set; }
-        public List<PlayerCameraRecenteringData> BackwardsCameraRecenteringData { get; set; }
-
-        public bool ShouldWalk { get; set; }
-        public bool ShouldSprint { get; set; }
+        public bool ShouldRun { get; set; }
 
         private Vector3 _currentTargetRotation;
         private Vector3 _timeToReachTargetRotation;

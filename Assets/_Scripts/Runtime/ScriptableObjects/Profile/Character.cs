@@ -1,7 +1,6 @@
-using RPG.ScriptableObjects.Stats;
 using UnityEngine;
 
-namespace RPG.ScriptableObjects.Profile
+namespace RPG
 {
     [CreateAssetMenu(fileName = "New Character Profile", menuName = "Characters/Profile", order = 0)]
     public class Character : ScriptableObject

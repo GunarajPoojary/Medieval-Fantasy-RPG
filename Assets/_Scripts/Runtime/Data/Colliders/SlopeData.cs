@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Data.Colliders
+namespace RPG
 {
     [System.Serializable]
     public class SlopeData

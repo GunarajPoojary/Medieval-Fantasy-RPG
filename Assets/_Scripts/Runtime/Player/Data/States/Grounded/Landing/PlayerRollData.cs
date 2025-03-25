@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.States
+namespace RPG
 {
     [System.Serializable]
     public class PlayerRollData

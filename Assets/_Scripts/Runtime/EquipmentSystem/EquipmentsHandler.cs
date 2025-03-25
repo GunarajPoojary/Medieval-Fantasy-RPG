@@ -1,19 +1,14 @@
 using AYellowpaper.SerializedCollections;
-using RPG.Core;
-using RPG.Core.SaveLoad;
-using RPG.ScriptableObjects;
-using RPG.ScriptableObjects.EventChannels;
-using RPG.ScriptableObjects.Items;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem
+namespace RPG
 {
     /// <summary>
     /// Class that manages equipping and unequipping items for the player, and handles save/load functionality
     /// </summary>
-    public class EquipmentsHandler : MonoBehaviour, ISaveable
+    public class EquipmentsHandler : MonoBehaviour//, ISaveable
     {
         [SerializedDictionary("Weapon Prefab", "Hand Transform")]
         [field: SerializeField] public SerializedDictionary<GameObject, Transform> WeaponToHandTransformMap { get; private set; }
@@ -25,25 +20,25 @@ namespace RPG.EquipmentSystem
         private SkinnedMeshRenderer _playerHeadMesh;
         [Space]
         // Serialized event channels for item lookups, equipment changes, and equipping/unequipping items
-        [SerializeField] private ItemSOReturnStringParameterEventChannelSO _itemLookupEventSO;
+        //[SerializeField] private ItemSOReturnStringParameterEventChannelSO _itemLookupEventSO;
         [Space]
-        [SerializeField] private WeaponSOReturnNonParameterEventChannelSO _equippedWeaponEventChannelSO;
+        //[SerializeField] private WeaponSOReturnNonParameterEventChannelSO _equippedWeaponEventChannelSO;
         [Space]
-        [SerializeField] private WearableSOArrayReturnNonParameterEventChannelSO _equippedWearableEventChannelSO;
+        //[SerializeField] private WearableSOArrayReturnNonParameterEventChannelSO _equippedWearableEventChannelSO;
         [Space]
-        [SerializeField] private VoidReturnDoubleWeaponSOParameterEventChannelSO _weaponChangedEventChannelSO;
+        //[SerializeField] private VoidReturnDoubleWeaponSOParameterEventChannelSO _weaponChangedEventChannelSO;
         [Space]
-        [SerializeField] private VoidReturnDoubleWearableSOParameterEventChannelSO _wearableChangedEventChannelSO;
+        //[SerializeField] private VoidReturnDoubleWearableSOParameterEventChannelSO _wearableChangedEventChannelSO;
         [Space]
-        [SerializeField] private VoidReturnWeaponSOParameterEventChannelSO _equipWeaponSOEventChannelSO;
+        //[SerializeField] private VoidReturnWeaponSOParameterEventChannelSO _equipWeaponSOEventChannelSO;
         [Space]
-        [SerializeField] private WeaponSOReturnNonParameterEventChannelSO _unequipWeaponSOEventChannelSO;
+        //[SerializeField] private WeaponSOReturnNonParameterEventChannelSO _unequipWeaponSOEventChannelSO;
         [Space]
-        [SerializeField] private VoidReturnWearableSOParameterEventChannelSO _equipWearableEventChannelSO;
+        //[SerializeField] private VoidReturnWearableSOParameterEventChannelSO _equipWearableEventChannelSO;
         [Space]
-        [SerializeField] private WearableSOReturnIntParameterEventChannelSO _unequipWearableEventChannelSO;
+        //[SerializeField] private WearableSOReturnIntParameterEventChannelSO _unequipWearableEventChannelSO;
         [Space]
-        [SerializeField] private IntReturnNonParameterEventChannelSO _getCurrentSceneIndexEventChannelSO;
+        //[SerializeField] private IntReturnNonParameterEventChannelSO _getCurrentSceneIndexEventChannelSO;
 
         private WeaponSO _equippedWeaponSO;
         private WearableSO[] _equippedWearablesSO;
@@ -73,22 +68,22 @@ namespace RPG.EquipmentSystem
 
         private void OnEnable()
         {
-            _equippedWeaponEventChannelSO.OnEventRaised += GetEquippedWeapon;
-            _equippedWearableEventChannelSO.OnEventRaised += GetEquippedWearables;
-            _equipWeaponSOEventChannelSO.OnEventRaised += EquipWeapon;
-            _unequipWeaponSOEventChannelSO.OnEventRaised += UnequipWeapon;
-            _equipWearableEventChannelSO.OnEventRaised += EquipWearable;
-            _unequipWearableEventChannelSO.OnEventRaised += UnequipWearable;
+            // _equippedWeaponEventChannelSO.OnEventRaised += GetEquippedWeapon;
+            // _equippedWearableEventChannelSO.OnEventRaised += GetEquippedWearables;
+            // _equipWeaponSOEventChannelSO.OnEventRaised += EquipWeapon;
+            // _unequipWeaponSOEventChannelSO.OnEventRaised += UnequipWeapon;
+            // _equipWearableEventChannelSO.OnEventRaised += EquipWearable;
+            // _unequipWearableEventChannelSO.OnEventRaised += UnequipWearable;
         }
 
         private void OnDestroy()
         {
-            _equippedWeaponEventChannelSO.OnEventRaised -= GetEquippedWeapon;
-            _equippedWearableEventChannelSO.OnEventRaised -= GetEquippedWearables;
-            _equipWeaponSOEventChannelSO.OnEventRaised -= EquipWeapon;
-            _unequipWeaponSOEventChannelSO.OnEventRaised -= UnequipWeapon;
-            _equipWearableEventChannelSO.OnEventRaised -= EquipWearable;
-            _unequipWearableEventChannelSO.OnEventRaised -= UnequipWearable;
+            // _equippedWeaponEventChannelSO.OnEventRaised -= GetEquippedWeapon;
+            // _equippedWearableEventChannelSO.OnEventRaised -= GetEquippedWearables;
+            // _equipWeaponSOEventChannelSO.OnEventRaised -= EquipWeapon;
+            // _unequipWeaponSOEventChannelSO.OnEventRaised -= UnequipWeapon;
+            // _equipWearableEventChannelSO.OnEventRaised -= EquipWearable;
+            // _unequipWearableEventChannelSO.OnEventRaised -= UnequipWearable;
         }
 
         private void Start()
@@ -118,13 +113,13 @@ namespace RPG.EquipmentSystem
 
             ToggleIndividualSkin(slotIndex, false);
 
-            _equippedWearablesSO[slotIndex] = newItem;
-            var newMesh = Instantiate(newItem.SkinnedMesh, _playerVisualTransform);
-            newMesh.bones = _playerHeadMesh.bones;
-            newMesh.rootBone = _playerHeadMesh.rootBone;
-            _equippedWearableMeshes[slotIndex] = newMesh;
-
-            _wearableChangedEventChannelSO.RaiseEvent(newItem, oldItem);
+            // _equippedWearablesSO[slotIndex] = newItem;
+            // var newMesh = Instantiate(newItem.SkinnedMesh, _playerVisualTransform);
+            // newMesh.bones = _playerHeadMesh.bones;
+            // newMesh.rootBone = _playerHeadMesh.rootBone;
+            // _equippedWearableMeshes[slotIndex] = newMesh;
+            //
+            // _wearableChangedEventChannelSO.RaiseEvent(newItem, oldItem);
         }
 
         // Unequip a wearable item from a specific slot, destroy the associated mesh, and reset the default skin
@@ -155,7 +150,7 @@ namespace RPG.EquipmentSystem
             InstantiateWeaponPrefabs(newItem);
             UpdateAnimatorController(newItem);
 
-            _weaponChangedEventChannelSO.RaiseEvent(newItem, oldItem);
+            //_weaponChangedEventChannelSO.RaiseEvent(newItem, oldItem);
         }
 
         // Unequip the currently equipped weapon, destroy its game objects, and reset the animator controller
@@ -205,45 +200,45 @@ namespace RPG.EquipmentSystem
             _playerAnimator.runtimeAnimatorController = _defaultAnimatorController;
         }
 
-        #region ISaveable Methods
-        public void LoadData(GameData data)
-        {
-            if (_itemLookupEventSO.RaiseEvent(data.CurrentWeaponObjectIDs) is WeaponSO weapon)
-            {
-                _equippedWeaponSO = weapon;
-            }
+        // #region ISaveable Methods
+        // public void LoadData(GameData data)
+        // {
+        //     if (_itemLookupEventSO.RaiseEvent(data.CurrentWeaponObjectIDs) is WeaponSO weapon)
+        //     {
+        //         _equippedWeaponSO = weapon;
+        //     }
+        //
+        //     for (int i = 0; i < data.CurrentArmorObjectIDs.Length; i++)
+        //     {
+        //         if (_itemLookupEventSO.RaiseEvent(data.CurrentArmorObjectIDs[i]) is WearableSO armor)
+        //         {
+        //             _equippedWearablesSO[i] = armor;
+        //         }
+        //     }
+        // }
 
-            for (int i = 0; i < data.CurrentArmorObjectIDs.Length; i++)
-            {
-                if (_itemLookupEventSO.RaiseEvent(data.CurrentArmorObjectIDs[i]) is WearableSO armor)
-                {
-                    _equippedWearablesSO[i] = armor;
-                }
-            }
-        }
-
-        public void SaveData(GameData data)
-        {
-            if (_equippedWeaponSO != null)
-            {
-                data.CurrentWeaponObjectIDs = _equippedWeaponSO.ID;
-            }
-            else
-            {
-                data.CurrentWeaponObjectIDs = null;
-            }
-
-            data.CurrentArmorObjectIDs = new string[_equippedWearablesSO.Length];
-
-            for (int i = 0; i < _equippedWearablesSO.Length; i++)
-            {
-                if (_equippedWearablesSO[i] != null)
-                {
-                    data.CurrentArmorObjectIDs[i] = _equippedWearablesSO[i].ID;
-                }
-            }
-        }
-        #endregion
+        // public void SaveData(GameData data)
+        // {
+        //     if (_equippedWeaponSO != null)
+        //     {
+        //         data.CurrentWeaponObjectIDs = _equippedWeaponSO.ID;
+        //     }
+        //     else
+        //     {
+        //         data.CurrentWeaponObjectIDs = null;
+        //     }
+        //
+        //     data.CurrentArmorObjectIDs = new string[_equippedWearablesSO.Length];
+        //
+        //     for (int i = 0; i < _equippedWearablesSO.Length; i++)
+        //     {
+        //         if (_equippedWearablesSO[i] != null)
+        //         {
+        //             data.CurrentArmorObjectIDs[i] = _equippedWearablesSO[i].ID;
+        //         }
+        //     }
+        // }
+        // #endregion
 
         // Instantiate and equip the weapon prefabs to the player's hands
         private void InstantiateWeaponPrefabs(WeaponSO newItem)
@@ -267,7 +262,7 @@ namespace RPG.EquipmentSystem
         {
             AnimatorOverrideController overrideController = _playerAnimator.runtimeAnimatorController as AnimatorOverrideController;
 
-            int currentSceneIndex = _getCurrentSceneIndexEventChannelSO.RaiseEvent();
+            int currentSceneIndex = 1;//_getCurrentSceneIndexEventChannelSO.RaiseEvent();
 
             if (currentSceneIndex == 2)
             {

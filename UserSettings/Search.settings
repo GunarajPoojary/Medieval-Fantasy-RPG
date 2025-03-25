@@ -3,25 +3,41 @@ refreshSearchWindowsInPlayMode = false
 pickerAdvancedUI = false
 fetchPreview = true
 defaultFlags = 0
-keepOpen = false
+keepOpen = true
 queryFolder = "Assets"
 onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
+	"picker_window_position_offset.075BCD15" = "13.59998;59.2;320;550.4"
+	"picker_visibility_flags.075BCD15" = "264"
+	"picker_item_size.075BCD15" = "96"
+	"picker_inspector.075BCD15" = "0"
+	"OpenInspectorPreview.66F56946" = "0"
+	"currentGroup.66F56946" = "menu"
 }
 providers = {
-	find = {
+	asset = {
 		active = true
 		priority = 25
 		defaultAction = null
 	}
-	performance = {
-		active = false
-		priority = 100
+	scene = {
+		active = true
+		priority = 50
 		defaultAction = null
 	}
-	asset = {
+	adb = {
+		active = false
+		priority = 2500
+		defaultAction = null
+	}
+	presets_provider = {
+		active = false
+		priority = -10
+		defaultAction = null
+	}
+	find = {
 		active = true
 		priority = 25
 		defaultAction = null
@@ -29,6 +45,16 @@ providers = {
 	packages = {
 		active = false
 		priority = 90
+		defaultAction = null
+	}
+	profilermarkers = {
+		active = false
+		priority = 100
+		defaultAction = null
+	}
+	performance = {
+		active = false
+		priority = 100
 		defaultAction = null
 	}
 	store = {
@@ -41,25 +67,12 @@ providers = {
 		priority = 210
 		defaultAction = null
 	}
-	adb = {
-		active = false
-		priority = 2500
-		defaultAction = null
-	}
-	scene = {
-		active = true
-		priority = 50
-		defaultAction = null
-	}
-	profilermarkers = {
-		active = false
-		priority = 100
-		defaultAction = null
-	}
 }
 objectSelectors = {
 }
 recentSearches = [
+	"Probuilder"
+	"probuilder"
 ]
 searchItemFavorites = [
 ]

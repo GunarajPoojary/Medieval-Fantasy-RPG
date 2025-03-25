@@ -1,11 +1,8 @@
-﻿using RPG.EquipmentSystem;
-using RPG.Inventories.UI;
-using RPG.ScriptableObjects.Items;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace RPG.CharacterMenu
+namespace RPG
 {
     /// <summary>
     /// Manages the overview of weapon equipment in the character menu.
@@ -14,9 +11,9 @@ namespace RPG.CharacterMenu
     public class WeaponOverviewHandler : MonoBehaviour, IEquipmentOverviewDisplayer, IEquipmentAdder
     {
         [SerializeField] private Transform _weaponsContainer;
-        [SerializeField] private GameObject _slotPrefab;
+        [SerializeField] private EquipmentSlotUI _slotPrefab;
 
-        private Dictionary<ItemSO, GameObject> _itemObjectToGameobjectMap = new Dictionary<ItemSO, GameObject>();
+        private Dictionary<ItemSO, EquipmentSlotUI> _itemObjectToGameobjectMap = new();
 
         #region IEquipmentOverviewDisplayer Method
         // Displays the overview of a random active weapon slot.
@@ -26,7 +23,7 @@ namespace RPG.CharacterMenu
 
             if (weaponSlots.Count != 0)
             {
-                weaponSlots[Random.Range(0, weaponSlots.Count)].DisplayItemOverview();
+                //weaponSlots[Random.Range(0, weaponSlots.Count)].DisplayItemOverview();
             }
         }
         #endregion
@@ -44,8 +41,7 @@ namespace RPG.CharacterMenu
 
             // Instantiate a new slot for the weapon and add it to the container.
             var slot = Instantiate(_slotPrefab, _weaponsContainer);
-            IItemSetter itemSlot = slot.GetComponent<EquipmentSlotUI>();
-            itemSlot.SetItem(weapon);
+            slot.Initialize(weapon);
             _itemObjectToGameobjectMap.Add(weapon, slot);
         }
         #endregion

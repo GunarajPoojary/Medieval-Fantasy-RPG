@@ -1,10 +1,9 @@
 using AYellowpaper.SerializedCollections;
-using RPG.Core;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace RPG.ScriptableObjects.Stats
+namespace RPG
 {
     /// <summary>
     /// Holds the runtime statistics of a character, allowing for dynamic stat changes during gameplay.

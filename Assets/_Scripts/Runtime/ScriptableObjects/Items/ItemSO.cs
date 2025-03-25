@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.ScriptableObjects.Items
+namespace RPG
 {
     public enum ItemType
     {

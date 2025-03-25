@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.UI
+namespace RPG
 {
     /// <summary>
     /// Interface for changing the visual state of tab buttons based on user interactions.

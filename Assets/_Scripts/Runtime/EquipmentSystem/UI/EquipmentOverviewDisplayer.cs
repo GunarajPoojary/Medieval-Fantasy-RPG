@@ -1,8 +1,7 @@
-using RPG.ScriptableObjects.Items;
 using TMPro;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem.UI
+namespace RPG
 {
     public abstract class EquipmentOverviewDisplayer : MonoBehaviour, IButtonsToggler, IEquipmentSlotsProvider, IEquippedEquipmentsProvider, IEquipmentActionHandler
     {

@@ -1,10 +1,9 @@
 using EasyTransition;
-using RPG.Core.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace RPG.Core.Managers
+namespace RPG
 {
     /// <summary>
     /// Manages view transitions and scene loading, while maintaining input settings.
@@ -13,58 +12,31 @@ namespace RPG.Core.Managers
     {
         [SerializeField] private float _startDelay;
         [SerializeField] private TransitionSettings _transition;
-        [Space]
-        [SerializeField] private VoidReturnNonParameterEventChannelSO _continueGameChannelSO; // Event channel for continuing the game.
-        [Space]
-        [SerializeField] private VoidReturnIntParameterEventChannelSO _loadSceneChannelSO; // Event channel for loading a scene by index.
-        [Space]
-        [SerializeField] private IntReturnNonParameterEventChannelSO _getCurrentSceneIndexEventChannelSO;
 
-        private PlayerUIInputManager _inputManager;
+        [SerializeField] private PlayerInputs _input;
 
         private void OnEnable()
         {
-            _loadSceneChannelSO.OnEventRaised += HandleLoadScene;
-            _getCurrentSceneIndexEventChannelSO.OnEventRaised += GetActiveScene;
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            _input.CharacterMenuAction.performed += GoToCharacterMenu;
+        }
+
+        private void GoToCharacterMenu(InputAction.CallbackContext ctx)
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int targetSceneIndex = currentSceneIndex == 2 ? 1 : 2;
+
+            LoadScene(targetSceneIndex);
         }
 
         private void OnDisable()
         {
-            _loadSceneChannelSO.OnEventRaised -= HandleLoadScene;
-            _getCurrentSceneIndexEventChannelSO.OnEventRaised -= GetActiveScene;
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            _input.CharacterMenuAction.performed -= GoToCharacterMenu;
         }
 
         public int GetActiveScene() => SceneManager.GetActiveScene().buildIndex;
 
         public void LoadScene(int index) => TransitionManager.Instance().Transition(index, _transition, _startDelay);
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => SetCharacterMenuInput();
-
-        private void HandleLoadScene(int sceneIndex) => LoadScene(sceneIndex);
-
-        private void SetCharacterMenuInput()
-        {
-            if (_inputManager == null)
-            {
-                _inputManager = PlayerUIInputManager.Instance;
-
-                if (_inputManager != null)
-                {
-                    _inputManager.UIInputActions.CharacterMenu.performed += OnCharacterMenuPerformed;
-                }
-            }
-        }
-
-        private void OnCharacterMenuPerformed(InputAction.CallbackContext context)
-        {
-            _continueGameChannelSO.RaiseEvent();
-
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            int targetSceneIndex = currentSceneIndex == 2 ? 1 : 2;
-
-            LoadScene(targetSceneIndex);
-        }
+        public void HandleLoadScene(int sceneIndex) => LoadScene(sceneIndex);
     }
 }

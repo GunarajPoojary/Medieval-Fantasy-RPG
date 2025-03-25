@@ -1532,3 +1532,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 65284
+  packageName: RPG Character Mecanim Animation Pack FREE
+  packageVersion: 2.5.2
+  assetPath: Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Animations/Unarmed/RPG-Character@Unarmed-Run-Backward-Left.FBX
+  uploadId: 586175

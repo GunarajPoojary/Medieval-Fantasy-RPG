@@ -1,47 +1,42 @@
-using RPG.ScriptableObjects.EventChannels;
-using RPG.ScriptableObjects.Items;
+using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace RPG.Inventories.UI
+namespace RPG
 {
     public class InventoryUI : MonoBehaviour
     {
         [SerializeField] private GameObject _inventoryPanel;
-        [Space]
-        [SerializeField] private VoidReturnItemSOParameterEventChannelSO _itemAdded;  // Event channel for item addition
-        [Space]
-        [SerializeField] private ItemSOListReturnNonParameterEventChannelSO _getItems;  // Event channel to get items
+        [SerializeField] private PlayerInputs _input;
 
-        private IInventorySlotInstantiator _inventorySlotManager;
-        private IInventoryInputHandler _inputHandler;
+        [SerializedDictionary("Item Type", "Item Panel")]
+        [SerializeField] private SerializedDictionary<ItemType, Transform> _itemTypeToPanelsMap;
+
+        [SerializeField] private InventorySlotUI _inventorySlotPrefab;
+        private readonly List<InventorySlotUI> _inventorySlots = new();
 
         private void Awake()
         {
-            _inputHandler = new InventoryInputHandler(_inventoryPanel);
-            _inventorySlotManager = GetComponent<InventorySlotsInstantiator>();
-        }
-
-        private void OnEnable()
-        {
-            _inventoryPanel.SetActive(false);
-            _inputHandler.Enable();
-            _itemAdded.OnEventRaised += HandleItemAdd;
-        }
-
-        private void Start()
-        {
-            foreach (var item in _getItems.RaiseEvent())
+            if (_itemTypeToPanelsMap.ContainsKey(ItemType.Default))
             {
-                HandleItemAdd(item);
+                _itemTypeToPanelsMap.Remove(ItemType.Default);
             }
         }
 
-        private void OnDisable()
-        {
-            _inputHandler.Disable();
-            _itemAdded.OnEventRaised -= HandleItemAdd;
-        }
+        private void OnEnable() => _input.InventoryAction.performed += ToggleInventory;
 
-        private void HandleItemAdd(ItemSO item) => _inventorySlotManager.AddItemToUI(item);
+        private void OnDisable() => _input.InventoryAction.performed -= ToggleInventory;
+
+        private void ToggleInventory(InputAction.CallbackContext ctx) => _inventoryPanel.SetActive(!_inventoryPanel.activeSelf);
+
+        public void HandleItemAdd(ItemSO item)
+        {
+            if (!_itemTypeToPanelsMap.TryGetValue(item.Type, out var container)) return;
+            
+            var inventorySlot = Instantiate(_inventorySlotPrefab, container);
+            inventorySlot.Initialize(item);
+            _inventorySlots.Add(inventorySlot);
+        }
     }
 }

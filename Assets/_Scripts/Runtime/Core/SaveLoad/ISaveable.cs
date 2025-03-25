@@ -1,9 +1,13 @@
-namespace RPG.Core.SaveLoad
+namespace RPG
 {
     public interface ISaveable
     {
-        void LoadData(GameData data);
+        string ID { get; set; }
+    }
 
-        void SaveData(GameData data);
+    public interface IBind<TData> where TData : ISaveable
+    {
+        string ID { get; set; }
+        void Bind(TData data);
     }
 }

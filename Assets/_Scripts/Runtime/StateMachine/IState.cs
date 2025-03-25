@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.StateMachine
+namespace RPG
 {
     public interface IState
     {

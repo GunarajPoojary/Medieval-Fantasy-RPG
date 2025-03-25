@@ -1,16 +1,15 @@
-using RPG.World;
 using UnityEditor;
 
-namespace RPG.Editor
+namespace RPG
 {
     /// <summary>
     /// Custom editor for ItemPickUp.
     /// It also displays the custom editor for the associated item.
     /// </summary>
     [CustomEditor(typeof(ItemPickUp))]
-    public class ItemPickUpEditor : UnityEditor.Editor
+    public class ItemPickUpEditor : Editor
     {
-        private UnityEditor.Editor _editorInstance;
+        private Editor _editorInstance;
 
         private void OnEnable() => _editorInstance = null;
 

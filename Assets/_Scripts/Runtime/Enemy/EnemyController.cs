@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace RPG.Enemy
+namespace RPG
 {
     public class EnemyController : MonoBehaviour
     {

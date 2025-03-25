@@ -1,6 +1,4 @@
-﻿using RPG.ScriptableObjects.Items;
-
-namespace RPG.CharacterMenu
+﻿namespace RPG
 {
     /// <summary>
     /// Interface for adding equipment to the character menu.

@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace RPG.Player.StateMachine
+namespace RPG
 {
     public class PlayerAirborneState : PlayerMovementState
     {
-        public PlayerAirborneState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
+        public PlayerAirborneState(PlayerStateFactory playerStateFactory) : base(playerStateFactory)
         {
         }
 
@@ -13,23 +13,19 @@ namespace RPG.Player.StateMachine
         {
             base.Enter();
 
-            StartAnimation(_stateMachine.Player.AnimationData.AirborneParameterHash);
-
-            ResetSprintState();
+            StartAnimation(StateFactory.PlayerController.AnimationData.AirborneParameterHash);
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            StopAnimation(_stateMachine.Player.AnimationData.AirborneParameterHash);
+            StopAnimation(StateFactory.PlayerController.AnimationData.AirborneParameterHash);
         }
         #endregion
 
         #region Reusable Methods
-        protected virtual void ResetSprintState() => _stateMachine.ReusableData.ShouldSprint = false;
-
-        protected override void OnContactWithGround(Collider collider) => _stateMachine.ChangeState(_stateMachine.LightLandingState);
+        protected override void OnContactWithGround(Collider collider) => StateFactory.ChangeState(StateFactory.LightLandState);
         #endregion
     }
 }

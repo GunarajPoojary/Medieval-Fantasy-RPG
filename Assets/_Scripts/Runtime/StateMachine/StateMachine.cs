@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.StateMachine
+namespace RPG
 {
     public abstract class StateMachine
     {
@@ -17,7 +17,11 @@ namespace RPG.StateMachine
 
         public void HandleInput() => _currentState?.HandleInput();
 
-        public void Update() => _currentState?.Update();
+        public void Update()
+        {
+            //Debug.Log(_currentState.GetType().Name);
+            _currentState?.Update();
+        }
 
         public void PhysicsUpdate() => _currentState?.PhysicsUpdate();
 

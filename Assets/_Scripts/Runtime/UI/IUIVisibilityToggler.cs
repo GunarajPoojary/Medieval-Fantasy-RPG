@@ -1,4 +1,4 @@
-﻿namespace RPG.UI
+﻿namespace RPG
 {
     /// <summary>
     /// Interface for UI elements that can be toggled active or inactive.

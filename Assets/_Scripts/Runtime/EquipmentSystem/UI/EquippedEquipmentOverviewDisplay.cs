@@ -1,8 +1,7 @@
-using RPG.ScriptableObjects.Items;
 using TMPro;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem
+namespace RPG
 {
     public abstract class EquippedEquipmentOverviewDisplay : MonoBehaviour
     {

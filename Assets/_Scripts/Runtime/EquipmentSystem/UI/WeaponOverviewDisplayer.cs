@@ -1,37 +1,34 @@
-using RPG.ScriptableObjects;
-using RPG.ScriptableObjects.EventChannels;
-using RPG.ScriptableObjects.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem.UI
+namespace RPG
 {
     public class WeaponOverviewDisplayer : EquipmentOverviewDisplayer
     {
         [SerializeField] private Transform _weaponsContainerUI;
         [Space]
-        [SerializeField] private VoidReturnWeaponSOParameterEventChannelSO _weaponSlotSelectedEventChannel; // Event channel for weapon slot selection
+        //[SerializeField] private VoidReturnWeaponSOParameterEventChannelSO _weaponSlotSelectedEventChannel; // Event channel for weapon slot selection
         [Space]
-        [SerializeField] private WeaponSOReturnNonParameterEventChannelSO _equippedWeaponEventChannelSO; // Event channel to get equipped weapon
+        //[SerializeField] private WeaponSOReturnNonParameterEventChannelSO _equippedWeaponEventChannelSO; // Event channel to get equipped weapon
         [Space]
-        [SerializeField] private VoidReturnDoubleWeaponSOParameterEventChannelSO _weaponChangedEventChannelSO; // Event channel to handle weapon change
+        //[SerializeField] private VoidReturnDoubleWeaponSOParameterEventChannelSO _weaponChangedEventChannelSO; // Event channel to handle weapon change
         [Space]
-        [SerializeField] private VoidReturnWeaponSOParameterEventChannelSO _equipWeaponSOEventChannelSO; // Event channel to equip weapon
+        //[SerializeField] private VoidReturnWeaponSOParameterEventChannelSO _equipWeaponSOEventChannelSO; // Event channel to equip weapon
         [Space]
-        [SerializeField] private WeaponSOReturnNonParameterEventChannelSO _unequipWeaponSOEventChannelSO; // Event channel to unequip weapon
+        //[SerializeField] private WeaponSOReturnNonParameterEventChannelSO _unequipWeaponSOEventChannelSO; // Event channel to unequip weapon
 
         private WeaponSO _equippedWeapon;
         private WeaponSO _selectedWeapon;
 
-        private List<IOverviewDisplayer> _weaponSlots; // List of weapon slots in the UI
+        //private List<IOverviewDisplayer> _weaponSlots; // List of weapon slots in the UI
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            _weaponSlotSelectedEventChannel.OnEventRaised += HandleWeaponSelected;
+            //_weaponSlotSelectedEventChannel.OnEventRaised += HandleWeaponSelected;
 
-            _weaponChangedEventChannelSO.OnEventRaised += HandleWeaponChanged;
+            //_weaponChangedEventChannelSO.OnEventRaised += HandleWeaponChanged;
 
             _selectedWeapon = (WeaponSO)GetEquippedEquipment();
 
@@ -40,16 +37,16 @@ namespace RPG.EquipmentSystem.UI
 
         private void OnDisable()
         {
-            _weaponSlotSelectedEventChannel.OnEventRaised -= HandleWeaponSelected;
+            //_weaponSlotSelectedEventChannel.OnEventRaised -= HandleWeaponSelected;
 
-            _weaponChangedEventChannelSO.OnEventRaised -= HandleWeaponChanged;
+            //_weaponChangedEventChannelSO.OnEventRaised -= HandleWeaponChanged;
         }
 
         #region IEquippedEquipmentsGetter Method
         // Retrieves the currently equipped weapon
         public override EquipmentSO GetEquippedEquipment()
         {
-            _equippedWeapon = _equippedWeaponEventChannelSO.RaiseEvent();
+            _equippedWeapon = null;//_equippedWeaponEventChannelSO.RaiseEvent();
 
             return _equippedWeapon;
         }
@@ -59,15 +56,15 @@ namespace RPG.EquipmentSystem.UI
         // Retrieves all weapon slots in the UI
         public override void GetEquipmentSlots()
         {
-            _weaponSlots = new List<IOverviewDisplayer>();
-            foreach (Transform child in _weaponsContainerUI)
-            {
-                IOverviewDisplayer displayer = child.GetComponent<EquipmentSlotUI>();
-                if (displayer != null)
-                {
-                    _weaponSlots.Add(displayer);
-                }
-            }
+            // _weaponSlots = new List<IOverviewDisplayer>();
+            // foreach (Transform child in _weaponsContainerUI)
+            // {
+            //     IOverviewDisplayer displayer = child.GetComponent<EquipmentSlotUI>();
+            //     if (displayer != null)
+            //     {
+            //         _weaponSlots.Add(displayer);
+            //     }
+            // }
         }
         #endregion
 
@@ -92,7 +89,7 @@ namespace RPG.EquipmentSystem.UI
         // Handles equipping the selected weapon
         public override void Equip()
         {
-            _equipWeaponSOEventChannelSO.RaiseEvent(_selectedWeapon);
+            //_equipWeaponSOEventChannelSO.RaiseEvent(_selectedWeapon);
 
             base.Equip();
         }
@@ -100,7 +97,7 @@ namespace RPG.EquipmentSystem.UI
         // Handles unequipping the selected weapon
         public override void Unequip()
         {
-            _unequipWeaponSOEventChannelSO.RaiseEvent();
+            //_unequipWeaponSOEventChannelSO.RaiseEvent();
 
             base.Unequip();
         }
@@ -128,7 +125,7 @@ namespace RPG.EquipmentSystem.UI
             }
             else
             {
-                _weaponSlots[Random.Range(0, _weaponSlots.Count)].DisplayItemOverview();
+                //_weaponSlots[Random.Range(0, _weaponSlots.Count)].DisplayItemOverview();
             }
         }
 

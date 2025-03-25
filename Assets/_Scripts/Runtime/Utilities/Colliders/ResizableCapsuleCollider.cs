@@ -1,7 +1,6 @@
-using RPG.Data.Colliders;
 using UnityEngine;
 
-namespace RPG.Utils
+namespace RPG
 {
     public class ResizableCapsuleCollider : MonoBehaviour
     {

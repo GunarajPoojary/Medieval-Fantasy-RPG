@@ -1,7 +1,6 @@
-using RPG.Player.Data.States;
 using UnityEngine;
 
-namespace RPG.Player.Data
+namespace RPG
 {
     [CreateAssetMenu(fileName = "Player", menuName = "Custom/Characters/Player")]
     public class PlayerSO : ScriptableObject

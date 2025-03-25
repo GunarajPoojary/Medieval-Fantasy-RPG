@@ -1,14 +1,12 @@
-using RPG.ScriptableObjects;
-using RPG.ScriptableObjects.Items;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace RPG.Combat
+namespace RPG
 {
     public class PlayerCombat : MonoBehaviour
     {
-        [SerializeField] private VoidReturnDoubleWeaponSOParameterEventChannelSO _weaponChangedEventChannelSO; // Event channel to notify when the weapon changes.
+        //[SerializeField] private VoidReturnDoubleWeaponSOParameterEventChannelSO _weaponChangedEventChannelSO; // Event channel to notify when the weapon changes.
         [Space]
         [SerializeField] private float _attackRate = 2f;
 
@@ -18,9 +16,15 @@ namespace RPG.Combat
 
         private void Awake() => _animator = GetComponent<Animator>();
 
-        private void OnEnable() => _weaponChangedEventChannelSO.OnEventRaised += OnWeaponChanged;
+        private void OnEnable()
+        {
+            //_weaponChangedEventChannelSO.OnEventRaised += OnWeaponChanged;
+        }
 
-        private void OnDisable() => _weaponChangedEventChannelSO.OnEventRaised -= OnWeaponChanged;
+        private void OnDisable()
+        {
+            //_weaponChangedEventChannelSO.OnEventRaised -= OnWeaponChanged;
+        }
 
         // Uncomment and modify this if you plan to use it for handling attack input.
         //private void Update()

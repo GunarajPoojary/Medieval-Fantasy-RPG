@@ -1,11 +1,8 @@
 ﻿using AYellowpaper.SerializedCollections;
-using RPG.EquipmentSystem;
-using RPG.Inventories.UI;
-using RPG.ScriptableObjects.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.CharacterMenu
+namespace RPG
 {
     /// <summary>
     /// Manages the overview of wearable equipment in the character menu.
@@ -14,11 +11,11 @@ namespace RPG.CharacterMenu
     public class WearablesOverviewHandler : MonoBehaviour, IEquipmentOverviewDisplayer, IEquipmentAdder
     {
         [SerializedDictionary("Armor Slot", "Content Transform")]
-        [SerializeField] private SerializedDictionary<WearableSlot, Transform> _armorSlotsContentMap = new SerializedDictionary<WearableSlot, Transform>(6);
+        [SerializeField] private SerializedDictionary<WearableSlot, Transform> _armorSlotsContentMap = new(6);
 
-        [SerializeField] private GameObject _slotPrefab;
+        [SerializeField] private EquipmentSlotUI _slotPrefab;
 
-        private Dictionary<ItemSO, GameObject> _itemObjectToGameobjectMap = new Dictionary<ItemSO, GameObject>();
+        private readonly Dictionary<ItemSO, EquipmentSlotUI> _itemObjectToGameobjectMap = new();
 
         #region IWeaponOverviewDisplayer Method
         // Displays the overview of the first active armor slot.
@@ -39,7 +36,7 @@ namespace RPG.CharacterMenu
                 {
                     if (wearableSlots[i].gameObject.activeSelf)
                     {
-                        wearableSlots[i].DisplayItemOverview();
+                        //wearableSlots[i].DisplayItemOverview();
                         return;
                     }
                 }
@@ -62,8 +59,7 @@ namespace RPG.CharacterMenu
             if (_armorSlotsContentMap.TryGetValue(wearable.EquipSlot, out Transform slotTransform))
             {
                 var slot = Instantiate(_slotPrefab, slotTransform);
-                IItemSetter itemSlot = slot.GetComponent<EquipmentSlotUI>();
-                itemSlot.SetItem(wearable);
+                slot.Initialize(wearable);
                 _itemObjectToGameobjectMap.Add(wearable, slot);
             }
         }

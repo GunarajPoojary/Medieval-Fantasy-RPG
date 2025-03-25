@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RPG.Stats
+namespace RPG
 {
     public class CharacterHUD : MonoBehaviour
     {

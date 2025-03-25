@@ -1,15 +1,13 @@
-using RPG.ScriptableObjects.EventChannels;
-using RPG.ScriptableObjects.Items;
 using UnityEngine;
 
-namespace RPG.CharacterMenu
+namespace RPG
 {
     /// <summary>
     /// Manages the character menu, including loading items and switching between different equipment views.
     /// </summary>
     public class CharacterMenu : MonoBehaviour
     {
-        [SerializeField] private ItemSOListReturnNonParameterEventChannelSO _getItems;  // Event channel to get a list of items.
+        //[SerializeField] private ItemSOListReturnNonParameterEventChannelSO _getItems;  // Event channel to get a list of items.
 
         private CharacterMenuUIHandler _characterMenuUIHandler;
 
@@ -32,17 +30,17 @@ namespace RPG.CharacterMenu
         private void Start()
         {
             // Add items to their respective UI containers based on type.
-            foreach (ItemSO item in _getItems.RaiseEvent())
-            {
-                if (item is WeaponSO weapon)
-                {
-                    _weaponAdder.AddEquipment(weapon);
-                }
-                else if (item is WearableSO wearable)
-                {
-                    _wearableAdder.AddEquipment(wearable);
-                }
-            }
+            // foreach (ItemSO item in _getItems.RaiseEvent())
+            // {
+            //     if (item is WeaponSO weapon)
+            //     {
+            //         _weaponAdder.AddEquipment(weapon);
+            //     }
+            //     else if (item is WearableSO wearable)
+            //     {
+            //         _wearableAdder.AddEquipment(wearable);
+            //     }
+            // }
         }
 
         /// <summary>

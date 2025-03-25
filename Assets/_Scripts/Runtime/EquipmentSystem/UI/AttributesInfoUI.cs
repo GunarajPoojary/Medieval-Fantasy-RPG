@@ -1,8 +1,7 @@
-using RPG.ScriptableObjects.Profile;
 using TMPro;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem.UI
+namespace RPG
 {
     public class AttributesInfoUI : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace RPG.EquipmentSystem.UI
+﻿namespace RPG
 {
     public interface IEquipmentActionHandler
     {

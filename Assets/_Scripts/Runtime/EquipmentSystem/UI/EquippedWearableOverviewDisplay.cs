@@ -1,24 +1,25 @@
-using RPG.ScriptableObjects.EventChannels;
-using RPG.ScriptableObjects.Items;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem
+namespace RPG
 {
     public class EquippedWearableOverviewDisplay : EquippedEquipmentOverviewDisplay
     {
-        [SerializeField] private VoidReturnDoubleWearableSOParameterEventChannelSO _wearableChangedEventChannelSO; // Event channel for wearable changes
-        [Space]
-        [SerializeField] private WearableSOArrayReturnNonParameterEventChannelSO _equippedWearableEventChannelSO; // Event channel to get equipped wearables
+        //[SerializeField] private VoidReturnDoubleWearableSOParameterEventChannelSO _wearableChangedEventChannelSO; // Event channel for wearable changes
+        //[Space]
+        //[SerializeField] private WearableSOArrayReturnNonParameterEventChannelSO _equippedWearableEventChannelSO; // Event channel to get equipped wearables
 
         private void OnEnable()
         {
-            _wearableChangedEventChannelSO.OnEventRaised += OnWearableChanged;
+            //_wearableChangedEventChannelSO.OnEventRaised += OnWearableChanged;
 
             // Display the first equipped wearable when enabled
-            DisplayFirstEquippedWearable(_equippedWearableEventChannelSO.RaiseEvent());
+            //DisplayFirstEquippedWearable(_equippedWearableEventChannelSO.RaiseEvent());
         }
 
-        private void OnDisable() => _wearableChangedEventChannelSO.OnEventRaised -= OnWearableChanged;
+        private void OnDisable()
+        {
+            //_wearableChangedEventChannelSO.OnEventRaised -= OnWearableChanged;
+        }
 
         // Displays the first equipped wearable in the list, or none if all are null
         private void DisplayFirstEquippedWearable(WearableSO[] equippedWearables)

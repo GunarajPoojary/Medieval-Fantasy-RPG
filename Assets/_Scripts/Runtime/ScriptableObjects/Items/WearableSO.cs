@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.ScriptableObjects.Items
+namespace RPG
 {
     public enum WearableSlot
     {
@@ -14,11 +14,11 @@ namespace RPG.ScriptableObjects.Items
 
     public enum WearableType
     {
-        Helmet,
-        Shirt,
-        Gloves,
+        HelmetOrMask,
+        ShirtOrBodyArmor,
+        GlovesOrGauntlets,
         Cape,
-        Pant,
+        PantOrLegArmor,
         Boots
     }
 
@@ -27,7 +27,7 @@ namespace RPG.ScriptableObjects.Items
     {
         public WearableSlot EquipSlot;
         public WearableType WearableType;
-        public SkinnedMeshRenderer SkinnedMesh;
+        //public SkinnedMeshRenderer SkinnedMesh;
 
         private void OnValidate() => Type = ItemType.Wearable;
     }

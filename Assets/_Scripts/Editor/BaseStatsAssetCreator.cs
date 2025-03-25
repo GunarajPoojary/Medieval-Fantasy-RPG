@@ -1,9 +1,7 @@
-using RPG.ScriptableObjects.Items;
-using RPG.ScriptableObjects.Stats;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Editor
+namespace RPG
 {
     /// <summary>
     /// Custom editor for Equipment ScriptableObject.

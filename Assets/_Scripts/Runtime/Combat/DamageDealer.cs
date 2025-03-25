@@ -1,8 +1,7 @@
-using RPG.Stats;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RPG.Combat
+namespace RPG
 {
     /// <summary>
     /// Responsible for dealing damage to enemies within a certain range.

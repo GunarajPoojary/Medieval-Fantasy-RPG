@@ -8,3 +8,10 @@ ShaderImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 225607
+  packageName: Easy Transitions
+  packageVersion: 1.4
+  assetPath: Assets/EasyTransitions/Shaders/AdditiveColor.shader
+  uploadId: 587727

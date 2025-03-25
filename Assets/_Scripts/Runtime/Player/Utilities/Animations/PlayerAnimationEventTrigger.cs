@@ -1,20 +1,14 @@
-using RPG.Player.Sounds;
 using UnityEngine;
 
-namespace RPG.Player.Utils
+namespace RPG
 {
     public class PlayerAnimationEventTrigger : MonoBehaviour
     {
-        [SerializeField] private AudioClip _footstepSound;
-        [SerializeField] private AudioSource _audioSource;
-
-        private Player _player;
-        private IFootstepPlayer _footstepHandler;
+        private PlayerController _playerController;
 
         private void Awake()
         {
-            _player = transform.parent.GetComponent<Player>();
-            _footstepHandler = new PlayerFootstepHandler(_audioSource, _footstepSound);
+            _playerController = transform.parent.GetComponent<PlayerController>();
         }
 
         public void TriggerOnMovementStateAnimationEnterEvent()
@@ -24,7 +18,7 @@ namespace RPG.Player.Utils
                 return;
             }
 
-            _player.OnMovementStateAnimationEnterEvent();
+            _playerController.OnMovementStateAnimationEnterEvent();
         }
 
         public void TriggerOnMovementStateAnimationExitEvent()
@@ -34,7 +28,7 @@ namespace RPG.Player.Utils
                 return;
             }
 
-            _player.OnMovementStateAnimationExitEvent();
+            _playerController.OnMovementStateAnimationExitEvent();
         }
 
         public void TriggerOnMovementStateAnimationTransitionEvent()
@@ -44,11 +38,9 @@ namespace RPG.Player.Utils
                 return;
             }
 
-            _player.OnMovementStateAnimationTransitionEvent();
+            _playerController.OnMovementStateAnimationTransitionEvent();
         }
 
-        public void TriggerFootstepEvent() => _footstepHandler?.PlayFootstep();
-
-        private bool IsInAnimationTransition(int layerIndex = 0) => _player.Animator.IsInTransition(layerIndex);
+        private bool IsInAnimationTransition(int layerIndex = 0) => _playerController.Animator.IsInTransition(layerIndex);
     }
 }

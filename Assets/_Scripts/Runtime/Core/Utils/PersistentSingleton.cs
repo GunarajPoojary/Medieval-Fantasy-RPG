@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Core.Utils
+namespace RPG
 {
     public class PersistentSingleton<T> : MonoBehaviour where T : Component
     {

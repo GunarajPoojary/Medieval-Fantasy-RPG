@@ -1,0 +1,60 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class EventChannel<T> : ScriptableObject
+{
+    private readonly HashSet<EventListener<T>> _observers = new();
+
+    public void Invoke(T value, string eventId)
+    {
+        foreach (var observer in _observers)
+        {
+            observer.Raise(this, value, eventId);
+        }
+    }
+
+    public void Register(EventListener<T> observer) => _observers.Add(observer);
+    public void DeRegister(EventListener<T> observer) => _observers.Remove(observer);
+}
+    
+
+
+
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public abstract class EventListener<T> : MonoBehaviour
+{
+    [System.Serializable]
+    private class EventMapping
+    {
+        public string eventId; // Unique ID for the event within this listener
+        public EventChannel<T> eventChannel;
+        public UnityEvent<T> unityEvent;
+    }
+
+    [SerializeField] private List<EventMapping> _eventMappings = new List<EventMapping>();
+
+    protected void Awake()
+    {
+        foreach (var mapping in _eventMappings)
+        {
+            mapping.eventChannel.Register(this);
+        }
+    }
+
+    protected void OnDestroy()
+    {
+        foreach (var mapping in _eventMappings)
+        {
+            mapping.eventChannel.DeRegister(this);
+        }
+    }
+
+    public void Raise(EventChannel<T> channel, T value, string eventId)
+    {
+        var mapping = _eventMappings.Find(m => m.eventChannel == channel && m.eventId == eventId);
+        mapping?.unityEvent?.Invoke(value);
+    }
+}

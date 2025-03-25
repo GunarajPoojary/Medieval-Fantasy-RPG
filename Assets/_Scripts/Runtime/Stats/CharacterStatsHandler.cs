@@ -1,8 +1,6 @@
-using RPG.Core;
-using RPG.ScriptableObjects.Stats;
 using UnityEngine;
 
-namespace RPG.Stats
+namespace RPG
 {
     /// <summary>
     /// Handles a character's stats, including taking damage and death, and providing stat values in Gameplay Scene.

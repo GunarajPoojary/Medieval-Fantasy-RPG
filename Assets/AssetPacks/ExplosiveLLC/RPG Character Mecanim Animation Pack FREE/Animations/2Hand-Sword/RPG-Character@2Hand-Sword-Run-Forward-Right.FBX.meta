@@ -1539,3 +1539,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 65284
+  packageName: RPG Character Mecanim Animation Pack FREE
+  packageVersion: 2.5.2
+  assetPath: Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Animations/2Hand-Sword/RPG-Character@2Hand-Sword-Run-Forward-Right.FBX
+  uploadId: 586175

@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-namespace RPG.UI
+namespace RPG
 {
     public interface IButtonSoundPlayer
     {

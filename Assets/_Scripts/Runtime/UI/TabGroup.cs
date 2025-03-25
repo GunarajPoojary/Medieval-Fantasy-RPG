@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.UI
+namespace RPG
 {
     /// <summary>
     /// Manages tab buttons, handling their states and interactions.

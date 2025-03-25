@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 90f162c7a8864f069d68cabbd3f065e9
+timeCreated: 1700299244
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270768
+  packageName: Scene Toolbar - Quick Scene Management Overlay
+  packageVersion: 1.1.0
+  assetPath: Assets/Plugins/Neonalig/SceneToolbar/Attributes/SceneDropdownAttribute.cs
+  uploadId: 675946

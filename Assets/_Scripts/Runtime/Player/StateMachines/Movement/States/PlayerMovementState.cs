@@ -1,32 +1,21 @@
-using RPG.Player.Data;
-using RPG.Player.Data.States;
-using RPG.StateMachine;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace RPG.Player.StateMachine
+namespace RPG
 {
     public class PlayerMovementState : IState
     {
-        protected PlayerMovementStateMachine _stateMachine;
+        protected PlayerStateFactory StateFactory;
 
         protected readonly PlayerGroundedData _groundedData;
         protected readonly PlayerAirborneData _airborneData;
 
-        public PlayerMovementState(PlayerMovementStateMachine playerMovementStateMachine)
+        public PlayerMovementState(PlayerStateFactory playerStateFactory)
         {
-            _stateMachine = playerMovementStateMachine;
+            StateFactory = playerStateFactory;
 
-            _groundedData = _stateMachine.Player.Data.GroundedData;
-            _airborneData = _stateMachine.Player.Data.AirborneData;
-
-            InitializeData();
-        }
-
-        private void InitializeData()
-        {
-            SetBaseCameraRecenteringData();
+            _groundedData = StateFactory.PlayerController.Data.GroundedData;
+            _airborneData = StateFactory.PlayerController.Data.AirborneData;
 
             SetBaseRotationData();
         }
@@ -38,15 +27,13 @@ namespace RPG.Player.StateMachine
 
         public virtual void HandleInput() => ReadMovementInput();
 
-        public virtual void Update()
-        {
-        }
+        public virtual void Update() => UpdateMovementAnimation();
 
         public virtual void PhysicsUpdate() => Move();
 
         public virtual void OnTriggerEnter(Collider collider)
         {
-            if (_stateMachine.Player.LayerData.IsGroundLayer(collider.gameObject.layer))
+            if (StateFactory.PlayerController.LayerData.IsGroundLayer(collider.gameObject.layer))
             {
                 OnContactWithGround(collider);
 
@@ -56,7 +43,7 @@ namespace RPG.Player.StateMachine
 
         public virtual void OnTriggerExit(Collider collider)
         {
-            if (_stateMachine.Player.LayerData.IsGroundLayer(collider.gameObject.layer))
+            if (StateFactory.PlayerController.LayerData.IsGroundLayer(collider.gameObject.layer))
             {
                 OnContactWithGroundExited(collider);
 
@@ -78,38 +65,108 @@ namespace RPG.Player.StateMachine
         #endregion
 
         #region Main Methods
-        private void ReadMovementInput() => _stateMachine.ReusableData.MovementInput = _stateMachine.Player.Input.PlayerActions.Movement.ReadValue<Vector2>();
+        private void ReadMovementInput() => StateFactory.ReusableData.MovementInput = StateFactory.PlayerController.Input.PlayerActions.Move.ReadValue<Vector2>();
 
         private void Move()
         {
-            if (_stateMachine.ReusableData.MovementInput == Vector2.zero || _stateMachine.ReusableData.MovementSpeedModifier == 0f)
+            bool shouldConsiderSlopes = true;
+
+            if (StateFactory.ReusableData.MovementInput == Vector2.zero || StateFactory.ReusableData.MovementSpeedModifier == 0f)
             {
                 return;
             }
 
             Vector3 movementDirection = GetMovementInputDirection();
 
-            float targetRotationYAngle = Rotate(movementDirection);
-
-            Vector3 targetRotationDirection = GetTargetRotationDirection(targetRotationYAngle);
-
-            float movementSpeed = GetMovementSpeed();
-
-            Vector3 currentPlayerHorizontalVelocity = GetPlayerHorizontalVelocity();
-
-            _stateMachine.Player.Rigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
-        }
-
-        private float Rotate(Vector3 direction)
-        {
-            float directionAngle = UpdateTargetRotation(direction);
+            float targetRotationYAngle = UpdateTargetRotation(movementDirection);
 
             RotateTowardsTargetRotation();
 
-            return directionAngle;
+            Vector3 targetRotationDirection = GetTargetRotationDirection(targetRotationYAngle);
+
+            float movementSpeed = _groundedData.BaseSpeed * StateFactory.ReusableData.MovementSpeedModifier;
+
+            if (shouldConsiderSlopes)
+            {
+                movementSpeed *= StateFactory.ReusableData.MovementOnSlopesSpeedModifier;
+            }
+
+            Vector3 currentPlayerHorizontalVelocity = GetHorizontalVelocity();
+
+            StateFactory.PlayerController.Rigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
         }
 
-        private float GetDirectionAngle(Vector3 direction)
+        private void UpdateMovementAnimation()
+        {
+            var targetSpeed = UpdateMovementParameter();
+
+            StateFactory.PlayerController.AnimationData.AnimationBlend = Mathf.Lerp(StateFactory.PlayerController.AnimationData.AnimationBlend, targetSpeed, Time.deltaTime * 10.0f);
+
+            if (StateFactory.PlayerController.AnimationData.AnimationBlend < 0.01f)
+            {
+                StateFactory.PlayerController.AnimationData.AnimationBlend = 0.0f;
+            }
+
+            StateFactory.PlayerController.Animator.SetFloat(StateFactory.PlayerController.AnimationData.SpeedParameterHash, StateFactory.PlayerController.AnimationData.AnimationBlend);
+        }
+
+        private float UpdateMovementParameter()
+        {
+            float targetSpeed;
+
+            if (StateFactory.ReusableData.MovementInput != Vector2.zero)
+            {
+                if (StateFactory.ReusableData.ShouldRun)
+                {
+                    targetSpeed = _groundedData.RunData.SpeedModifier;
+                }
+                else
+                {
+                    targetSpeed = _groundedData.WalkData.SpeedModifier;
+                }
+            }
+            else
+            {
+                targetSpeed = _groundedData.IdleData.SpeedModifier;
+            }
+
+            return targetSpeed;
+        }
+        #endregion
+
+        #region Reusable Methods
+        protected void SetBaseRotationData()
+        {
+            StateFactory.ReusableData.RotationData = _groundedData.BaseRotationData;
+
+            StateFactory.ReusableData.TimeToReachTargetRotation = StateFactory.ReusableData.RotationData.TargetRotationReachTime;
+        }
+
+        protected void StartAnimation(int animationHash) => StateFactory.PlayerController.Animator.SetBool(animationHash, true);
+
+        protected void StopAnimation(int animationHash) => StateFactory.PlayerController.Animator.SetBool(animationHash, false);
+
+        protected virtual void AddInputActionsCallbacks()
+        {
+            StateFactory.PlayerController.Input.PlayerActions.Run.performed += OnRun;
+            StateFactory.PlayerController.Input.PlayerActions.Run.canceled += OnRun;
+
+            StateFactory.PlayerController.Input.PlayerActions.Move.performed += OnMovementPerformed;
+            StateFactory.PlayerController.Input.PlayerActions.Move.canceled += OnMovementCanceled;
+        }
+
+        protected virtual void RemoveInputActionsCallbacks()
+        {
+            StateFactory.PlayerController.Input.PlayerActions.Run.performed -= OnRun;
+            StateFactory.PlayerController.Input.PlayerActions.Run.canceled -= OnRun;
+
+            StateFactory.PlayerController.Input.PlayerActions.Move.performed -= OnMovementPerformed;
+            StateFactory.PlayerController.Input.PlayerActions.Move.canceled -= OnMovementCanceled;
+        }
+
+        protected Vector3 GetMovementInputDirection() => new(StateFactory.ReusableData.MovementInput.x, 0f, StateFactory.ReusableData.MovementInput.y);
+
+        protected float UpdateTargetRotation(Vector3 direction)
         {
             float directionAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
@@ -118,128 +175,53 @@ namespace RPG.Player.StateMachine
                 directionAngle += 360f;
             }
 
-            return directionAngle;
-        }
+            directionAngle += StateFactory.PlayerController.MainCameraTransform.eulerAngles.y;
 
-        private float AddCameraRotationToAngle(float angle)
-        {
-            angle += _stateMachine.Player.MainCameraTransform.eulerAngles.y;
-
-            if (angle > 360f)
+            if (directionAngle > 360f)
             {
-                angle -= 360f;
+                directionAngle -= 360f;
             }
 
-            return angle;
-        }
-
-        private void UpdateTargetRotationData(float targetAngle)
-        {
-            _stateMachine.ReusableData.CurrentTargetRotation.y = targetAngle;
-
-            _stateMachine.ReusableData.DampedTargetRotationPassedTime.y = 0f;
-        }
-        #endregion
-
-        #region Reusable Methods
-        protected void SetBaseCameraRecenteringData()
-        {
-            _stateMachine.ReusableData.SidewaysCameraRecenteringData = _groundedData.SidewaysCameraRecenteringData;
-            _stateMachine.ReusableData.BackwardsCameraRecenteringData = _groundedData.BackwardsCameraRecenteringData;
-        }
-
-        protected void SetBaseRotationData()
-        {
-            _stateMachine.ReusableData.RotationData = _groundedData.BaseRotationData;
-
-            _stateMachine.ReusableData.TimeToReachTargetRotation = _stateMachine.ReusableData.RotationData.TargetRotationReachTime;
-        }
-
-        protected void StartAnimation(int animationHash) => _stateMachine.Player.Animator.SetBool(animationHash, true);
-
-        protected void StopAnimation(int animationHash) => _stateMachine.Player.Animator.SetBool(animationHash, false);
-
-        protected virtual void AddInputActionsCallbacks()
-        {
-            _stateMachine.Player.Input.PlayerActions.WalkToggle.started += OnWalkToggleStarted;
-
-            _stateMachine.Player.Input.PlayerActions.Look.started += OnMouseMovementStarted;
-
-            _stateMachine.Player.Input.PlayerActions.Movement.performed += OnMovementPerformed;
-            _stateMachine.Player.Input.PlayerActions.Movement.canceled += OnMovementCanceled;
-        }
-
-        protected virtual void RemoveInputActionsCallbacks()
-        {
-            _stateMachine.Player.Input.PlayerActions.WalkToggle.started -= OnWalkToggleStarted;
-
-            _stateMachine.Player.Input.PlayerActions.Look.started -= OnMouseMovementStarted;
-
-            _stateMachine.Player.Input.PlayerActions.Movement.performed -= OnMovementPerformed;
-            _stateMachine.Player.Input.PlayerActions.Movement.canceled -= OnMovementCanceled;
-        }
-
-        protected Vector3 GetMovementInputDirection() => new Vector3(_stateMachine.ReusableData.MovementInput.x, 0f, _stateMachine.ReusableData.MovementInput.y);
-
-        protected float UpdateTargetRotation(Vector3 direction, bool shouldConsiderCameraRotation = true)
-        {
-            float directionAngle = GetDirectionAngle(direction);
-
-            if (shouldConsiderCameraRotation)
+            if (directionAngle != StateFactory.ReusableData.CurrentTargetRotation.y)
             {
-                directionAngle = AddCameraRotationToAngle(directionAngle);
-            }
+                StateFactory.ReusableData.CurrentTargetRotation.y = directionAngle;
 
-            if (directionAngle != _stateMachine.ReusableData.CurrentTargetRotation.y)
-            {
-                UpdateTargetRotationData(directionAngle);
+                StateFactory.ReusableData.DampedTargetRotationPassedTime.y = 0f;
             }
 
             return directionAngle;
-        }
-
-        protected void RotateTowardsTargetRotation()
-        {
-            float currentYAngle = _stateMachine.Player.Rigidbody.rotation.eulerAngles.y;
-
-            if (currentYAngle == _stateMachine.ReusableData.CurrentTargetRotation.y)
-            {
-                return;
-            }
-
-            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, _stateMachine.ReusableData.CurrentTargetRotation.y, ref _stateMachine.ReusableData.DampedTargetRotationCurrentVelocity.y, _stateMachine.ReusableData.TimeToReachTargetRotation.y - _stateMachine.ReusableData.DampedTargetRotationPassedTime.y);
-
-            _stateMachine.ReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
-
-            Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);
-
-            _stateMachine.Player.Rigidbody.MoveRotation(targetRotation);
         }
 
         protected Vector3 GetTargetRotationDirection(float targetRotationAngle) => Quaternion.Euler(0f, targetRotationAngle, 0f) * Vector3.forward;
 
-        protected float GetMovementSpeed(bool shouldConsiderSlopes = true)
+        protected void RotateTowardsTargetRotation()
         {
-            float movementSpeed = _groundedData.BaseSpeed * _stateMachine.ReusableData.MovementSpeedModifier;
+            float currentYAngle = StateFactory.PlayerController.Rigidbody.rotation.eulerAngles.y;
 
-            if (shouldConsiderSlopes)
+            if (currentYAngle == StateFactory.ReusableData.CurrentTargetRotation.y)
             {
-                movementSpeed *= _stateMachine.ReusableData.MovementOnSlopesSpeedModifier;
+                return;
             }
 
-            return movementSpeed;
+            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, StateFactory.ReusableData.CurrentTargetRotation.y, ref StateFactory.ReusableData.DampedTargetRotationCurrentVelocity.y, StateFactory.ReusableData.TimeToReachTargetRotation.y - StateFactory.ReusableData.DampedTargetRotationPassedTime.y);
+
+            StateFactory.ReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
+
+            Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);
+
+            StateFactory.PlayerController.Rigidbody.MoveRotation(targetRotation);
         }
 
-        protected Vector3 GetPlayerHorizontalVelocity()
+        protected Vector3 GetHorizontalVelocity()
         {
-            Vector3 playerHorizontalVelocity = _stateMachine.Player.Rigidbody.velocity;
+            Vector3 horizontalVelocity = StateFactory.PlayerController.Rigidbody.linearVelocity;
 
-            playerHorizontalVelocity.y = 0f;
+            horizontalVelocity.y = 0f;
 
-            return playerHorizontalVelocity;
+            return horizontalVelocity;
         }
 
-        protected Vector3 GetPlayerVerticalVelocity() => new Vector3(0f, _stateMachine.Player.Rigidbody.velocity.y, 0f);
+        protected Vector3 GetVerticalVelocity() => new(0f, StateFactory.PlayerController.Rigidbody.linearVelocity.y, 0f);
 
         protected virtual void OnContactWithGround(Collider collider)
         {
@@ -249,115 +231,49 @@ namespace RPG.Player.StateMachine
         {
         }
 
-        protected void UpdateCameraRecenteringState(Vector2 movementInput)
-        {
-            if (movementInput == Vector2.zero)
-            {
-                return;
-            }
-
-            if (movementInput == Vector2.up)
-            {
-                DisableCameraRecentering();
-
-                return;
-            }
-
-            float cameraVerticalAngle = _stateMachine.Player.MainCameraTransform.eulerAngles.x;
-
-            if (cameraVerticalAngle >= 270f)
-            {
-                cameraVerticalAngle -= 360f;
-            }
-
-            cameraVerticalAngle = Mathf.Abs(cameraVerticalAngle);
-
-            if (movementInput == Vector2.down)
-            {
-                SetCameraRecenteringState(cameraVerticalAngle, _stateMachine.ReusableData.BackwardsCameraRecenteringData);
-
-                return;
-            }
-
-            SetCameraRecenteringState(cameraVerticalAngle, _stateMachine.ReusableData.SidewaysCameraRecenteringData);
-        }
-
-        protected void SetCameraRecenteringState(float cameraVerticalAngle, List<PlayerCameraRecenteringData> cameraRecenteringData)
-        {
-            foreach (PlayerCameraRecenteringData recenteringData in cameraRecenteringData)
-            {
-                if (!recenteringData.IsWithinRange(cameraVerticalAngle))
-                {
-                    continue;
-                }
-
-                EnableCameraRecentering(recenteringData.WaitTime, recenteringData.RecenteringTime);
-
-                return;
-            }
-
-            DisableCameraRecentering();
-        }
-
-        protected void EnableCameraRecentering(float waitTime = -1f, float recenteringTime = -1f)
-        {
-            float movementSpeed = GetMovementSpeed();
-
-            if (movementSpeed == 0f)
-            {
-                movementSpeed = _groundedData.BaseSpeed;
-            }
-
-            _stateMachine.Player.CameraRecenteringUtility.EnableRecentering(waitTime, recenteringTime, _groundedData.BaseSpeed, movementSpeed);
-        }
-
-        protected void DisableCameraRecentering() => _stateMachine.Player.CameraRecenteringUtility.DisableRecentering();
-
-        protected void ResetVelocity() => _stateMachine.Player.Rigidbody.velocity = Vector3.zero;
+        protected void ResetVelocity() => StateFactory.PlayerController.Rigidbody.linearVelocity = Vector3.zero;
 
         protected void ResetVerticalVelocity()
         {
-            Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+            Vector3 horizontalVelocity = GetHorizontalVelocity();
 
-            _stateMachine.Player.Rigidbody.velocity = playerHorizontalVelocity;
-        }
-
-        protected void DecelerateHorizontally()
-        {
-            Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
-
-            _stateMachine.Player.Rigidbody.AddForce(-playerHorizontalVelocity * _stateMachine.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
+            StateFactory.PlayerController.Rigidbody.linearVelocity = horizontalVelocity;
         }
 
         protected void DecelerateVertically()
         {
-            Vector3 playerVerticalVelocity = GetPlayerVerticalVelocity();
+            Vector3 verticalVelocity = GetVerticalVelocity();
 
-            _stateMachine.Player.Rigidbody.AddForce(-playerVerticalVelocity * _stateMachine.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
+            StateFactory.PlayerController.Rigidbody.AddForce(-verticalVelocity * StateFactory.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
         }
 
         protected bool IsMovingHorizontally(float minimumMagnitude = 0.1f)
         {
-            Vector3 playerHorizontaVelocity = GetPlayerHorizontalVelocity();
+            Vector3 horizontalVelocity = GetHorizontalVelocity();
 
-            Vector2 playerHorizontalMovement = new Vector2(playerHorizontaVelocity.x, playerHorizontaVelocity.z);
+            Vector2 horizontalMovement = new Vector2(horizontalVelocity.x, horizontalVelocity.z);
 
-            return playerHorizontalMovement.magnitude > minimumMagnitude;
+            return horizontalMovement.magnitude > minimumMagnitude;
         }
 
-        protected bool IsMovingUp(float minimumVelocity = 0.1f) => GetPlayerVerticalVelocity().y > minimumVelocity;
+        protected bool IsMovingUp(float minimumVelocity = 0.1f) => GetVerticalVelocity().y > minimumVelocity;
 
-        protected bool IsMovingDown(float minimumVelocity = 0.1f) => GetPlayerVerticalVelocity().y < -minimumVelocity;
+        protected bool IsMovingDown(float minimumVelocity = 0.1f) => GetVerticalVelocity().y < -minimumVelocity;
         #endregion
 
         #region Input Methods
-        protected virtual void OnWalkToggleStarted(InputAction.CallbackContext context) => _stateMachine.ReusableData.ShouldWalk = !_stateMachine.ReusableData.ShouldWalk;
+        protected virtual void OnRun(InputAction.CallbackContext ctx)
+        {
+            StateFactory.ReusableData.ShouldRun = ctx.ReadValueAsButton();
+        }
 
-        private void OnMouseMovementStarted(InputAction.CallbackContext context) => UpdateCameraRecenteringState(_stateMachine.ReusableData.MovementInput);
+        protected virtual void OnMovementPerformed(InputAction.CallbackContext ctx)
+        {
+        }
 
-        protected virtual void OnMovementPerformed(InputAction.CallbackContext context) => UpdateCameraRecenteringState(context.ReadValue<Vector2>());
-
-        protected virtual void OnMovementCanceled(InputAction.CallbackContext context) => DisableCameraRecentering();
+        protected virtual void OnMovementCanceled(InputAction.CallbackContext ctx)
+        {
+        }
         #endregion
     }
 }

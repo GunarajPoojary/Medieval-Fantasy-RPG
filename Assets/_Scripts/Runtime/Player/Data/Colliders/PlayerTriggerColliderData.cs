@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data
+namespace RPG
 {
     [System.Serializable]
     public class PlayerTriggerColliderData

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace RPG.UI
+namespace RPG
 {
     public class ButtonSoundPlayer : IButtonSoundPlayer
     {

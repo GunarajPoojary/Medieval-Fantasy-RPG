@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace RPG.UI
+namespace RPG
 {
     /// <summary>
     /// Represents a button in a tab group, handling user interactions and sound effects.

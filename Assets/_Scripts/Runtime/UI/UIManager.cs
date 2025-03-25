@@ -1,7 +1,6 @@
-using RPG.Core.Utils;
 using UnityEngine;
 
-namespace RPG.UI
+namespace RPG
 {
     /// <summary>
     /// Toggles the visibility of On-Screen UI elements, When UI's such as Inventory is set active.

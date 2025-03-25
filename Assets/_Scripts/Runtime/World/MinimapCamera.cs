@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.World
+namespace RPG
 {
     public class MinimapCamera : MonoBehaviour
     {

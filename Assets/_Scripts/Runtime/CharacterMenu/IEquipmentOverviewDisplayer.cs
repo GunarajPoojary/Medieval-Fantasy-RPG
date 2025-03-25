@@ -1,4 +1,4 @@
-﻿namespace RPG.CharacterMenu
+﻿namespace RPG
 {
     /// <summary>
     /// Interface for displaying equipment overview in the character menu.

@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: d05e1e87bea596f49b01fedb8c7da04c
+AssetOrigin:
+  serializedVersion: 1
+  productId: 65284
+  packageName: RPG Character Mecanim Animation Pack FREE
+  packageVersion: 2.5.2
+  assetPath: Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Animations/Unarmed/RPG-Character@Unarmed-DiveRoll-Forward1.FBX
+  uploadId: 586175
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -367,8 +374,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: Motion
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -411,7 +416,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.8213132
+      - time: 0.78923786
         functionName: TriggerOnMovementStateAnimationTransitionEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
