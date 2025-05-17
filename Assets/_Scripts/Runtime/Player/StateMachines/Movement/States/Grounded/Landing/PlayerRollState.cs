@@ -12,25 +12,25 @@ namespace RPG
         #region IState Methods
         public override void Enter()
         {
-            StateFactory.ReusableData.MovementSpeedModifier = _groundedData.RollData.SpeedModifier;
+            _stateFactory.ReusableData.MovementSpeedModifier = _groundedData.RollData.SpeedModifier;
 
             base.Enter();
 
-            StartAnimation(StateFactory.PlayerController.AnimationData.RollParameterHash);
+            StartAnimation(_stateFactory.PlayerController.AnimationData.RollParameterHash);
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            StopAnimation(StateFactory.PlayerController.AnimationData.RollParameterHash);
+            StopAnimation(_stateFactory.PlayerController.AnimationData.RollParameterHash);
         }
 
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
 
-            if (StateFactory.ReusableData.MovementInput != Vector2.zero)
+            if (_stateFactory.ReusableData.MovementInput != Vector2.zero)
             {
                 return;
             }
@@ -40,9 +40,9 @@ namespace RPG
 
         public override void OnAnimationTransitionEvent()
         {
-            if (StateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
             {
-                StateFactory.ChangeState(StateFactory.IdleState);
+                _stateFactory.SwitchState(_stateFactory.IdleState);
 
                 return;
             }

@@ -17,11 +17,11 @@ namespace RPG
         {
             base.Enter();
 
-            StateFactory.ReusableData.MovementDecelerationForce = _airborneData.JumpData.DecelerationForce;
+            _stateFactory.ReusableData.MovementDecelerationForce = _airborneData.JumpData.DecelerationForce;
 
-            StateFactory.ReusableData.RotationData = _airborneData.JumpData.RotationData;
+            _stateFactory.ReusableData.RotationData = _airborneData.JumpData.RotationData;
 
-            _shouldKeepRotating = StateFactory.ReusableData.MovementInput != Vector2.zero;
+            _shouldKeepRotating = _stateFactory.ReusableData.MovementInput != Vector2.zero;
 
             Jump();
         }
@@ -49,7 +49,7 @@ namespace RPG
                 return;
             }
 
-            StateFactory.ChangeState(StateFactory.FallState);
+            _stateFactory.SwitchState(_stateFactory.FallState);
         }
 
         public override void PhysicsUpdate()
@@ -71,15 +71,15 @@ namespace RPG
         #region Main Methods
         private void Jump()
         {
-            Vector3 jumpForce = StateFactory.ReusableData.CurrentJumpForce;
+            Vector3 jumpForce = _stateFactory.ReusableData.CurrentJumpForce;
 
-            Vector3 jumpDirection = StateFactory.PlayerController.transform.forward;
+            Vector3 jumpDirection = _stateFactory.PlayerController.transform.forward;
 
             if (_shouldKeepRotating)
             {
                 UpdateTargetRotation(GetMovementInputDirection());
 
-                jumpDirection = GetTargetRotationDirection(StateFactory.ReusableData.CurrentTargetRotation.y);
+                jumpDirection = GetTargetRotationDirection(_stateFactory.ReusableData.CurrentTargetRotation.y);
             }
 
             jumpForce.x *= jumpDirection.x;
@@ -89,16 +89,16 @@ namespace RPG
 
             ResetVelocity();
 
-            StateFactory.PlayerController.Rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
+            _stateFactory.PlayerController.Rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
         }
 
         private Vector3 GetJumpForceOnSlope(Vector3 jumpForce)
         {
-            Vector3 capsuleColliderCenterInWorldSpace = StateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             Ray downwardsRayFromCapsuleCenter = new Ray(capsuleColliderCenterInWorldSpace, Vector3.down);
 
-            if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit, _airborneData.JumpData.JumpToGroundRayDistance, StateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit, _airborneData.JumpData.JumpToGroundRayDistance, _stateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
             {
                 float groundAngle = Vector3.Angle(hit.normal, -downwardsRayFromCapsuleCenter.direction);
 

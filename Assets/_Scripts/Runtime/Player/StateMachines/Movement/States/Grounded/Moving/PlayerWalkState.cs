@@ -11,18 +11,18 @@ namespace RPG
         #region IState Methods
         public override void Enter()
         {
-            StateFactory.ReusableData.MovementSpeedModifier = _groundedData.WalkData.SpeedModifier;
+            _stateFactory.ReusableData.MovementSpeedModifier = _groundedData.WalkData.SpeedModifier;
 
             base.Enter();
 
-            StateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.WeakForce;
+            _stateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.WeakForce;
         }
         #endregion
 
         #region Input Methods
         protected override void OnMovementCanceled(InputAction.CallbackContext context)
         {
-            StateFactory.ChangeState(StateFactory.IdleState);
+            _stateFactory.SwitchState(_stateFactory.IdleState);
 
             base.OnMovementCanceled(context);
         }

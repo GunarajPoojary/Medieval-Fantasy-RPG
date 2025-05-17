@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RPG
 {
     [SelectionBase]
-    [RequireComponent(typeof(PlayerInputs))]
+    [RequireComponent(typeof(PlayerInputHandler))]
     [RequireComponent(typeof(PlayerResizableCapsuleCollider))]
     public class PlayerController : MonoBehaviour//, ISaveable
     {
@@ -19,7 +19,7 @@ namespace RPG
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
 
-        public PlayerInputs Input { get; private set; }
+        public PlayerInputHandler Input { get; private set; }
         public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
 
         public Transform MainCameraTransform { get; private set; }
@@ -33,7 +33,7 @@ namespace RPG
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponentInChildren<Animator>();
 
-            Input = GetComponent<PlayerInputs>();
+            Input = GetComponent<PlayerInputHandler>();
             ResizableCapsuleCollider = GetComponent<PlayerResizableCapsuleCollider>();
 
             MainCameraTransform = Camera.main.transform;
@@ -41,7 +41,7 @@ namespace RPG
             _stateFactory = new PlayerStateFactory(this);
         }
 
-        private void Start() => _stateFactory.ChangeState(_stateFactory.IdleState);
+        private void Start() => _stateFactory.SwitchState(_stateFactory.IdleState);
 
         private void Update()
         {

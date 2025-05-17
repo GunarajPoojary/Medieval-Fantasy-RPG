@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RPG
 {
-    public class PlayerAirborneState : PlayerMovementState
+    public class PlayerAirborneState : PlayerBaseMovementState
     {
         public PlayerAirborneState(PlayerStateFactory playerStateFactory) : base(playerStateFactory)
         {
@@ -13,19 +13,19 @@ namespace RPG
         {
             base.Enter();
 
-            StartAnimation(StateFactory.PlayerController.AnimationData.AirborneParameterHash);
+            StartAnimation(_stateFactory.PlayerController.AnimationData.AirborneParameterHash);
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            StopAnimation(StateFactory.PlayerController.AnimationData.AirborneParameterHash);
+            StopAnimation(_stateFactory.PlayerController.AnimationData.AirborneParameterHash);
         }
         #endregion
 
         #region Reusable Methods
-        protected override void OnContactWithGround(Collider collider) => StateFactory.ChangeState(StateFactory.LightLandState);
+        protected override void OnContactWithGround(Collider collider) => _stateFactory.SwitchState(_stateFactory.LightLandState);
         #endregion
     }
 }

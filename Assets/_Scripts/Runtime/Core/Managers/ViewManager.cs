@@ -13,7 +13,7 @@ namespace RPG
         [SerializeField] private float _startDelay;
         [SerializeField] private TransitionSettings _transition;
 
-        [SerializeField] private PlayerInputs _input;
+        [SerializeField] private PlayerInputHandler _input;
 
         private void OnEnable()
         {

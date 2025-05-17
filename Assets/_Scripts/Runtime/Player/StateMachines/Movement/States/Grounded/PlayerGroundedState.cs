@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace RPG
 {
-    public class PlayerGroundedState : PlayerMovementState
+    public class PlayerGroundedState : PlayerBaseMovementState
     {
         public PlayerGroundedState(PlayerStateFactory playerStateFactory) : base(playerStateFactory)
         {
@@ -14,7 +14,7 @@ namespace RPG
         {
             base.Enter();
 
-            StartAnimation(StateFactory.PlayerController.AnimationData.GroundedParameterHash);
+            StartAnimation(_stateFactory.PlayerController.AnimationData.GroundedParameterHash);
 
             UpdateShouldRunState();
         }
@@ -23,7 +23,7 @@ namespace RPG
         {
             base.Exit();
 
-            StopAnimation(StateFactory.PlayerController.AnimationData.GroundedParameterHash);
+            StopAnimation(_stateFactory.PlayerController.AnimationData.GroundedParameterHash);
         }
 
         public override void PhysicsUpdate()
@@ -35,28 +35,28 @@ namespace RPG
 
         private void UpdateShouldRunState()
         {
-            if (!StateFactory.ReusableData.ShouldRun)
+            if (!_stateFactory.ReusableData.ShouldRun)
             {
                 return;
             }
 
-            if (StateFactory.ReusableData.MovementInput != Vector2.zero)
+            if (_stateFactory.ReusableData.MovementInput != Vector2.zero)
             {
                 return;
             }
 
-            StateFactory.ReusableData.ShouldRun = false;
+            _stateFactory.ReusableData.ShouldRun = false;
         }
         #endregion
 
         #region Main Methods
         private void Float()
         {
-            Vector3 capsuleColliderCenterInWorldSpace = StateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             Ray downwardsRayFromCapsuleCenter = new Ray(capsuleColliderCenterInWorldSpace, Vector3.down);
 
-            if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit, StateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.FloatRayDistance, StateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit, _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.FloatRayDistance, _stateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
             {
                 float groundAngle = Vector3.Angle(hit.normal, -downwardsRayFromCapsuleCenter.direction);
 
@@ -67,18 +67,18 @@ namespace RPG
                     return;
                 }
 
-                float distanceToFloatingPoint = StateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y * StateFactory.PlayerController.transform.localScale.y - hit.distance;
+                float distanceToFloatingPoint = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y * _stateFactory.PlayerController.transform.localScale.y - hit.distance;
 
                 if (distanceToFloatingPoint == 0f)
                 {
                     return;
                 }
 
-                float amountToLift = distanceToFloatingPoint * StateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.StepReachForce - GetVerticalVelocity().y;
+                float amountToLift = distanceToFloatingPoint * _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.StepReachForce - GetVerticalVelocity().y;
 
                 Vector3 liftForce = new Vector3(0f, amountToLift, 0f);
 
-                StateFactory.PlayerController.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
+                _stateFactory.PlayerController.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
             }
         }
 
@@ -86,9 +86,9 @@ namespace RPG
         {
             float slopeSpeedModifier = _groundedData.SlopeSpeedAngles.Evaluate(angle);
 
-            if (StateFactory.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
+            if (_stateFactory.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
             {
-                StateFactory.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
+                _stateFactory.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
             }
 
             return slopeSpeedModifier;
@@ -96,11 +96,11 @@ namespace RPG
 
         private bool IsThereGroundUnderneath()
         {
-            PlayerTriggerColliderData triggerColliderData = StateFactory.PlayerController.ResizableCapsuleCollider.TriggerColliderData;
+            PlayerTriggerColliderData triggerColliderData = _stateFactory.PlayerController.ResizableCapsuleCollider.TriggerColliderData;
 
             Vector3 groundColliderCenterInWorldSpace = triggerColliderData.GroundCheckCollider.bounds.center;
 
-            Collider[] overlappedGroundColliders = Physics.OverlapBox(groundColliderCenterInWorldSpace, triggerColliderData.GroundCheckColliderVerticalExtents, triggerColliderData.GroundCheckCollider.transform.rotation, StateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore);
+            Collider[] overlappedGroundColliders = Physics.OverlapBox(groundColliderCenterInWorldSpace, triggerColliderData.GroundCheckColliderVerticalExtents, triggerColliderData.GroundCheckCollider.transform.rotation, _stateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore);
 
             return overlappedGroundColliders.Length > 0;
         }
@@ -111,26 +111,26 @@ namespace RPG
         {
             base.AddInputActionsCallbacks();
 
-            StateFactory.PlayerController.Input.PlayerActions.Jump.started += OnJumpStarted;
+            _stateFactory.PlayerController.Input.PlayerActions.Jump.started += OnJumpStarted;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
             base.RemoveInputActionsCallbacks();
 
-            StateFactory.PlayerController.Input.PlayerActions.Jump.started -= OnJumpStarted;
+            _stateFactory.PlayerController.Input.PlayerActions.Jump.started -= OnJumpStarted;
         }
 
         protected virtual void OnMove()
         {
-            if (StateFactory.ReusableData.ShouldRun)
+            if (_stateFactory.ReusableData.ShouldRun)
             {
-                StateFactory.ChangeState(StateFactory.RunState);
+                _stateFactory.SwitchState(_stateFactory.RunState);
 
                 return;
             }
 
-            StateFactory.ChangeState(StateFactory.WalkState);
+            _stateFactory.SwitchState(_stateFactory.WalkState);
         }
 
         protected override void OnContactWithGroundExited(Collider collider)
@@ -140,17 +140,17 @@ namespace RPG
                 return;
             }
 
-            Vector3 capsuleColliderCenterInWorldSpace = StateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
-            Ray downwardsRayFromCapsuleBottom = new Ray(capsuleColliderCenterInWorldSpace - StateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents, Vector3.down);
+            Ray downwardsRayFromCapsuleBottom = new Ray(capsuleColliderCenterInWorldSpace - _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents, Vector3.down);
 
-            if (!Physics.Raycast(downwardsRayFromCapsuleBottom, out _, _groundedData.GroundToFallRayDistance, StateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
+            if (!Physics.Raycast(downwardsRayFromCapsuleBottom, out _, _groundedData.GroundToFallRayDistance, _stateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
             {
                 OnFall();
             }
         }
 
-        protected virtual void OnFall() => StateFactory.ChangeState(StateFactory.FallState);
+        protected virtual void OnFall() => _stateFactory.SwitchState(_stateFactory.FallState);
         #endregion
 
         #region Input Methods
@@ -158,7 +158,7 @@ namespace RPG
         {
             base.OnRun(ctx);
 
-            if (StateFactory.ReusableData.MovementInput != Vector2.zero)
+            if (_stateFactory.ReusableData.MovementInput != Vector2.zero)
             {
                 OnMove();
             }
@@ -173,7 +173,7 @@ namespace RPG
 
         protected virtual void OnJumpStarted(InputAction.CallbackContext ctx)
         {
-            StateFactory.ChangeState(StateFactory.JumpState);
+            _stateFactory.SwitchState(_stateFactory.JumpState);
         }
         #endregion
     }

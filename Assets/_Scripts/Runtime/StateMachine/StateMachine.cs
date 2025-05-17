@@ -6,7 +6,7 @@ namespace RPG
     {
         protected IState _currentState;
 
-        public void ChangeState(IState newState)
+        public void SwitchState(IState newState)
         {
             _currentState?.Exit();
 
@@ -19,7 +19,7 @@ namespace RPG
 
         public void Update()
         {
-            //Debug.Log(_currentState.GetType().Name);
+            Debug.Log($"<color=yellow>Current State: {_currentState.GetType().Name}</color>");
             _currentState?.Update();
         }
 

@@ -8,7 +8,7 @@ namespace RPG
     {
         [SerializeField] private PlayerCameraData _playerCameraData;
 
-        private PlayerInputs _playerInput;
+        private PlayerInputHandler _playerInput;
 
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -18,7 +18,7 @@ namespace RPG
 
         private void Awake()
         {
-            _playerInput = GetComponent<PlayerInputs>();
+            _playerInput = GetComponent<PlayerInputHandler>();
         }
 
         private void OnEnable()

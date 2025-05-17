@@ -8,7 +8,7 @@ namespace RPG
     public class InventoryUI : MonoBehaviour
     {
         [SerializeField] private GameObject _inventoryPanel;
-        [SerializeField] private PlayerInputs _input;
+        [SerializeField] private PlayerInputHandler _input;
 
         [SerializedDictionary("Item Type", "Item Panel")]
         [SerializeField] private SerializedDictionary<ItemType, Transform> _itemTypeToPanelsMap;

@@ -11,11 +11,11 @@ namespace RPG
         #region IState Methods
         public override void Enter()
         {
-            StateFactory.ReusableData.MovementSpeedModifier = _groundedData.IdleData.SpeedModifier;
+            _stateFactory.ReusableData.MovementSpeedModifier = _groundedData.IdleData.SpeedModifier;
 
             base.Enter();
 
-            StateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.StationaryForce;
+            _stateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.StationaryForce;
 
             ResetVelocity();
         }
@@ -24,7 +24,7 @@ namespace RPG
         {
             base.Update();
 
-            if (StateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
             {
                 return;
             }

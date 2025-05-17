@@ -13,9 +13,9 @@ namespace RPG
         {
             base.Enter();
 
-            StateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.StationaryForce;
+            _stateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.StationaryForce;
 
-            StateFactory.PlayerController.Input.PlayerActions.Jump.Disable();
+            _stateFactory.PlayerController.Input.PlayerActions.Jump.Disable();
 
             ResetVelocity();
         }
@@ -24,14 +24,14 @@ namespace RPG
         {
             base.Exit();
 
-            StateFactory.PlayerController.Input.PlayerActions.Jump.Enable();
+            _stateFactory.PlayerController.Input.PlayerActions.Jump.Enable();
         }
 
         public override void Update()
         {
             base.Update();
 
-            if (StateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
             {
                 return;
             }
@@ -51,7 +51,7 @@ namespace RPG
             ResetVelocity();
         }
 
-        public override void OnAnimationTransitionEvent() => StateFactory.ChangeState(StateFactory.IdleState);
+        public override void OnAnimationTransitionEvent() => _stateFactory.SwitchState(_stateFactory.IdleState);
         #endregion
     }
 }

@@ -11,13 +11,13 @@ namespace RPG
         #region IState Methods
         public override void Enter()
         {
-            StateFactory.ReusableData.MovementSpeedModifier = 0f;
+            _stateFactory.ReusableData.MovementSpeedModifier = 0f;
 
             base.Enter();
 
-            StartAnimation(StateFactory.PlayerController.AnimationData.HardLandParameterHash);
+            StartAnimation(_stateFactory.PlayerController.AnimationData.HardLandParameterHash);
 
-            StateFactory.PlayerController.Input.PlayerActions.Move.Disable();
+            _stateFactory.PlayerController.Input.PlayerActions.Move.Disable();
 
             ResetVelocity();
         }
@@ -26,9 +26,9 @@ namespace RPG
         {
             base.Exit();
 
-            StopAnimation(StateFactory.PlayerController.AnimationData.HardLandParameterHash);
+            StopAnimation(_stateFactory.PlayerController.AnimationData.HardLandParameterHash);
 
-            StateFactory.PlayerController.Input.PlayerActions.Move.Enable();
+            _stateFactory.PlayerController.Input.PlayerActions.Move.Enable();
         }
 
         public override void PhysicsUpdate()
@@ -43,9 +43,9 @@ namespace RPG
             ResetVelocity();
         }
 
-        public override void OnAnimationExitEvent() => StateFactory.PlayerController.Input.PlayerActions.Move.Enable();
+        public override void OnAnimationExitEvent() => _stateFactory.PlayerController.Input.PlayerActions.Move.Enable();
 
-        public override void OnAnimationTransitionEvent() => StateFactory.ChangeState(StateFactory.IdleState);
+        public override void OnAnimationTransitionEvent() => _stateFactory.SwitchState(_stateFactory.IdleState);
         #endregion
 
         #region Reusable Methods
@@ -53,19 +53,19 @@ namespace RPG
         {
             base.AddInputActionsCallbacks();
 
-            StateFactory.PlayerController.Input.PlayerActions.Move.started += OnMovementStarted;
+            _stateFactory.PlayerController.Input.PlayerActions.Move.started += OnMovementStarted;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
             base.RemoveInputActionsCallbacks();
 
-            StateFactory.PlayerController.Input.PlayerActions.Move.started -= OnMovementStarted;
+            _stateFactory.PlayerController.Input.PlayerActions.Move.started -= OnMovementStarted;
         }
 
         protected override void OnMove()
         {
-            StateFactory.ChangeState(StateFactory.WalkState);
+            _stateFactory.SwitchState(_stateFactory.WalkState);
         }
         #endregion
 

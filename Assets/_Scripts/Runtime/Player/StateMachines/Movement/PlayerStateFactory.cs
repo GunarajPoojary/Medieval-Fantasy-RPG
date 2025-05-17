@@ -1,5 +1,10 @@
 namespace RPG
 {
+    /// <summary>
+    /// Factory and container for all player states.
+    /// Responsible for creating and storing instances of each state
+    /// so they can be reused efficiently throughout the game.
+    /// </summary>
     public class PlayerStateFactory : StateMachine
     {
         public PlayerController PlayerController { get; }
@@ -20,6 +25,7 @@ namespace RPG
         public PlayerStateFactory(PlayerController playerController)
         {
             PlayerController = playerController;
+            
             ReusableData = new PlayerStateReusableData();
 
             IdleState = new PlayerIdleState(this);

@@ -15,9 +15,9 @@ namespace RPG
         {
             base.Enter();
 
-            StartAnimation(StateFactory.PlayerController.AnimationData.FallParameterHash);
+            StartAnimation(_stateFactory.PlayerController.AnimationData.FallParameterHash);
 
-            _playerPositionOnEnter = StateFactory.PlayerController.transform.position;
+            _playerPositionOnEnter = _stateFactory.PlayerController.transform.position;
 
             ResetVerticalVelocity();
         }
@@ -26,7 +26,7 @@ namespace RPG
         {
             base.Exit();
 
-            StopAnimation(StateFactory.PlayerController.AnimationData.FallParameterHash);
+            StopAnimation(_stateFactory.PlayerController.AnimationData.FallParameterHash);
         }
 
         public override void PhysicsUpdate()
@@ -49,30 +49,30 @@ namespace RPG
 
             Vector3 limitedVelocityForce = new(0f, -_airborneData.FallData.FallSpeedLimit - playerVerticalVelocity.y, 0f);
 
-            StateFactory.PlayerController.Rigidbody.AddForce(limitedVelocityForce, ForceMode.VelocityChange);
+            _stateFactory.PlayerController.Rigidbody.AddForce(limitedVelocityForce, ForceMode.VelocityChange);
         }
         #endregion
 
         #region Reusable Methods
         protected override void OnContactWithGround(Collider collider)
         {
-            float fallDistance = _playerPositionOnEnter.y - StateFactory.PlayerController.transform.position.y;
+            float fallDistance = _playerPositionOnEnter.y - _stateFactory.PlayerController.transform.position.y;
 
             if (fallDistance < _airborneData.FallData.MinimumDistanceToBeConsideredHardFall)
             {
-                StateFactory.ChangeState(StateFactory.LightLandState);
+                _stateFactory.SwitchState(_stateFactory.LightLandState);
 
                 return;
             }
 
-            if (!StateFactory.ReusableData.ShouldRun || StateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (!_stateFactory.ReusableData.ShouldRun || _stateFactory.ReusableData.MovementInput == Vector2.zero)
             {
-                StateFactory.ChangeState(StateFactory.HardLandState);
+                _stateFactory.SwitchState(_stateFactory.HardLandState);
 
                 return;
             }
 
-            StateFactory.ChangeState(StateFactory.RollState);
+            _stateFactory.SwitchState(_stateFactory.RollState);
         }
         #endregion
     }

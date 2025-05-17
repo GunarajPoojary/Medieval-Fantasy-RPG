@@ -16,15 +16,15 @@ namespace RPG
         #region IState Methods
         public override void Enter()
         {
-            StateFactory.ReusableData.MovementSpeedModifier = _groundedData.RunData.SpeedModifier;
+            _stateFactory.ReusableData.MovementSpeedModifier = _groundedData.RunData.SpeedModifier;
 
             base.Enter();
 
-            StateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.MediumForce;
+            _stateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.MediumForce;
 
             _startTime = Time.time;
 
-            if (!StateFactory.ReusableData.ShouldRun)
+            if (!_stateFactory.ReusableData.ShouldRun)
             {
                 _keepRunning = false;
             }
@@ -49,14 +49,14 @@ namespace RPG
         #region Main Methods
         private void StopRunning()
         {
-            if (StateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
             {
-                StateFactory.ChangeState(StateFactory.IdleState);
+                _stateFactory.SwitchState(_stateFactory.IdleState);
 
                 return;
             }
 
-            StateFactory.ChangeState(StateFactory.WalkState);
+            _stateFactory.SwitchState(_stateFactory.WalkState);
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace RPG
         }
         protected override void OnMovementCanceled(InputAction.CallbackContext ctx)
         {
-            StateFactory.ChangeState(StateFactory.IdleState);
+            _stateFactory.SwitchState(_stateFactory.IdleState);
 
             base.OnMovementCanceled(ctx);
         }
