@@ -1,4 +1,4 @@
-using UnityEngine.InputSystem;
+using UnityEngine;
 
 namespace RPG
 {
@@ -43,7 +43,11 @@ namespace RPG
             ResetVelocity();
         }
 
-        public override void OnAnimationExitEvent() => _stateFactory.PlayerController.Input.PlayerActions.Move.Enable();
+        public override void OnAnimationExitEvent()
+        {
+            _stateFactory.PlayerController.Input.PlayerActions.Move.Enable();
+        }
+
 
         public override void OnAnimationTransitionEvent() => _stateFactory.SwitchState(_stateFactory.IdleState);
         #endregion
@@ -60,7 +64,7 @@ namespace RPG
         {
             base.RemoveInputActionsCallbacks();
 
-            _stateFactory.PlayerController.Input.PlayerActions.Move.started -= OnMovementStarted;
+            _stateFactory.PlayerController.Input.OnMoveAction -= OnMovementStarted;
         }
 
         protected override void OnMove()
@@ -70,11 +74,9 @@ namespace RPG
         #endregion
 
         #region Input Methods
-        private void OnMovementStarted(InputAction.CallbackContext context) => OnMove();
+        private void OnMovementStarted(Vector2 moveInput) => OnMove();
 
-        protected override void OnJumpStarted(InputAction.CallbackContext context)
-        {
-        }
+        protected override void OnJumpStarted() { }
         #endregion
     }
 }
