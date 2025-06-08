@@ -1,7 +1,10 @@
 using UnityEngine;
 
-namespace RPG
+namespace RPG.Player.Data.States.Airborne
 {
+    /// <summary>
+    /// Contains data related to player jump state, including forces and slope modifiers.
+    /// </summary>
     [System.Serializable]
     public class PlayerJumpData
     {

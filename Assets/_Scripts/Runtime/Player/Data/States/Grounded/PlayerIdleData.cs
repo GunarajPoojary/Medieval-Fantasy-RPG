@@ -1,8 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG
+namespace RPG.Player.Data.States.Grounded
 {
+    /// <summary>
+    /// Contains data for player idle state, primarily speed adjustment.
+    /// </summary>
     [System.Serializable]
     public class PlayerIdleData
     {

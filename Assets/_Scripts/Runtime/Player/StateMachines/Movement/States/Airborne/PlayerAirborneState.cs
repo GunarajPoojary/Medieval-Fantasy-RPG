@@ -1,17 +1,18 @@
-using UnityEngine;
+using UnityEngine; 
 
-namespace RPG
+namespace RPG.Player.StateMachines.Movement.States.Airborne
 {
+    /// <summary>
+    /// Handles the common airborne (in-air) state logics of the player.
+    /// </summary>
     public class PlayerAirborneState : PlayerBaseMovementState
     {
-        public PlayerAirborneState(PlayerStateFactory playerStateFactory) : base(playerStateFactory)
-        {
-        }
+        public PlayerAirborneState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
 
         #region IState Methods
         public override void Enter()
         {
-            base.Enter();
+            base.Enter(); 
 
             StartAnimation(_stateFactory.PlayerController.AnimationData.AirborneParameterHash);
         }

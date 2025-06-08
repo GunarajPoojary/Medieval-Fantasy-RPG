@@ -1,7 +1,10 @@
 using UnityEngine;
 
-namespace RPG
+namespace RPG.Player.Data.States.Grounded.Landing
 {
+    /// <summary>
+    /// Contains data for player roll state, such as speed modifier.
+    /// </summary>
     [System.Serializable]
     public class PlayerRollData
     {

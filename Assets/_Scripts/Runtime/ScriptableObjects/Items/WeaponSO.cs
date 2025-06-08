@@ -4,23 +4,29 @@ namespace RPG
 {
     public enum WeaponType
     {
-        BowAndArrow,
-        DualSwords,
-        SwordAndShield,
-        Staff,
-        LongSword,
-        Axe,
-        Spear
+        Default,
+        GreatSword
     }
 
-    [CreateAssetMenu(fileName = "New Weapon", menuName = "Inventory/Items/Equipment/Weapon", order = 1)]
+    [CreateAssetMenu(fileName = "NewWeapon", menuName = "Game/Inventory/Items/Equipment/Weapon", order = 1)]
     public class WeaponSO : EquipmentSO
     {
-        public WeaponType WeaponType;
-        public AnimatorOverrideController GameplayAnimatorOverrideController;  // Animator override controller for gameplay scene
-        public AnimatorOverrideController CharacterMenuAnimatorOverrideController;  // Animator override controller for character menu scene
-        public GameObject[] WeaponPrefabs;
+        [SerializeField] private WeaponType _weaponType;
+        [SerializeField] private AnimatorOverrideController _gameplayAnimatorOverrideController;
+        [SerializeField] private AnimatorOverrideController _characterMenuAnimatorOverrideController;
+        [SerializeField] private GameObject[] _weaponPrefabs;
 
-        private void OnValidate() => Type = ItemType.Weapon;
+        public WeaponType WeaponType => _weaponType;
+        public AnimatorOverrideController GameplayAnimator => _gameplayAnimatorOverrideController;
+        public AnimatorOverrideController CharacterMenuAnimator => _characterMenuAnimatorOverrideController;
+        public GameObject[] WeaponPrefabs => _weaponPrefabs;
+
+        protected override void OnValidate()
+        {
+            _type = ItemType.Weapon;
+
+            base.OnValidate();
+        }
+
     }
 }

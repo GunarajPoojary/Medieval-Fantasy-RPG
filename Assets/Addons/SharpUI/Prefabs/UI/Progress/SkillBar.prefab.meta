@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f216e352df976104ca5fa15e63963660
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Progress/SkillBar.prefab
+  uploadId: 452711

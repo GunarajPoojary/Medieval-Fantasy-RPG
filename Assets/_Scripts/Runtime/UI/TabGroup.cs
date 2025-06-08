@@ -1,51 +1,77 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPG
 {
-    /// <summary>
-    /// Manages tab buttons, handling their states and interactions.
-    /// </summary>
+    [System.Serializable]
+    public class TabData
+    {
+        public TabButton tabButton;
+        public GameObject tabContent;
+    }
+
     public class TabGroup : MonoBehaviour
     {
-        [SerializeField] private Color _tabIdleColor;
+        [SerializeField] private TabData[] _tabs;
 
-        [SerializeField] private Color _tabHoverColor;
+        [SerializeField] private AudioClip _hoverSound;
+        [SerializeField] private AudioClip _selectSound;
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private Color _defaultColor;
+        [SerializeField] private Color _hoverColor;
+        [SerializeField] private Color _selectedColor;
+        private int _selectedButtonIndex = 0;
+        private Image _selectedImage;
+        public event Action<int> OnTabChanged;
 
-        [SerializeField] private Color _tabSelectedColor;
-
-        // List of GameObjects to swap when a tab is selected.
-        [SerializeField] private List<GameObject> _objectsToSwap;
-
-        private ITabButtonStateChangeable _stateChanger;
-
-        [field: SerializeField] public List<TabButton> TabButtons { get; private set; } = new List<TabButton>();
-
-        public TabButton SelectedTab { get; private set; }
-
-        private void Awake()
+        private void OnEnable()
         {
-            _stateChanger = new TabButtonStateChanger(_tabIdleColor, _tabHoverColor, _tabSelectedColor);
-
-            SetDefaultTab();
-        }
-
-        private void SetDefaultTab()
-        {
-            if (TabButtons != null && TabButtons.Count > 0)
+            for (int i = 0; i < _tabs.Length; i++)
             {
-                OnTabClick(TabButtons[0]);
+                if (_tabs[i].tabButton != null)
+                    _tabs[i].tabButton.Setup(this, i);
             }
         }
 
-        public void OnTabEnter(TabButton button) => _stateChanger.ChangeStateOnEnter(button, SelectedTab);
+        public void SetDefaultTab(int index) => OnTabSelected(index, _tabs[index].tabButton.GetComponent<Image>());
 
-        public void OnTabExit(TabButton button) => _stateChanger.ChangeStateOnExit(TabButtons, SelectedTab);
-
-        public void OnTabClick(TabButton button)
+        public void OnHoverEnter(Image image)
         {
-            SelectedTab = button;
-            _stateChanger.ChangeStateOnClick(button, SelectedTab, _objectsToSwap);
+            _audioSource.PlayOneShot(_hoverSound);
+
+            if (image != _selectedImage)
+                image.color = _hoverColor;
+        }
+
+        public void OnHoverExit(Image image)
+        {
+            if (image != _selectedImage)
+                image.color = _defaultColor;
+        }
+
+        public void OnTabSelected(int index, Image image)
+        {
+            if (_selectedImage != null)
+            {
+                _selectedImage.color = _defaultColor;
+                _selectedImage = null;
+            }
+
+            _selectedImage = image;
+            _selectedImage.color = _selectedColor;
+            _selectedButtonIndex = index;
+            ShowTab();
+        }
+
+        private void ShowTab()
+        {
+            _audioSource.PlayOneShot(_selectSound);
+
+            for (int i = 0; i < _tabs.Length; i++)
+                _tabs[i].tabContent.SetActive(i == _selectedButtonIndex);
+
+            OnTabChanged?.Invoke(_selectedButtonIndex);
         }
     }
 }

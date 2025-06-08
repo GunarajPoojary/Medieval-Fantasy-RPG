@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 83e907edb04d44f4e9b933fe3b845ec7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Factory/CharacterIconFactory.prefab
+  uploadId: 452711

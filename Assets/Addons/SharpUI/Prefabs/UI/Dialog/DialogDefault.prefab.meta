@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6003f4d8a25742a4e982e449717a3202
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Dialog/DialogDefault.prefab
+  uploadId: 452711

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cfded225af68b504384be88af9988c78
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/FadeLine.prefab
+  uploadId: 452711

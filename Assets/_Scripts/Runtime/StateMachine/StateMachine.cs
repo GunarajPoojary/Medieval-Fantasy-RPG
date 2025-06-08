@@ -1,7 +1,11 @@
 using UnityEngine;
 
-namespace RPG
+namespace RPG.StateMachine
 {
+    /// <summary>
+    /// Abstract base class for managing state transitions and delegating behavior to the current state.
+    /// It provides a consistent interface for handling input, updates, physics, collisions, and animation events.
+    /// </summary>
     public abstract class StateMachine
     {
         protected IState _currentState;
@@ -17,11 +21,7 @@ namespace RPG
 
         public void HandleInput() => _currentState?.HandleInput();
 
-        public void Update()
-        {
-            Debug.Log($"<color=yellow>Current State: {_currentState.GetType().Name}</color>");
-            _currentState?.Update();
-        }
+        public void UpdateState() => _currentState?.UpdateState();
 
         public void PhysicsUpdate() => _currentState?.PhysicsUpdate();
 

@@ -1,46 +1,39 @@
 using UnityEngine;
 
-namespace RPG
+namespace RPG.Player.Utilities.Animations
 {
+    /// <summary>
+    /// Handles animation event triggers related to movement state changes for the player
+    /// </summary>
     public class PlayerAnimationEventTrigger : MonoBehaviour
     {
-        private PlayerController _playerController;
+        private IMovementStateAnimationEventsHandler _playerStateAnimationHandler;
 
-        private void Awake()
-        {
-            _playerController = transform.parent.GetComponent<PlayerController>();
-        }
+        private void Start() => _playerStateAnimationHandler = GetComponentInParent<PlayeController>(); //GameService.Instance.PlayerService.PlayerMovementStateMachine;
 
         public void TriggerOnMovementStateAnimationEnterEvent()
         {
-            if (IsInAnimationTransition())
-            {
-                return;
-            }
+            if (IsInAnimationTransition()) return;
 
-            _playerController.OnMovementStateAnimationEnterEvent();
+            _playerStateAnimationHandler?.OnMovementStateAnimationEnterEvent();
         }
 
         public void TriggerOnMovementStateAnimationExitEvent()
         {
-            if (IsInAnimationTransition())
-            {
-                return;
-            }
+            if (IsInAnimationTransition()) return;
 
-            _playerController.OnMovementStateAnimationExitEvent();
+            _playerStateAnimationHandler?.OnMovementStateAnimationExitEvent();
         }
 
         public void TriggerOnMovementStateAnimationTransitionEvent()
         {
-            if (IsInAnimationTransition())
-            {
-                return;
-            }
+            if (IsInAnimationTransition()) return;
 
-            _playerController.OnMovementStateAnimationTransitionEvent();
+            _playerStateAnimationHandler?.OnMovementStateAnimationTransitionEvent();
         }
 
-        private bool IsInAnimationTransition(int layerIndex = 0) => _playerController.Animator.IsInTransition(layerIndex);
+        // Utility method to check if the animator is currently transitioning between animations
+        // Uses default layer index 0 unless specified otherwise
+        private bool IsInAnimationTransition(int layerIndex = 0) => _playerStateAnimationHandler?.Animator.IsInTransition(layerIndex) ?? false;
     }
 }

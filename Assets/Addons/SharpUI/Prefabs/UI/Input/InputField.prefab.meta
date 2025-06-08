@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1e6e640fc50432b4293ed4781659d890
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Input/InputField.prefab
+  uploadId: 452711

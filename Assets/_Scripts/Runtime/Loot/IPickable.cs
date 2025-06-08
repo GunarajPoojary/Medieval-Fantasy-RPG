@@ -1,7 +1,8 @@
-namespace RPG
+namespace RPG.Loot
 {
     public interface IPickable
     {
-        ItemSO GetPickUpItem();
+        void SetGameObject(bool isActive);
+        ItemSO PickUpItem();
     }
 }

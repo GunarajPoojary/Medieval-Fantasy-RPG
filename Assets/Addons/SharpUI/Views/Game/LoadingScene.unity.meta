@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a8fba71fe6bf7b441b37fb596851957c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Views/Game/LoadingScene.unity
+  uploadId: 452711

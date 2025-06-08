@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c3886869ccfd84c74bbe092dfd43fe6f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Views/Game/SkillTree.unity
+  uploadId: 452711

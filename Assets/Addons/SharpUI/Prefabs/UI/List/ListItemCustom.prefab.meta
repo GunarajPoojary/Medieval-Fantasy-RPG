@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 43a9fbd992ad96744ba90160c1aa553d
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/List/ListItemCustom.prefab
+  uploadId: 452711

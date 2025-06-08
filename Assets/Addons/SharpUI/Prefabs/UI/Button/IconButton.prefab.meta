@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4ae8a9d3a5de27648bee5528c5ec1e69
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Button/IconButton.prefab
+  uploadId: 452711

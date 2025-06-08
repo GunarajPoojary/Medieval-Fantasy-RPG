@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4d77421260b47384e94d9e2b11c33bb4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/SkillTree/SkillTreeArrowLine.prefab
+  uploadId: 452711

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cdff8f2318c525b4b81e9c38c89cd42a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Input/Dropdown.prefab
+  uploadId: 452711

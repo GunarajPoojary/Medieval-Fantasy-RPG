@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3ef9d725dae653342b1573ce79c4f06a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/SkillTree/SkillTreeAmountLimit.prefab
+  uploadId: 452711

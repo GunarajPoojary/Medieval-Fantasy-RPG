@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 574c05ea3fca9284dbae3e34fccf9d7b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Input/CheckBoxSquare.prefab
+  uploadId: 452711

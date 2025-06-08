@@ -1,7 +1,11 @@
 using UnityEngine;
 
-namespace RPG
+namespace RPG.Player.Data.Colliders
 {
+    /// <summary>
+    /// Stores configuration and calculated data for the player's ground check trigger collider.
+    /// Used for detecting ground contact by tracking the vertical extents of the assigned BoxCollider.
+    /// </summary>
     [System.Serializable]
     public class PlayerTriggerColliderData
     {

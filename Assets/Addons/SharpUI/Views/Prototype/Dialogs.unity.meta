@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a604dea533285bf4a86914fef39d15ed
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Views/Prototype/Dialogs.unity
+  uploadId: 452711

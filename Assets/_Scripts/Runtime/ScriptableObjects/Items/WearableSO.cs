@@ -12,23 +12,20 @@ namespace RPG
         Feet
     }
 
-    public enum WearableType
-    {
-        HelmetOrMask,
-        ShirtOrBodyArmor,
-        GlovesOrGauntlets,
-        Cape,
-        PantOrLegArmor,
-        Boots
-    }
-
-    [CreateAssetMenu(fileName = "New Wearable", menuName = "Inventory/Items/Equipment/Wearable", order = 2)]
+    [CreateAssetMenu(fileName = "NewWearable", menuName = "Game/Inventory/Items/Equipment/Wearable", order = 2)]
     public class WearableSO : EquipmentSO
     {
-        public WearableSlot EquipSlot;
-        public WearableType WearableType;
+        [SerializeField] private WearableSlot _equipSlot;
+
+        public WearableSlot EquipSlot => _equipSlot;
         //public SkinnedMeshRenderer SkinnedMesh;
 
-        private void OnValidate() => Type = ItemType.Wearable;
+        protected override void OnValidate()
+        {
+            _type = ItemType.Wearable;
+
+            base.OnValidate();
+        }
+
     }
 }

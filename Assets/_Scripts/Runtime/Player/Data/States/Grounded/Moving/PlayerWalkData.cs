@@ -1,8 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG
+namespace RPG.Player.Data.States.Grounded.Moving
 {
+    /// <summary>
+    /// Contains data for player walk state, including speed adjustment.
+    /// </summary>
     [System.Serializable]
     public class PlayerWalkData
     {

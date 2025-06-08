@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d59aaea18188dbd4aa2cc4d1553eef83
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Views/User/CharacterCreate.unity
+  uploadId: 452711

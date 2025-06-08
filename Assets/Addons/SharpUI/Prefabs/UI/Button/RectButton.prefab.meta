@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7a7207825d33c4b4aa8c774285d0c5e6
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Button/RectButton.prefab
+  uploadId: 452711

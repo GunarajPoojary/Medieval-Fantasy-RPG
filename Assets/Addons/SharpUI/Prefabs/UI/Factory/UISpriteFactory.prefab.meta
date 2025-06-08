@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e4c33622d053c4f499708874b08f38b3
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 195933
+  packageName: SharpUI GUI
+  packageVersion: 1.0
+  assetPath: Assets/SharpUI/Prefabs/UI/Factory/UISpriteFactory.prefab
+  uploadId: 452711

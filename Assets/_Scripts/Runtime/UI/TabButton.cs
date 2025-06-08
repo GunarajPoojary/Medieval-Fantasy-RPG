@@ -4,45 +4,25 @@ using UnityEngine.UI;
 
 namespace RPG
 {
-    /// <summary>
-    /// Represents a button in a tab group, handling user interactions and sound effects.
-    /// </summary>
     [RequireComponent(typeof(Image))]
-    public class TabButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
-        [SerializeField] private AudioClip _clickSound;
+        private Image _image;
+        private TabGroup _tabGroup;
+        private int _index;
 
-        [SerializeField] private AudioClip _enterSound;
+        private void Awake() => _image = GetComponent<Image>();
 
-        [SerializeField] private AudioSource _audioSource;
-
-        private IButtonSoundPlayer _buttonSoundPlayer;
-
-        // The tab group to which this button belongs.
-        [field: SerializeField] public TabGroup TabGroup { get; set; }
-
-        [field: SerializeField] public Image Background { get; private set; }
-
-        private void Awake() => _buttonSoundPlayer = new ButtonSoundPlayer(_audioSource, _clickSound, _enterSound);
-
-        #region IPointerClickHandler Method
-        public void OnPointerClick(PointerEventData eventData)
+        public void Setup(TabGroup group, int index)
         {
-            TabGroup.OnTabClick(this);
-            _buttonSoundPlayer.OnPointerClick(eventData);
+            _tabGroup = group;
+            _index = index;
         }
-        #endregion
 
-        #region IPointerEnterHandler Method
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            TabGroup.OnTabEnter(this);
-            _buttonSoundPlayer.OnPointerEnter(eventData);
-        }
-        #endregion
+        public void OnPointerClick(PointerEventData eventData) => _tabGroup.OnTabSelected(_index, _image);
 
-        #region IPointerExitHandler Method
-        public void OnPointerExit(PointerEventData eventData) => TabGroup.OnTabExit(this);
-        #endregion
+        public void OnPointerEnter(PointerEventData eventData) => _tabGroup.OnHoverEnter(_image);
+
+        public void OnPointerExit(PointerEventData eventData) => _tabGroup.OnHoverExit(_image);
     }
 }

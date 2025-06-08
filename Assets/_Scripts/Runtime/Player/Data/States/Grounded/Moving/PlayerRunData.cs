@@ -1,7 +1,10 @@
 using UnityEngine;
 
-namespace RPG
+namespace RPG.Player.Data.States.Grounded.Moving
 {
+    /// <summary>
+    /// Contains data related to player run state, including speed and transition timing.
+    /// </summary>
     [System.Serializable]
     public class PlayerRunData
     {

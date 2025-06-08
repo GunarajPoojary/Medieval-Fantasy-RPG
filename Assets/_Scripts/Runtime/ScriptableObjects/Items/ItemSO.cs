@@ -4,26 +4,40 @@ namespace RPG
 {
     public enum ItemType
     {
-        Default,
         Weapon,
         Wearable,
         Consumable,
         QuestItem
     }
 
-    public abstract class ItemSO : ScriptableObject
+    [CreateAssetMenu(fileName = "NewItem", menuName = "Game/Inventory/Item", order = 1)]
+    public class ItemSO : DescriptionBaseSO
     {
-        public string Name;
-        public Sprite Icon;
+        [SerializeField] private string _displayName;
+        [SerializeField] private Sprite _icon;
 
-        [Multiline(5)]
-        public string Description;
-        public ItemType Type;
+        [SerializeField, TextArea] private string _itemDescription;
+        [SerializeField] protected ItemType _type;
+        [SerializeField] private bool _isStackable = false;
+        [SerializeField, Range(1, 100)] private int _maxStack = 1;
 
-        [Tooltip("Use context menu to generate GUID")]
-        public string ID;
+        [SerializeField, HideInInspector] private string _id;
 
-        [ContextMenu("Generate GUID")]
-        public void GenerateGuid() => ID = System.Guid.NewGuid().ToString();
+        public string DisplayName => _displayName;
+        public Sprite Icon => _icon;
+        public string ItemDescription => _itemDescription;
+        public bool IsStackable => _isStackable;
+        public int MaxStack => _isStackable ? _maxStack : 1;
+        public ItemType Type => _type;
+        public string ID => _id;
+
+        protected virtual void OnValidate()
+        {
+            if (string.IsNullOrEmpty(_id))
+            {
+                _id = System.Guid.NewGuid().ToString("N");
+                UnityEditor.EditorUtility.SetDirty(this);
+            }
+        }
     }
 }
