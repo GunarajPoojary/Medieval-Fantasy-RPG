@@ -9,7 +9,7 @@ namespace RPG.Player.Utilities.Animations
     {
         private IMovementStateAnimationEventsHandler _playerStateAnimationHandler;
 
-        private void Start() => _playerStateAnimationHandler = GetComponentInParent<PlayeController>(); //GameService.Instance.PlayerService.PlayerMovementStateMachine;
+        private void Start() => _playerStateAnimationHandler = GetComponentInParent<PlayerController>(); //GameService.Instance.PlayerService.PlayerMovementStateMachine;
 
         public void TriggerOnMovementStateAnimationEnterEvent()
         {

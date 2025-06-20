@@ -1,71 +1,91 @@
-using RPG.Utilities.Inputs.ScriptableObjects;
-using UnityEngine;
-using UnityEngine.Events;
+using System;
+using RPG.Item;
+using RPG.UI.Inventory;
 
 namespace RPG.Inventory
 {
+    /// <summary>
+    /// Class that manages communication between inventory model and view
+    /// </summary>
     public class InventoryController
     {
         private readonly Inventory _model;
         private readonly UIInventory _view;
-        private readonly InputReader _input;
-        private bool _isInventoryOpen = false;
 
-        public InventoryController(InputReader input, Inventory model, UIInventory view)
+        public event Action OnItemAdded;
+        public event Action OnItemAddFail;
+
+        public InventoryController(Inventory model, UIInventory view)
         {
-            _input = input;
             _model = model;
             _view = view;
         }
 
+        /// <summary>
+        /// Method to subscribe to all necessary events and input actions
+        /// </summary>
         public void AddListeners()
         {
-            _input.InventoryAction += ToggleInventory;
             _model.OnInventoryFull += OnInventoryFull;
             _model.OnItemNull += OnItemNull;
             _model.OnInvalidQuantity += OnInvalidQuantity;
             _model.OnItemStackLimitReached += OnItemStackLimitReached;
-            _model.OnInventoryItemAdded += OnInventoryItemAdded;
+            _model.OnItemAdded += OnInventoryItemAdded;
         }
 
+        /// <summary>
+        /// Method to unsubscribe from all events and input actions to prevent memory leaks
+        /// </summary>
         public void RemoveListeners()
         {
-            _input.InventoryAction -= ToggleInventory;
             _model.OnInventoryFull -= OnInventoryFull;
             _model.OnItemNull -= OnItemNull;
             _model.OnInvalidQuantity -= OnInvalidQuantity;
             _model.OnItemStackLimitReached -= OnItemStackLimitReached;
-            _model.OnInventoryItemAdded -= OnInventoryItemAdded;
+            _model.OnItemAdded -= OnInventoryItemAdded;
         }
 
-        private void ToggleInventory()
-        {
-            _view.ToggleInventory();
+        public void ToggleInventory(bool setActive) => _view.ToggleInventory(setActive);
 
-            _isInventoryOpen = !_isInventoryOpen;
-
-            if (_isInventoryOpen)
-                _input.DisablePlayerMovementActions();
-            else
-                _input.EnablePlayerMovementActions();
-        }
-
-
+        // Event handler for when items are added to the inventory
         private void OnInventoryItemAdded(InventoryItem item)
         {
             _view.AddSlotUI(item);
+            OnItemAdded?.Invoke();
         }
 
-        private void OnItemStackLimitReached(string name) => _view.OnItemStackLimitReached(name);
+        // Forward stack limit reached event to the view with item name
+        private void OnItemStackLimitReached(string name)
+        {
+            _view.OnItemStackLimitReached(name);
+            OnItemAddFail?.Invoke();
+        }
 
-        private void OnInvalidQuantity(int quantity) => _view.OnInvalidQuantity(quantity);
+        // Forward invalid quantity event to the view with the problematic quantity value
+        private void OnInvalidQuantity(int quantity)
+        {
+            _view.OnInvalidQuantity(quantity);
+            OnItemAddFail?.Invoke();
+        }
 
-        private void OnItemNull() => _view.OnItemNull();
+        // Forward null item event to the view for user notification
+        private void OnItemNull()
+        {
+            _view.OnItemNull();
+            OnItemAddFail?.Invoke();
+        }
 
-        private void OnInventoryFull() => _view.OnInventoryFull();
+        // Forward inventory full event to the view for user notification
+        private void OnInventoryFull()
+        {
+            _view.OnInventoryFull();
+            OnItemAddFail?.Invoke();
+        }
 
+        // Public method to add items to the inventory by delegating to the model
         public void AddItem(ItemSO item) => _model.AddItem(item);
 
+        // Public method to remove items from the inventory by name
         public void RemoveItem(string itemName)
         {
             _model.RemoveItem(itemName);

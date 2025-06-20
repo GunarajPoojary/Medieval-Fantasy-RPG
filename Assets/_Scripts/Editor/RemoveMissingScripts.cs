@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class RemoveMissingScripts : EditorWindow
@@ -13,6 +14,10 @@ public class RemoveMissingScripts : EditorWindow
             if (removed > 0)
                 count += removed;
         }
+        // Force refresh after removing missing scripts
+        AssetDatabase.Refresh();
+        EditorSceneManager.MarkAllScenesDirty();
+
         Debug.Log($"Removed {count} missing script(s) in the current scene.");
     }
 
@@ -42,6 +47,9 @@ public class RemoveMissingScripts : EditorWindow
 
             GameObject.DestroyImmediate(instance);
         }
+        // Force refresh after removing missing scripts
+        AssetDatabase.Refresh();
+        EditorSceneManager.MarkAllScenesDirty();
 
         Debug.Log($"Removed {totalRemoved} missing script(s) from prefabs.");
     }

@@ -1,11 +1,22 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class UILoadingBar : MonoBehaviour
+namespace RPG.UI
 {
-	[SerializeField] private float _rotateSpeed = -150f;
-	private RectTransform _rectComponent;
+    public class UILoadingBar : MonoBehaviour
+    {
+        [SerializeField] private Image _loadingBar;
+        [SerializeField] private RectTransform _pivot;
+        private RectTransform _loadingBarRect;
 
-    private void Start() => _rectComponent = GetComponent<RectTransform>();
+        private void Awake() => _loadingBarRect = _loadingBar.GetComponent<RectTransform>();
 
-    private void Update() => _rectComponent.Rotate(0f, 0f, _rotateSpeed * Time.deltaTime);
+        public void ResetBar() => _loadingBar.fillAmount = 0;
+
+        public void UpdateBar(float percentage)
+        {
+            _loadingBar.fillAmount = percentage;
+            _pivot.anchoredPosition = new Vector2(_loadingBarRect.rect.width * percentage, 0);
+        }
+    }
 }

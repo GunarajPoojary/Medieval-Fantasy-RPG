@@ -1,71 +1,78 @@
+using RPG.Item;
 using UnityEngine;
 
 namespace RPG.Inventory
 {
+    /// <summary>
+    /// Class that represents Inventory item(Both stackable and Non-Stackable)
+    /// </summary>
     [System.Serializable]
     public class InventoryItem
     {
-        public ItemSO Item { get; private set; }
-        public int StackCount { get; private set; }
-        public bool IsEmpty => Item == null || StackCount <= 0;
-        public bool IsStackable => Item != null && Item.IsStackable;
+        private ItemSO _item;
+        private int _stackCount;
+
+        public ItemSO Item => _item;
+        public int StackCount => _stackCount;
+        public int RemainingStackSize => _item.MaxStack - _stackCount;
 
         public InventoryItem(ItemSO item, int stackCount = 1)
         {
-            Item = item;
-
             if (item == null)
             {
-                StackCount = 0;
+#if UNITY_EDITOR
+                Debug.LogError("Item is null");
+#endif
                 return;
             }
 
-            StackCount = Mathf.Clamp(stackCount, 1, item.MaxStack);
-        }
+            _item = item;
 
-        public bool CanStack(ItemSO item)
-        {
-            if (item == null || Item == null) return false;
-
-            return Item.ID == item.ID &&
-                   Item.IsStackable &&
-                   StackCount < Item.MaxStack;
+            _stackCount = Mathf.Clamp(stackCount, 1, item.MaxStack);
         }
 
         /// <summary>
-        /// Adds to the stack. Returns the leftover amount that couldn't be added.
+        /// Method to Reset the Inventory Item to orignal state(Ex: Used for pool)
         /// </summary>
+        /// <param name="item"></param>
+        /// <param name="stackCount"></param>
+        public void ResetItem(ItemSO item, int stackCount = 1)
+        {
+            if (item == null)
+            {
+#if UNITY_EDITOR
+                Debug.LogError("Item is null");
+#endif
+                return;
+            }
+
+            _item = item;
+
+            _stackCount = Mathf.Clamp(stackCount, 1, item.MaxStack);
+        }
+
+        /// <summary>
+        /// Adds to the stack
+        /// </summary>
+        /// <returns> Leftover amount that couldn't be added </returns>
+        /// <param name="amount"></param>
         public int PushStack(int amount)
         {
-            if (amount <= 0 || Item == null || StackCount >= Item.MaxStack)
-                return amount;
-
-            int maxAddable = Item.MaxStack - StackCount;
-            int toAdd = Mathf.Min(amount, maxAddable);
-            StackCount += toAdd;
+            if (amount <= 0) return 0;
+            int toAdd = Mathf.Min(amount, RemainingStackSize);
+            _stackCount += toAdd;
             return amount - toAdd;
         }
 
+        /// <summary>
+        /// // Method to remove items from the stack
+        /// </summary>
+        /// <param name="amount"></param>
         public void PopStack(int amount)
         {
             if (amount <= 0) return;
 
-            StackCount = Mathf.Max(0, StackCount - amount);
-
-            if (StackCount <= 0) ClearStack();
-        }
-
-        public void ClearStack()
-        {
-            Item = null;
-            StackCount = 0;
-        }
-
-        public void SetStackCount(int newStackCount)
-        {
-            StackCount = Mathf.Clamp(newStackCount, 0, Item?.MaxStack ?? 0);
-
-            if (StackCount <= 0) ClearStack();
+            _stackCount = Mathf.Max(0, _stackCount - amount); // Subtract the amount while preventing negative stack counts
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace RPG.Inventory
+namespace RPG.Utilities
 {
     public class ObjectPool<T> where T : class
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
-public class RaycastTargetDisabler : EditorWindow
+public partial class RaycastTargetDisabler : EditorWindow
 {
     [MenuItem("Tools/Custom/Disable Raycast Target and Maskable (Entire Scene)")]
     public static void DisableRaycastAndMaskableInScene()

@@ -2,25 +2,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Realfy
+namespace RPG.UI
 {
     public class InertialScrollRect : ScrollRect
     {
         private bool _draggingByTouch;
         private bool _isDragging;
         private Vector2 _prevPosition = Vector2.zero;
-        //[SerializeField] private TMP_InputField ealsticityText;
-        //[SerializeField] private TMP_InputField decelerationRateText;
-        //[SerializeField] private TMP_InputField scrollSensitivityText;
-
-        //protected override void OnEnable()
-        //{
-        //    base.OnEnable();
-
-        //    ealsticityText.onEndEdit.AddListener((Value) => elasticity = float.Parse(Value));
-        //    decelerationRateText.onEndEdit.AddListener((Value) => decelerationRate = float.Parse(Value));
-        //    scrollSensitivityText.onEndEdit.AddListener((Value) => scrollSensitivity = float.Parse(Value));
-        //}
 
         protected override void OnDestroy()
         {

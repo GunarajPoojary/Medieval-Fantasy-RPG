@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c03f4bb88742441a49ab22001fdb2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _managersScene: {fileID: 11400000, guid: 07f7430127978a14d973d381166309c8, type: 2}
-  _menuToLoad: {fileID: 11400000, guid: dcd06508cb88ef447b7e51bab2931241, type: 2}
+  _persistentManagersScene: {fileID: 11400000, guid: 07f7430127978a14d973d381166309c8, type: 2}
+  _mainMenuScene: {fileID: 11400000, guid: dcd06508cb88ef447b7e51bab2931241, type: 2}
   _menuLoadChannel:
     m_AssetGUID: 37a34278e2102a54c87d562e0a67c4ad
     m_SubObjectName: 

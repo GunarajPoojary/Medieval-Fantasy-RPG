@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG.Events.EventChannel;
 using RPG.UI;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -8,7 +9,7 @@ namespace RPG
 {
     public class LoadingBarController : MonoBehaviour
     {
-        [SerializeField] private LoadingBar _loadingInterface = default;
+        [SerializeField] private UILoadingBar _loadingInterface = default;
 
         [Header("Listening on")]
         //[SerializeField] private BoolEventChannelSO _toggleLoadingScreen = default;

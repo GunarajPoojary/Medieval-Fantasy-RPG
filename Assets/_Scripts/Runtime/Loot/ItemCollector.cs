@@ -1,3 +1,4 @@
+using RPG.Events.EventChannel;
 using UnityEngine;
 
 namespace RPG.Loot
@@ -5,7 +6,7 @@ namespace RPG.Loot
     public class ItemCollector : MonoBehaviour
     {
         [SerializeField] private LayerMask _pickables;
-        [SerializeField] private ItemSOEventChannelSO _onItemPickedEventChannel = default;
+        [SerializeField] private IPickableEventChannelSO _onItemPickedEventChannel = default;
 
         private void OnTriggerEnter(Collider collider)
         {
@@ -13,13 +14,8 @@ namespace RPG.Loot
             {
                 if (collider.TryGetComponent(out IPickable pickable))
                 {
-                    ItemSO item = pickable.PickUpItem();
-
-                    if (item != null)
-                    {
-                        PickableItemManager.Instance.OnTryPickingUpItem(pickable, item);
-                        _onItemPickedEventChannel.RaiseEvent(item);
-                    }
+                    if (pickable != null)
+                        _onItemPickedEventChannel.RaiseEvent(pickable);
                 }
             }
         }

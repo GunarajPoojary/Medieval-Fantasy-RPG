@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerEquipmentManager
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 16468651ec713aa43abe70410f1ff709, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _defaultAnimator
+    value: 
+    objectReference: {fileID: 9100000, guid: 50b4e5df368772e4f9c4a3b7f4c1489e, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipEquipmentEventChannel
+    value: 
+    objectReference: {fileID: 11400000, guid: ddad37738eb55e04cbd084e12fed3b4f, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.size
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[0].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[0].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: b7aa05d500401d748b2239ead9a6210b, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[1].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[1].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: 1cb6a24330cef7447859fc8b37862af1, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[2].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[2].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: 4bd46ff7bf1de8e49ba58ef2367a6466, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[3].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[3].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: 43d4b291d8659ae47a662b341dab4964, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[4].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[4].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: e76eb588dec65cd4f82d53e370e9a533, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[5].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[5].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: 1ee830184715c5a488f14de6da0d58ee, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[6].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[6].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: f7039fa37b3abce478b857836f5672d5, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[7].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[7].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: 9f0caa270920ce642bc709273c8debdb, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[8].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[8].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: c02728b7f597f6f458dd78d7d75d23d5, type: 2}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[9].equipmentObject
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: _equipmentEntries.Array.data[9].equipmentSO
+    value: 
+    objectReference: {fileID: 11400000, guid: 814b9120d59cad44783fb6aa0a9498bb, type: 2}
+  m_ExcludedProperties: []
+  m_CoupledType:
+    m_NativeTypeID: 0
+    m_ManagedTypePPtr: {fileID: 0}
+    m_ManagedTypeFallback: 
+  m_CoupledProperties: []

@@ -1,3 +1,4 @@
+using RPG.Item;
 using UnityEngine;
 
 namespace RPG.Loot

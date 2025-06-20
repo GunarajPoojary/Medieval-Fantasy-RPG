@@ -2,18 +2,20 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-public class CustomToolsEditorWindow : EditorWindow
+public class IconCreatorTool : EditorWindow
 {
     [Header("Icon Settings")]
     public GameObject targetObject;
-    public int iconSize = 256;
-    public string fileName = "icon";
-    public string savePath = "Assets/Icons/";
+    public int iconSize = 2048;
+    public string fileName = "Icon";
+    public string savePath = "Assets/Game/Sprites/Icons/Items/";
 
     [Header("Camera Settings")]
+    public bool useOrthographicCamera = false;
     public Vector3 cameraPosition = new Vector3(0, 0, -5);
     public Vector3 cameraRotation = new Vector3(0, 0, 0);
     public float fieldOfView = 60f;
+    public float orthographicSize = 5f;
     public Color backgroundColor = Color.clear;
 
     [Header("Lighting")]
@@ -25,32 +27,67 @@ public class CustomToolsEditorWindow : EditorWindow
     private Camera iconCamera;
     private Light iconLight;
     private RenderTexture renderTexture;
+    private Vector2 scrollPosition;
+    private Texture2D previewTexture;
+    private bool showPreview = false;
+    private RenderTexture previewRenderTexture;
+
 
     [MenuItem("Tools/Custom/Icon Creator")]
     public static void ShowWindow()
     {
-        GetWindow<CustomToolsEditorWindow>("Icon Creator");
+        GetWindow<IconCreatorTool>("Icon Creator");
     }
 
-    void OnGUI()
+    private void OnEnable()
     {
+        minSize = new Vector2(350, 500);
+        maxSize = new Vector2(400, 800);
+    }
+
+    private void OnGUI()
+    {
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+
         GUILayout.Label("Unity Icon Creator", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
         // Icon Settings Section
         EditorGUILayout.LabelField("Icon Settings", EditorStyles.boldLabel);
         targetObject = (GameObject)EditorGUILayout.ObjectField("Target Object", targetObject, typeof(GameObject), true);
-        iconSize = EditorGUILayout.IntSlider("Icon Size", iconSize, 64, 1024);
+        iconSize = EditorGUILayout.IntSlider("Icon Size", iconSize, 64, 2048);
         fileName = EditorGUILayout.TextField("File Name", fileName);
-        savePath = EditorGUILayout.TextField("Save Path", savePath);
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Save Path", GUILayout.Width(EditorGUIUtility.labelWidth));
+        savePath = EditorGUILayout.TextField(savePath);
+        if (GUILayout.Button("Browse", GUILayout.Width(60)))
+        {
+            string selectedPath = EditorUtility.OpenFolderPanel("Select Save Directory", savePath, "");
+            if (!string.IsNullOrEmpty(selectedPath))
+            {
+                savePath = "Assets" + selectedPath.Substring(Application.dataPath.Length);
+            }
+        }
+        EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Space();
 
         // Camera Settings Section
         EditorGUILayout.LabelField("Camera Settings", EditorStyles.boldLabel);
+        useOrthographicCamera = EditorGUILayout.Toggle("Use Orthographic Camera", useOrthographicCamera);
         cameraPosition = EditorGUILayout.Vector3Field("Camera Position", cameraPosition);
         cameraRotation = EditorGUILayout.Vector3Field("Camera Rotation", cameraRotation);
-        fieldOfView = EditorGUILayout.Slider("Field of View", fieldOfView, 10f, 120f);
+
+        if (useOrthographicCamera)
+        {
+            orthographicSize = EditorGUILayout.Slider("Orthographic Size", orthographicSize, 0.1f, 20f);
+        }
+        else
+        {
+            fieldOfView = EditorGUILayout.Slider("Field of View", fieldOfView, 10f, 120f);
+        }
+
         backgroundColor = EditorGUILayout.ColorField("Background Color", backgroundColor);
 
         EditorGUILayout.Space();
@@ -68,27 +105,55 @@ public class CustomToolsEditorWindow : EditorWindow
 
         EditorGUILayout.Space();
 
-        // Action Buttons
+        // Action Buttons with improved layout
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Setup Preview"))
+        if (GUILayout.Button("Setup Preview", GUILayout.Height(25)))
         {
             SetupPreviewCamera();
         }
-        if (GUILayout.Button("Generate Icon"))
+        if (GUILayout.Button("Generate Icon", GUILayout.Height(25)))
         {
             GenerateIcon();
         }
         EditorGUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Cleanup Preview"))
+        if (GUILayout.Button("Cleanup Preview", GUILayout.Height(25)))
         {
             CleanupPreview();
         }
 
         EditorGUILayout.Space();
+        // Preview Section (add this after Action Buttons, before Help Section)
+        if (showPreview && previewTexture != null)
+        {
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
 
-        // Help Section
-        EditorGUILayout.HelpBox("1. Select a GameObject from the scene\n2. Adjust camera and lighting settings\n3. Use 'Setup Preview' to position the camera\n4. Click 'Generate Icon' to create the PNG", MessageType.Info);
+            Rect previewRect = GUILayoutUtility.GetRect(256, 256, GUILayout.ExpandWidth(false));
+            previewRect.width = 256;
+            previewRect.height = 256;
+
+            GUI.DrawTexture(previewRect, previewTexture, ScaleMode.ScaleToFit, true);
+
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Refresh Preview"))
+            {
+                UpdatePreview();
+            }
+            if (GUILayout.Button("Hide Preview"))
+            {
+                showPreview = false;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        // Help Section with improved formatting
+        string helpText = useOrthographicCamera
+            ? "1. Select a GameObject from the scene\n2. Adjust camera and lighting settings\n3. Use 'Setup Preview' to position the camera\n4. Adjust Orthographic Size to frame the object\n5. Click 'Generate Icon' to create the PNG"
+            : "1. Select a GameObject from the scene\n2. Adjust camera and lighting settings\n3. Use 'Setup Preview' to position the camera\n4. Click 'Generate Icon' to create the PNG";
+
+        EditorGUILayout.HelpBox(helpText, MessageType.Info);
+
+        EditorGUILayout.EndScrollView();
     }
 
     void SetupPreviewCamera()
@@ -106,7 +171,18 @@ public class CustomToolsEditorWindow : EditorWindow
         iconCamera = cameraObj.AddComponent<Camera>();
         iconCamera.transform.position = cameraPosition;
         iconCamera.transform.eulerAngles = cameraRotation; // Preserve user-defined rotation
-        iconCamera.fieldOfView = fieldOfView;
+
+        // Configure camera projection
+        iconCamera.orthographic = useOrthographicCamera;
+        if (useOrthographicCamera)
+        {
+            iconCamera.orthographicSize = orthographicSize;
+        }
+        else
+        {
+            iconCamera.fieldOfView = fieldOfView;
+        }
+
         iconCamera.backgroundColor = backgroundColor;
         iconCamera.clearFlags = CameraClearFlags.SolidColor;
 
@@ -124,8 +200,45 @@ public class CustomToolsEditorWindow : EditorWindow
         // Focus scene view on the camera
         Selection.activeGameObject = cameraObj;
         SceneView.FrameLastActiveSceneView();
-
+        // Add this line before the Debug.Log
+        UpdatePreview();
         Debug.Log("Preview camera setup complete. Adjust position as needed, then generate the icon.");
+    }
+
+    void UpdatePreview()
+    {
+        if (iconCamera == null || targetObject == null) return;
+
+        // Create or update preview render texture
+        if (previewRenderTexture == null)
+        {
+            previewRenderTexture = new RenderTexture(256, 256, 24, RenderTextureFormat.ARGB32);
+        }
+
+        // Store original camera settings
+        RenderTexture originalTarget = iconCamera.targetTexture;
+        Color originalBackground = iconCamera.backgroundColor;
+
+        // Configure camera for preview
+        iconCamera.targetTexture = previewRenderTexture;
+        iconCamera.backgroundColor = backgroundColor;
+        iconCamera.Render();
+
+        // Convert to Texture2D for display
+        RenderTexture.active = previewRenderTexture;
+        if (previewTexture == null)
+        {
+            previewTexture = new Texture2D(256, 256, TextureFormat.RGBA32, false);
+        }
+        previewTexture.ReadPixels(new Rect(0, 0, 256, 256), 0, 0);
+        previewTexture.Apply();
+
+        // Restore camera settings
+        iconCamera.targetTexture = originalTarget;
+        iconCamera.backgroundColor = originalBackground;
+        RenderTexture.active = null;
+
+        showPreview = true;
     }
 
     void GenerateIcon()
@@ -204,18 +317,6 @@ public class CustomToolsEditorWindow : EditorWindow
         }
     }
 
-    Vector3 GetObjectCenter(GameObject obj)
-    {
-        Renderer renderer = obj.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            return renderer.bounds.center;
-        }
-
-        // If no renderer, use transform position
-        return obj.transform.position;
-    }
-
     void CleanupPreview()
     {
         if (iconCamera != null)
@@ -235,99 +336,25 @@ public class CustomToolsEditorWindow : EditorWindow
             DestroyImmediate(renderTexture);
             renderTexture = null;
         }
+
+        // Add these cleanup lines
+        if (previewRenderTexture != null)
+        {
+            DestroyImmediate(previewRenderTexture);
+            previewRenderTexture = null;
+        }
+
+        if (previewTexture != null)
+        {
+            DestroyImmediate(previewTexture);
+            previewTexture = null;
+        }
+
+        showPreview = false;
     }
 
     void OnDestroy()
     {
         CleanupPreview();
-    }
-}
-
-// Additional utility class for batch icon generation
-public static class IconBatchProcessor
-{
-    [MenuItem("Tools/Generate Icons for Selected Objects")]
-    public static void GenerateIconsForSelection()
-    {
-        GameObject[] selectedObjects = Selection.gameObjects;
-
-        if (selectedObjects.Length == 0)
-        {
-            EditorUtility.DisplayDialog("Error", "Please select one or more GameObjects first.", "OK");
-            return;
-        }
-
-        string savePath = EditorUtility.SaveFolderPanel("Select Save Folder", "Assets", "");
-        if (string.IsNullOrEmpty(savePath))
-            return;
-
-        // Convert absolute path to relative path
-        savePath = "Assets" + savePath.Substring(Application.dataPath.Length);
-
-        for (int i = 0; i < selectedObjects.Length; i++)
-        {
-            GameObject obj = selectedObjects[i];
-            string progress = $"Generating icon {i + 1}/{selectedObjects.Length}: {obj.name}";
-            EditorUtility.DisplayProgressBar("Generating Icons", progress, (float)i / selectedObjects.Length);
-
-            GenerateSingleIcon(obj, savePath);
-        }
-
-        EditorUtility.ClearProgressBar();
-        AssetDatabase.Refresh();
-        EditorUtility.DisplayDialog("Complete", $"Generated {selectedObjects.Length} icons successfully.", "OK");
-    }
-
-    private static void GenerateSingleIcon(GameObject targetObject, string savePath)
-    {
-        // Create temporary camera
-        GameObject cameraObj = new GameObject("Temp Icon Camera");
-        Camera iconCamera = cameraObj.AddComponent<Camera>();
-
-        // Position camera to frame object
-        Vector3 objectCenter = GetObjectCenter(targetObject);
-        Vector3 cameraPos = objectCenter + new Vector3(0, 0, -5);
-        iconCamera.transform.position = cameraPos;
-        iconCamera.transform.LookAt(objectCenter);
-
-        iconCamera.fieldOfView = 60f;
-        iconCamera.backgroundColor = Color.clear;
-        iconCamera.clearFlags = CameraClearFlags.SolidColor;
-
-        // Create render texture
-        RenderTexture renderTexture = new RenderTexture(256, 256, 24, RenderTextureFormat.ARGB32);
-        renderTexture.antiAliasing = 4;
-        iconCamera.targetTexture = renderTexture;
-
-        // Render
-        iconCamera.Render();
-
-        // Convert to Texture2D
-        RenderTexture.active = renderTexture;
-        Texture2D iconTexture = new Texture2D(256, 256, TextureFormat.ARGB32, false);
-        iconTexture.ReadPixels(new Rect(0, 0, 256, 256), 0, 0);
-        iconTexture.Apply();
-
-        // Save PNG
-        byte[] pngData = iconTexture.EncodeToPNG();
-        string fileName = targetObject.name + "_icon.png";
-        string fullPath = Path.Combine(savePath, fileName);
-        File.WriteAllBytes(fullPath, pngData);
-
-        // Cleanup
-        RenderTexture.active = null;
-        Object.DestroyImmediate(renderTexture);
-        Object.DestroyImmediate(iconTexture);
-        Object.DestroyImmediate(cameraObj);
-    }
-
-    private static Vector3 GetObjectCenter(GameObject obj)
-    {
-        Renderer renderer = obj.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            return renderer.bounds.center;
-        }
-        return obj.transform.position;
     }
 }

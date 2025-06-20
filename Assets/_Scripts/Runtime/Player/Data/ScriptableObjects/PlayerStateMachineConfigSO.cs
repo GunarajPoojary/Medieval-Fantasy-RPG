@@ -7,7 +7,7 @@ namespace RPG.Player.Data.ScriptableObjects
     /// <summary>
     /// Holds configuration data for the player's state machine, including grounded and airborne states.
     /// </summary>
-    [CreateAssetMenu(fileName = "PlayerStateMachineDataSO", menuName = "Game/Player/StateMachine/Data")]
+    [CreateAssetMenu(fileName = "PlayerStateMachineDataSO", menuName = "Custom/Player/StateMachine/Data")]
     public class PlayerStateMachineConfigSO : DescriptionBaseSO
     {
         [field: SerializeField] public PlayerGroundedData GroundedData { get; private set; }

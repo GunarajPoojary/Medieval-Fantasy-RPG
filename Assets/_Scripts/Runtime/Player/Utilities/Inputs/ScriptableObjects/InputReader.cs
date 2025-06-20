@@ -12,13 +12,14 @@ namespace RPG.Utilities.Inputs.ScriptableObjects
 		Run
 	}
 
-	[CreateAssetMenu(fileName = "InputReader", menuName = "Game/Player/Input/Input Reader")]
+	[CreateAssetMenu(fileName = "InputReader", menuName = "Custom/Player/Input/Input Reader")]
 	public class InputReader : DescriptionBaseSO, PlayerInputActions.IPlayerActions
 	{
 		// Assign delegate{} to events to initialise them with an empty delegate
 		// so we can skip the null check when we use them
 
 		private PlayerInputActions _playerInputActions;
+		private bool _isPlayerMovementActionsEnabled = true;
 
 		public Vector2 MoveDirection => _playerInputActions?.Player.Move.ReadValue<Vector2>() ?? Vector2.zero;
 
@@ -33,6 +34,9 @@ namespace RPG.Utilities.Inputs.ScriptableObjects
 		public UnityAction<bool> RunPerformedAction = delegate { };
 		public UnityAction<bool> RunCanceledAction = delegate { };
 		public UnityAction InventoryAction = delegate { };
+		public UnityAction EquipmentMenuAction = delegate { };
+
+		public UnityAction<bool> ToggleLookInput = delegate { };
 
 		public void Initialize() => _playerInputActions ??= new PlayerInputActions();
 
@@ -67,6 +71,8 @@ namespace RPG.Utilities.Inputs.ScriptableObjects
 				_playerInputActions.Player.Move.Enable();
 				_playerInputActions.Player.Jump.Enable();
 				_playerInputActions.Player.Run.Enable();
+				ToggleLookInput?.Invoke(true);
+				_isPlayerMovementActionsEnabled = true;
 			}
 		}
 
@@ -93,6 +99,8 @@ namespace RPG.Utilities.Inputs.ScriptableObjects
 				_playerInputActions.Player.Move.Disable();
 				_playerInputActions.Player.Jump.Disable();
 				_playerInputActions.Player.Run.Disable();
+				ToggleLookInput?.Invoke(false);
+				_isPlayerMovementActionsEnabled = false;
 			}
 		}
 
@@ -155,9 +163,10 @@ namespace RPG.Utilities.Inputs.ScriptableObjects
 
 		}
 
-		public void OnCharacterMenu(InputAction.CallbackContext context)
+		public void OnEquipmentMenu(InputAction.CallbackContext context)
 		{
-
+			if (context.performed)
+				EquipmentMenuAction?.Invoke();
 		}
 
 		public void OnLook(InputAction.CallbackContext context)

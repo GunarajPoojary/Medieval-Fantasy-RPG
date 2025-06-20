@@ -13,7 +13,7 @@ namespace RPG.Player.StateMachines.Movement
     /// </summary>
     public class PlayerStateFactory : StateMachine.StateMachine
     {
-        public PlayeController PlayerController { get; }
+        public PlayerController PlayerController { get; }
         public PlayerStateReusableData ReusableData { get; }
 
         public PlayerIdleState IdleState { get; }
@@ -28,7 +28,7 @@ namespace RPG.Player.StateMachines.Movement
         public PlayerJumpState JumpState { get; }
         public PlayerFallState FallState { get; }
 
-        public PlayerStateFactory(PlayeController playerController)
+        public PlayerStateFactory(PlayerController playerController)
         {
             PlayerController = playerController;
             

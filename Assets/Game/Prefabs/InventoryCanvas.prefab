@@ -222,8 +222,6 @@ GameObject:
   - component: {fileID: 72587464351651787}
   - component: {fileID: 7581254165583182049}
   - component: {fileID: 2092350608998872174}
-  - component: {fileID: 6030265685840214549}
-  - component: {fileID: 6362813541406101015}
   m_Layer: 5
   m_Name: ItemOverview
   m_TagString: Untagged
@@ -290,51 +288,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6030265685840214549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647778758995187422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13149ce4ce332af4e92cbcbf32c321b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _eventChannel: {fileID: 11400000, guid: 52046f82f578d8d47887787110972040, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6362813541406101015}
-        m_TargetAssemblyTypeName: RPG.InventoryItemOverviewUI, Assembly-CSharp
-        m_MethodName: DisplayItemOverview
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &6362813541406101015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647778758995187422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7220f5766b5e44b4c852f3765ded6b1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nameText: {fileID: 0}
-  _itemDescription: {fileID: 0}
-  _overviewContainer: {fileID: 0}
-  _image: {fileID: 0}
-  _inventoryItemRemoveChannel: {fileID: 11400000, guid: 31efa51d86ba0f04bb5d34f140f9a393, type: 2}
 --- !u!1 &1154456770564046286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,7 +1232,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6395975817873329207}
-  - component: {fileID: 6258019099042094013}
   m_Layer: 5
   m_Name: ScrollsPanel
   m_TagString: Untagged
@@ -1307,36 +1259,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6258019099042094013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3058113856464380779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21740a401f83dd64b840381b1af284d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Content: {fileID: 7191440395350617251}
-  m_Horizontal: 0
-  m_Vertical: 1
-  m_MovementType: 1
-  m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 20
-  m_Viewport: {fileID: 6395975817873329207}
-  m_HorizontalScrollbar: {fileID: 0}
-  m_VerticalScrollbar: {fileID: 0}
-  m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
-  m_HorizontalScrollbarSpacing: 0
-  m_VerticalScrollbarSpacing: 0
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &3113918735751604912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,7 +1270,6 @@ GameObject:
   - component: {fileID: 5642507605718586686}
   - component: {fileID: 3784280310418323246}
   - component: {fileID: 5709121676850958614}
-  - component: {fileID: 3425941487745393977}
   m_Layer: 5
   m_Name: QuestItemsTab
   m_TagString: Untagged
@@ -1413,23 +1334,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3425941487745393977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3113918735751604912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e78bc1e5c261d4b891e8509c16ad5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clickSound: {fileID: 8300000, guid: 3c0d49ef3a2f3834b9ce2783575e83a9, type: 3}
-  _enterSound: {fileID: 8300000, guid: 7085ed8430240b04dad6652882a108f1, type: 3}
-  _audioSource: {fileID: 0}
-  <TabGroup>k__BackingField: {fileID: 5169761799717273601}
-  <Background>k__BackingField: {fileID: 5709121676850958614}
 --- !u!1 &3389584989974510272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,7 +1672,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3117921211010188053}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RPG.InventoryItemOverviewUI, Assembly-CSharp
         m_MethodName: SellItem
         m_Mode: 1
@@ -1789,8 +1693,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4925301714598380067}
-  - component: {fileID: 3117921211010188053}
-  - component: {fileID: 9140764727716971445}
   - component: {fileID: 692962516428237873}
   m_Layer: 5
   m_Name: ItemOverview_1
@@ -1819,51 +1721,6 @@ RectTransform:
   m_AnchoredPosition: {x: 575.58765, y: 100.5625}
   m_SizeDelta: {x: 401.7729, y: 728.0627}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3117921211010188053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3679397643157009603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7220f5766b5e44b4c852f3765ded6b1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nameText: {fileID: 4038832059826255387}
-  _itemDescription: {fileID: 2472558556159327358}
-  _overviewContainer: {fileID: 1154456770564046286}
-  _image: {fileID: 4683821800431524868}
-  _inventoryItemRemoveChannel: {fileID: 11400000, guid: 31efa51d86ba0f04bb5d34f140f9a393, type: 2}
---- !u!114 &9140764727716971445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3679397643157009603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13149ce4ce332af4e92cbcbf32c321b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _eventChannel: {fileID: 11400000, guid: 52046f82f578d8d47887787110972040, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3117921211010188053}
-        m_TargetAssemblyTypeName: RPG.InventoryItemOverviewUI, Assembly-CSharp
-        m_MethodName: DisplayItemOverview
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!222 &692962516428237873
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1881,7 +1738,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8140150259924838013}
-  - component: {fileID: 5899120082044166189}
   m_Layer: 5
   m_Name: WearablesPanel
   m_TagString: Untagged
@@ -1909,36 +1765,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5899120082044166189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3801623607203897371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21740a401f83dd64b840381b1af284d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Content: {fileID: 3868588361976247267}
-  m_Horizontal: 0
-  m_Vertical: 1
-  m_MovementType: 1
-  m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 20
-  m_Viewport: {fileID: 8140150259924838013}
-  m_HorizontalScrollbar: {fileID: 0}
-  m_VerticalScrollbar: {fileID: 0}
-  m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
-  m_HorizontalScrollbarSpacing: 0
-  m_VerticalScrollbarSpacing: 0
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &3878230327230475621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2244,7 +2070,6 @@ GameObject:
   - component: {fileID: 2351852632648602191}
   - component: {fileID: 7982115053077837775}
   - component: {fileID: 4338318600801580075}
-  - component: {fileID: 7817138405271167353}
   m_Layer: 5
   m_Name: WearablesTab
   m_TagString: Untagged
@@ -2309,23 +2134,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7817138405271167353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4228094764871593568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e78bc1e5c261d4b891e8509c16ad5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clickSound: {fileID: 8300000, guid: 3c0d49ef3a2f3834b9ce2783575e83a9, type: 3}
-  _enterSound: {fileID: 8300000, guid: 7085ed8430240b04dad6652882a108f1, type: 3}
-  _audioSource: {fileID: 0}
-  <TabGroup>k__BackingField: {fileID: 5169761799717273601}
-  <Background>k__BackingField: {fileID: 4338318600801580075}
 --- !u!1 &4672079212358589942
 GameObject:
   m_ObjectHideFlags: 0
@@ -2335,7 +2143,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6115474707613146953}
-  - component: {fileID: 1797676608551796444}
   m_Layer: 5
   m_Name: WeaponsPanel
   m_TagString: Untagged
@@ -2363,36 +2170,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1797676608551796444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4672079212358589942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21740a401f83dd64b840381b1af284d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Content: {fileID: 7603868211681755447}
-  m_Horizontal: 0
-  m_Vertical: 1
-  m_MovementType: 1
-  m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 20
-  m_Viewport: {fileID: 6115474707613146953}
-  m_HorizontalScrollbar: {fileID: 0}
-  m_VerticalScrollbar: {fileID: 0}
-  m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
-  m_HorizontalScrollbarSpacing: 0
-  m_VerticalScrollbarSpacing: 0
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &4715035320574055579
 GameObject:
   m_ObjectHideFlags: 0
@@ -2938,7 +2715,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3117921211010188053}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RPG.Inventories.UI.InventoryItemOverviewLayout,
           RPG.Inventories
         m_MethodName: EnhanceItem
@@ -3776,7 +3553,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9077813840987665549}
-  - component: {fileID: 5169761799717273601}
   - component: {fileID: 8513257128917237205}
   m_Layer: 5
   m_Name: ItemTypeTabGroup
@@ -3810,31 +3586,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5169761799717273601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6886348036691890891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af26c3a6c91f53046a8b3198eb7aa7ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tabIdleColor: {r: 0.90943396, g: 0.78760415, b: 0.78760415, a: 1}
-  _tabHoverColor: {r: 0.98490566, g: 0.7637664, b: 0.7637664, a: 1}
-  _tabSelectedColor: {r: 0.39480925, g: 0.7509433, b: 0.36130288, a: 1}
-  _objectsToSwap:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  <TabButtons>k__BackingField:
-  - {fileID: 5565531479090535250}
-  - {fileID: 7817138405271167353}
-  - {fileID: 6535421987817510970}
-  - {fileID: 3425941487745393977}
 --- !u!114 &8513257128917237205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4099,7 +3850,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2543345374518328557}
-  - component: {fileID: 2099072093250875515}
   m_Layer: 5
   m_Name: PotionsPanel
   m_TagString: Untagged
@@ -4127,36 +3877,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2099072093250875515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7155504144038689455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21740a401f83dd64b840381b1af284d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Content: {fileID: 2746128861298636640}
-  m_Horizontal: 0
-  m_Vertical: 1
-  m_MovementType: 1
-  m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 20
-  m_Viewport: {fileID: 2543345374518328557}
-  m_HorizontalScrollbar: {fileID: 0}
-  m_VerticalScrollbar: {fileID: 0}
-  m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
-  m_HorizontalScrollbarSpacing: 0
-  m_VerticalScrollbarSpacing: 0
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &7261297396643524068
 GameObject:
   m_ObjectHideFlags: 0
@@ -4974,7 +4694,6 @@ GameObject:
   - component: {fileID: 3479521862548933227}
   - component: {fileID: 3225022814195053149}
   - component: {fileID: 6764957315154759952}
-  - component: {fileID: 6535421987817510970}
   m_Layer: 5
   m_Name: ConsumablesTab
   m_TagString: Untagged
@@ -5039,23 +4758,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6535421987817510970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8358887568205809523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e78bc1e5c261d4b891e8509c16ad5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clickSound: {fileID: 8300000, guid: 3c0d49ef3a2f3834b9ce2783575e83a9, type: 3}
-  _enterSound: {fileID: 8300000, guid: 7085ed8430240b04dad6652882a108f1, type: 3}
-  _audioSource: {fileID: 0}
-  <TabGroup>k__BackingField: {fileID: 5169761799717273601}
-  <Background>k__BackingField: {fileID: 6764957315154759952}
 --- !u!1 &8371213271290695932
 GameObject:
   m_ObjectHideFlags: 0
@@ -5253,7 +4955,6 @@ GameObject:
   - component: {fileID: 3471296331510453518}
   - component: {fileID: 918929426589393328}
   - component: {fileID: 709255243115714483}
-  - component: {fileID: 5565531479090535250}
   m_Layer: 5
   m_Name: WeaponsTab
   m_TagString: Untagged
@@ -5318,23 +5019,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5565531479090535250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8884296712890893130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e78bc1e5c261d4b891e8509c16ad5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clickSound: {fileID: 8300000, guid: 3c0d49ef3a2f3834b9ce2783575e83a9, type: 3}
-  _enterSound: {fileID: 8300000, guid: 7085ed8430240b04dad6652882a108f1, type: 3}
-  _audioSource: {fileID: 0}
-  <TabGroup>k__BackingField: {fileID: 5169761799717273601}
-  <Background>k__BackingField: {fileID: 709255243115714483}
 --- !u!1 &8929388907187155156
 GameObject:
   m_ObjectHideFlags: 0
@@ -5613,8 +5297,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 132847826582838271}
-  - component: {fileID: 7651054100941928169}
-  - component: {fileID: 5573947995795371676}
   m_Layer: 5
   m_Name: InventoryUI
   m_TagString: Untagged
@@ -5646,59 +5328,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7651054100941928169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9020119477608179131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 634073151e5891b488c7fff59e583d5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inventoryPanel: {fileID: 0}
-  _input: {fileID: 0}
-  _itemTypeToPanelsMap:
-    _serializedList:
-    - Key: 1
-      Value: {fileID: 7603868211681755447}
-    - Key: 2
-      Value: {fileID: 0}
-    - Key: 3
-      Value: {fileID: 0}
-    - Key: 4
-      Value: {fileID: 0}
-  _inventorySlotPrefab: {fileID: 8197328019240665165, guid: ea5d28b71eace2d4184a06692c425858, type: 3}
---- !u!114 &5573947995795371676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9020119477608179131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5395b69ea69b42ddb83ccb54c7833c8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _eventChannel: {fileID: 11400000, guid: da029f9e15a5e314094efd3ec97f5a2a, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7651054100941928169}
-        m_TargetAssemblyTypeName: RPG.InventoryUI, Assembly-CSharp
-        m_MethodName: HandleItemAdd
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &9032640072444153809
 GameObject:
   m_ObjectHideFlags: 0

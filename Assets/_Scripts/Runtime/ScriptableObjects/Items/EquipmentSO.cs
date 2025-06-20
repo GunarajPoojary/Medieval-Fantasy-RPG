@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG
+namespace RPG.Item
 {
     public abstract class EquipmentSO : ItemSO
     {
