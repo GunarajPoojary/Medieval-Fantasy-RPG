@@ -37,6 +37,7 @@ namespace RPG.Utilities.Inputs.ScriptableObjects
 		public UnityAction EquipmentMenuAction = delegate { };
 
 		public UnityAction<bool> ToggleLookInput = delegate { };
+		public UnityAction<Vector2> LookAction = delegate { };
 
 		public void Initialize() => _playerInputActions ??= new PlayerInputActions();
 
@@ -171,7 +172,7 @@ namespace RPG.Utilities.Inputs.ScriptableObjects
 
 		public void OnLook(InputAction.CallbackContext context)
 		{
-
+			LookAction?.Invoke(context.ReadValue<Vector2>());
 		}
 
 		public void OnAttack(InputAction.CallbackContext context)

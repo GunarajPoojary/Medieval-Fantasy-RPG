@@ -8,16 +8,14 @@ namespace RPG.StateMachine
     public class GameStateMachine
     {
         private readonly InventoryManager _inventoryManager;
-        private readonly PlayerEquipmentManager _equipmentManager;
         private readonly InputReader _input;
         public GameState CurrentState { get; private set; }
         public event Action<GameState> OnStateChanged;
         private bool _isInventoryOpen = false;
 
-        public GameStateMachine(InputReader input, InventoryManager inventoryManager, PlayerEquipmentManager equipmentManager)
+        public GameStateMachine(InputReader input, InventoryManager inventoryManager)
         {
             _inventoryManager = inventoryManager;
-            _equipmentManager = equipmentManager;
             _input = input;
         }
 

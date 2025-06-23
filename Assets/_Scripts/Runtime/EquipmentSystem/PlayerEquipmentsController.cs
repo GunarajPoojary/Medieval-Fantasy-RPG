@@ -1,5 +1,6 @@
 using System;
 using RPG.Item;
+using RPG.StatSystem;
 using UnityEngine;
 
 namespace RPG.EquipmentSystem
@@ -10,36 +11,19 @@ namespace RPG.EquipmentSystem
         //[Space]
         private ArmorSO[] _equippedArmors;
         private WeaponSO _equippedWeapon;
+        private readonly IStatModifiable _playerStats;
 
-        private Animator _animator;
+        private readonly Animator _animator;
         private readonly PlayerEquipmentDatabase _equipmentDataBase;
 
-        public PlayerEquipmentsController(PlayerEquipmentDatabase playerEquipmentDatabase, Animator animator, RuntimeAnimatorController defaultAnimatorController)
+        public PlayerEquipmentsController(IStatModifiable playerStats, PlayerEquipmentDatabase playerEquipmentDatabase, Animator animator, RuntimeAnimatorController defaultAnimatorController)
         {
             _equipmentDataBase = playerEquipmentDatabase;
+            _playerStats = playerStats;
             _animator = animator;
             _defaultAnimatorController = defaultAnimatorController;
 
             InitializeEquipmentSlots();
-        }
-
-        private void Start()
-        {
-            // if (_equippedWeaponSO != null)
-            // {
-            //     EquipWeapon(_equippedWeaponSO);
-            // }
-
-            // if (_equippedWearablesSO != null)
-            // {
-            //     for (int i = 0; i < _equippedWearablesSO.Length; i++)
-            //     {
-            //         if (_equippedWearablesSO[i] != null)
-            //         {
-            //             EquipArmor(_equippedWearablesSO[i]);
-            //         }
-            //     }
-            // }
         }
 
         // Equip a new wearable item, unequip the old one if necessary, and update the visuals
@@ -48,7 +32,7 @@ namespace RPG.EquipmentSystem
             int slotIndex = (int)newArmor.EquipSlot;
             ArmorSO currentEquippedArmor = UnequipArmor(slotIndex);
 
-            _equipmentDataBase.GetEquipmentObjectBySO(newArmor).SetActive(true);
+            _equipmentDataBase.GetEquipmentObjectBySO(newArmor).Equip(_playerStats);
 
             _equippedArmors[slotIndex] = newArmor;
         }
@@ -59,7 +43,7 @@ namespace RPG.EquipmentSystem
             ArmorSO currentEquippedArmor = _equippedArmors[slotIndex];
 
             if (currentEquippedArmor != null)
-                _equipmentDataBase.GetEquipmentObjectBySO(currentEquippedArmor).SetActive(false);
+                _equipmentDataBase.GetEquipmentObjectBySO(currentEquippedArmor).Unequip(_playerStats);
 
             _equippedArmors[slotIndex] = null;
             return currentEquippedArmor;
@@ -70,7 +54,7 @@ namespace RPG.EquipmentSystem
         {
             WeaponSO currentEquippedWeapon = UnequipWeapon();
 
-            _equipmentDataBase.GetEquipmentObjectBySO(newWeapon).SetActive(true);
+            _equipmentDataBase.GetEquipmentObjectBySO(newWeapon).Equip(_playerStats);
 
             _equippedWeapon = newWeapon;
             UpdateAnimatorController();
@@ -83,7 +67,7 @@ namespace RPG.EquipmentSystem
 
             WeaponSO currentEquippedWeapon = _equippedWeapon;
 
-            _equipmentDataBase.GetEquipmentObjectBySO(currentEquippedWeapon).SetActive(false);
+            _equipmentDataBase.GetEquipmentObjectBySO(currentEquippedWeapon).Unequip(_playerStats);
 
             _equippedWeapon = null;
 
@@ -95,60 +79,10 @@ namespace RPG.EquipmentSystem
         // Unequip all wearable items and weapons, and reset the player to the default skins and animator controller
         public void UnequipAll()
         {
-            // if (_equippedWearablesSO != null)
-            // {
-            //     for (int i = 0; i < _equippedWearablesSO.Length; i++)
-            //     {
-            //         UnequipWearable(i);
-            //     }
-            // }
-
             UnequipWeapon();
-
-            EnableAllSkins();
 
             _animator.runtimeAnimatorController = _defaultAnimatorController;
         }
-
-        // #region ISaveable Methods
-        // public void LoadData(GameData data)
-        // {
-        //     if (_itemLookupEventSO.RaiseEvent(data.CurrentWeaponObjectIDs) is WeaponSO weapon)
-        //     {
-        //         _equippedWeaponSO = weapon;
-        //     }
-        //
-        //     for (int i = 0; i < data.CurrentArmorObjectIDs.Length; i++)
-        //     {
-        //         if (_itemLookupEventSO.RaiseEvent(data.CurrentArmorObjectIDs[i]) is WearableSO armor)
-        //         {
-        //             _equippedWearablesSO[i] = armor;
-        //         }
-        //     }
-        // }
-
-        // public void SaveData(GameData data)
-        // {
-        //     if (_equippedWeaponSO != null)
-        //     {
-        //         data.CurrentWeaponObjectIDs = _equippedWeaponSO.ID;
-        //     }
-        //     else
-        //     {
-        //         data.CurrentWeaponObjectIDs = null;
-        //     }
-        //
-        //     data.CurrentArmorObjectIDs = new string[_equippedWearablesSO.Length];
-        //
-        //     for (int i = 0; i < _equippedWearablesSO.Length; i++)
-        //     {
-        //         if (_equippedWearablesSO[i] != null)
-        //         {
-        //             data.CurrentArmorObjectIDs[i] = _equippedWearablesSO[i].ID;
-        //         }
-        //     }
-        // }
-        // #endregion
 
         private void InitializeEquipmentSlots()
         {
@@ -158,22 +92,5 @@ namespace RPG.EquipmentSystem
 
         // Update the animator controller based on the equipped weapon and current scene
         private void UpdateAnimatorController() => _animator.runtimeAnimatorController = _equippedWeapon != null ? _equippedWeapon.AnimatorOverrideController : _defaultAnimatorController;
-
-        // Handle requests to get the currently equipped wearable items
-        // private ArmorSO[] GetEquippedWearables() => _equippedWearablesSO;
-
-        // // Handle requests to get the currently equipped weapon
-        // private WeaponSO GetEquippedWeapon() => _equippedWeaponSO;
-
-        // Initialize arrays for storing equipped wearables and their corresponding meshes
-
-        // Activate all default skins
-        private void EnableAllSkins()
-        {
-            // foreach (var item in Skins)
-            // {
-            //     item.Value.SetActive(true);
-            // }
-        }
     }
 }

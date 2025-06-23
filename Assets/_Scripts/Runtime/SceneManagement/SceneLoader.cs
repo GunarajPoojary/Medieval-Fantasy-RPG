@@ -26,16 +26,22 @@ namespace RPG.SceneManagement
         private AsyncOperationHandle<SceneInstance> _loadingOperationHandle;
         private AsyncOperationHandle<SceneInstance> _gameplayManagerLoadingOpHandle;
 
-        private void OnEnable()
-        {
-            _loadMenuChannel.OnLoadingRequested += LoadMenu;
-            _loadLocationChannel.OnLoadingRequested += LoadLocation;
-        }
+        private void OnEnable() => SubscribeToEventChannels(true);
 
-        private void OnDisable()
+        private void OnDisable() => SubscribeToEventChannels(false);
+
+        private void SubscribeToEventChannels(bool subscribe)
         {
-            _loadMenuChannel.OnLoadingRequested -= LoadMenu;
-            _loadLocationChannel.OnLoadingRequested -= LoadLocation;
+            if (subscribe)
+            {
+                _loadMenuChannel.OnLoadingRequested += LoadMenu;
+                _loadLocationChannel.OnLoadingRequested += LoadLocation;
+            }
+            else
+            {
+                _loadMenuChannel.OnLoadingRequested -= LoadMenu;
+                _loadLocationChannel.OnLoadingRequested -= LoadLocation;
+            }
         }
 
         /// <summary>

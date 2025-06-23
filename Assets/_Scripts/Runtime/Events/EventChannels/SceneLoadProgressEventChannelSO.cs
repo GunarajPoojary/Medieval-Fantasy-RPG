@@ -9,7 +9,7 @@ namespace RPG.Events.EventChannel
     /// This class is used for Events that have a AsyncOperationHandle argument.
     /// Example: An event to know the scene load porgress for Loading Screen
     /// </summary>
-    [CreateAssetMenu(menuName = "Custom/Events/Scene Load Progress Event Channel")]
+    [CreateAssetMenu(fileName = "SceneLoadProgressChannel", menuName = "Custom/Events/Scene Load Progress Event Channel")]
     public class SceneLoadProgressEventChannelSO : DescriptionBaseSO
     {
         public event UnityAction<bool, AsyncOperationHandle<SceneInstance>> OnEventRaised;

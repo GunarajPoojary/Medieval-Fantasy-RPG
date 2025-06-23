@@ -9,7 +9,7 @@ namespace RPG.Player.Utilities.Animations
     {
         private IMovementStateAnimationEventsHandler _playerStateAnimationHandler;
 
-        private void Start() => _playerStateAnimationHandler = GetComponentInParent<PlayerController>(); //GameService.Instance.PlayerService.PlayerMovementStateMachine;
+        private void Start() => InitializeComponents();
 
         public void TriggerOnMovementStateAnimationEnterEvent()
         {
@@ -31,6 +31,8 @@ namespace RPG.Player.Utilities.Animations
 
             _playerStateAnimationHandler?.OnMovementStateAnimationTransitionEvent();
         }
+
+        private void InitializeComponents() => _playerStateAnimationHandler = GetComponentInParent<PlayerController>();
 
         // Utility method to check if the animator is currently transitioning between animations
         // Uses default layer index 0 unless specified otherwise

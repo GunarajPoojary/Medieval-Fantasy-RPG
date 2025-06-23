@@ -6,9 +6,9 @@ namespace RPG.EquipmentSystem
 {
     public class PlayerEquipmentDatabase
     {
-        private readonly Dictionary<EquipmentSO, GameObject> _equipmentLookup;
+        private readonly Dictionary<EquipmentSO, IEquippable> _equipmentLookup;
 
-        public PlayerEquipmentDatabase(Dictionary<EquipmentSO, GameObject> equipmentEntries)
+        public PlayerEquipmentDatabase(Dictionary<EquipmentSO, IEquippable> equipmentEntries)
         {
             // Initialize the lookup table for fast access
             _equipmentLookup = equipmentEntries;
@@ -17,7 +17,7 @@ namespace RPG.EquipmentSystem
         /// <summary>
         /// Gets the corresponding GameObject (already in the scene) for the given EquipmentSO.
         /// </summary>
-        public GameObject GetEquipmentObjectBySO(EquipmentSO equipmentSO)
+        public IEquippable GetEquipmentObjectBySO(EquipmentSO equipmentSO)
         {
             if (_equipmentLookup == null)
             {
@@ -31,8 +31,8 @@ namespace RPG.EquipmentSystem
                 return null;
             }
 
-            if (_equipmentLookup.TryGetValue(equipmentSO, out GameObject obj))
-                return obj;
+            if (_equipmentLookup.TryGetValue(equipmentSO, out IEquippable equippable))
+                return equippable;
 
             Debug.LogWarning($"EquipmentSO not found in lookup: {equipmentSO.name}");
             return null;

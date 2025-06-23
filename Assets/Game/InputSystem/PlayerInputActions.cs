@@ -107,7 +107,7 @@ namespace RPG.Player.InputActions
                     ""type"": ""Value"",
                     ""id"": ""0d6c5c6e-86b1-4da8-8860-fc209b091a58"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=0.05,y=0.05)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },

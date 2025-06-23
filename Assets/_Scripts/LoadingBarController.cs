@@ -15,14 +15,16 @@ namespace RPG
         //[SerializeField] private BoolEventChannelSO _toggleLoadingScreen = default;
         [SerializeField] private SceneLoadProgressEventChannelSO _loadingScreen = default;
 
-        private void OnEnable()
-        {
-            _loadingScreen.OnEventRaised += ToggleLoadingScreen;
-        }
+        private void OnEnable() => SubscribeToLoadingScreenEvent(true);
 
-        private void OnDisable()
+        private void OnDisable() => SubscribeToLoadingScreenEvent(false);
+
+        private void SubscribeToLoadingScreenEvent(bool subscribe)
         {
-            _loadingScreen.OnEventRaised -= ToggleLoadingScreen;
+            if (subscribe)
+                _loadingScreen.OnEventRaised += ToggleLoadingScreen;
+            else
+                _loadingScreen.OnEventRaised -= ToggleLoadingScreen;
         }
 
 
@@ -31,7 +33,7 @@ namespace RPG
             _loadingInterface.gameObject.SetActive(state);
 
             if (!state) return;
-            
+
             _loadingInterface.ResetBar();
             _loadingInterface.UpdateBar(opHandle.PercentComplete);
         }

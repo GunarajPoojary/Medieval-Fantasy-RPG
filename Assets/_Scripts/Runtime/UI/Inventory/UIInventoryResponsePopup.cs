@@ -14,17 +14,12 @@ namespace RPG.UI.Inventory
         [SerializeField] private float _hiddenOffset = -120f;
         private bool _isAnimating = false;
 
-        private void Start()
-        {
-            _popupPanel.localPosition = new Vector2(0, _hiddenOffset);
-
-            _popupPanel.gameObject.SetActive(false);
-        }
+        private void Start() => SetPopupDefaultPosition();
 
         public void ShowPopup(string message)
         {
             if (_isAnimating) return;
-            
+
             _messageText.text = message;
 
             _popupPanel.gameObject.SetActive(true);
@@ -33,6 +28,13 @@ namespace RPG.UI.Inventory
 
             Tween.LocalPositionY(_popupPanel, _visibleOffset, _animationDuration, Ease.OutBack)
                  .OnComplete(OnShowPopup);
+        }
+
+        private void SetPopupDefaultPosition()
+        {
+            _popupPanel.localPosition = new Vector2(0, _hiddenOffset);
+
+            _popupPanel.gameObject.SetActive(false);
         }
 
         private void OnShowPopup() => Tween.Delay(_displayDuration)

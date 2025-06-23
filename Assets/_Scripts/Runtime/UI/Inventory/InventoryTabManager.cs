@@ -27,25 +27,13 @@ namespace RPG.UI
         private int _defaultSubTabIndex = 0;
         private readonly Dictionary<int, int> _lastSelectedSubTabs = new();
 
-        private void Awake()
-        {
-            InitializeTabs();
-        }
+        private void Awake() => InitializeTabs();
 
-        private void OnEnable()
-        {
-            SubscribeEvents(true);
-        }
+        private void OnEnable() => SubscribeEvents(true);
 
-        private void OnDisable()
-        {
-            SubscribeEvents(false);
-        }
+        private void OnDisable() => SubscribeEvents(false);
 
-        private void Start()
-        {
-            OnMainTabSelected(_currentSelectedMainTabIndex);
-        }
+        private void Start() => OnMainTabSelected(_currentSelectedMainTabIndex);
 
         private void InitializeTabs()
         {

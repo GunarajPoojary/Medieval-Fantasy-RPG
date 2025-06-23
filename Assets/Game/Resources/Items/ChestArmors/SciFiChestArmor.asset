@@ -21,5 +21,5 @@ MonoBehaviour:
   _isSellable: 1
   _maxStack: 1
   _id: 43d5a36b89a0430b98304066e931e686
-  GameObjectID: 
+  equipmentStats: {fileID: 11400000, guid: 3632702b0020ac441828fe461ef9a818, type: 2}
   _equipSlot: 1

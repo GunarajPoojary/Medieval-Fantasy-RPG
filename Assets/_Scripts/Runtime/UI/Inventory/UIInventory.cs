@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using RPG.Events.EventChannel;
 using RPG.Inventory;
 using RPG.Item;
+using RPG.StatSystem;
 using RPG.Utilities;
 using UnityEngine;
 
@@ -23,6 +25,9 @@ namespace RPG.UI.Inventory
         [Header("Item Details Panel")]
         [SerializeField] private UIInventoryItemOverview _itemOverviewPanel;
         [SerializeField] private UIInventoryResponsePopup _uiInventoryResponsePopup;
+        [Header("Listening to")]
+        [SerializeField] private StatUpdateEventChannel _statUpdateEventChannel;
+        [SerializeField] private PlayerAttributesUI _attributesUI;
         [SerializeField] private AudioSource _uiAudioSource;
 
         [Header("Configuration")]
@@ -44,6 +49,10 @@ namespace RPG.UI.Inventory
             InitializeInventory();
             SetContentPanelsByItemType();
         }
+
+        private void OnEnable() => SubscribeToEvents(true);
+
+        private void OnDisable() => SubscribeToEvents(false);
 
         private void OnDestroy() => CleanupSlotEvents();
         #endregion
@@ -73,6 +82,16 @@ namespace RPG.UI.Inventory
             CreateSlotPoolContainer();
             InitializeObjectPool();
         }
+
+        private void SubscribeToEvents(bool subscribe)
+        {
+            if (subscribe)
+                _statUpdateEventChannel.OnEventRaised += OnUpdateBaseStats;
+            else
+                _statUpdateEventChannel.OnEventRaised -= OnUpdateBaseStats;
+        }
+
+        private void OnUpdateBaseStats(StatType statType, Stat stat) => _attributesUI.OnUpdateBaseStats(statType, stat);
 
         private void CreateSlotPoolContainer()
         {

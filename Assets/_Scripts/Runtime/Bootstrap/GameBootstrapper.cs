@@ -21,20 +21,17 @@ namespace RPG.Bootstrap
 		[SerializeField] private AssetReference _menuLoadChannel = default;
 		private const int BOOTSTRAPPER_SCENE_INDEX = 0;
 
-		private void Start()
-		{
-			// Load the persistent managers scene
-			_persistentManagersScene.SceneReference.LoadSceneAsync(LoadSceneMode.Additive, true).Completed += LoadEventChannel;
-		}
+        private void Start() => LoadPersistentManagers();
 
-		// Now the persistent Managers scene is active, let's load the event channel from addressable
-		private void LoadEventChannel(AsyncOperationHandle<SceneInstance> obj)
-		{
-			_menuLoadChannel.LoadAssetAsync<LoadSceneEventChannelSO>().Completed += LoadMainMenu;
-		}
+        private void LoadPersistentManagers() => _persistentManagersScene.SceneReference.LoadSceneAsync(
+            LoadSceneMode.Additive,
+            true).Completed += LoadEventChannel;
 
-		// Once the eventchannel has been loaded from addressable raise the event which will be listened by SceneLoader
-		private void LoadMainMenu(AsyncOperationHandle<LoadSceneEventChannelSO> eventChannel)
+        // Now the persistent Managers scene is active, let's load the event channel from addressable
+        private void LoadEventChannel(AsyncOperationHandle<SceneInstance> obj) => _menuLoadChannel.LoadAssetAsync<LoadSceneEventChannelSO>().Completed += LoadMainMenu;
+
+        // Once the eventchannel has been loaded from addressable raise the event which will be listened by SceneLoader
+        private void LoadMainMenu(AsyncOperationHandle<LoadSceneEventChannelSO> eventChannel)
 		{
 			eventChannel.Result.RaiseEvent(_mainMenuScene, true);
 

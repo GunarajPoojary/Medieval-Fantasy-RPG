@@ -11,24 +11,22 @@ namespace RPG
     {
         [SerializeField] private UIManager _uIManager;
         [SerializeField] private InventoryManager _inventoryManager;
-        [SerializeField] private PlayerEquipmentManager _playerEquipmentManager;
         [SerializeField] private InputReader _input;
         private GameStateMachine _gameStateMachine;
 
-        private void Awake()
+        private void Awake() => InitializeGameStateMachine();
+
+        private void OnEnable() => AddStateMachineInputActionCallbacks();
+
+        private void OnDisable() => RemoveStateMachineInputActionCallbacks();
+
+        private void InitializeGameStateMachine()
         {
-            _gameStateMachine = new GameStateMachine(_input, _inventoryManager, _playerEquipmentManager);
+            _gameStateMachine = new GameStateMachine(_input, _inventoryManager);
             _gameStateMachine.EnterState(GameState.Gameplay);
         }
 
-        private void OnEnable()
-        {
-            _gameStateMachine.AddInputActionCallbacks();
-        }
-
-        private void OnDisable()
-        {
-            _gameStateMachine.RemoveInputActionCallbacks();
-        }
+        private void AddStateMachineInputActionCallbacks() => _gameStateMachine.AddInputActionCallbacks();
+        private void RemoveStateMachineInputActionCallbacks() => _gameStateMachine.RemoveInputActionCallbacks();
     }
 }

@@ -21,5 +21,5 @@ MonoBehaviour:
   _isSellable: 1
   _maxStack: 1
   _id: 49457689628d448a8016d815ffdc7d1a
-  GameObjectID: 
+  equipmentStats: {fileID: 11400000, guid: be63dad1565e3994da40e5133586f7e2, type: 2}
   _animatorOverrideController: {fileID: 22100000, guid: 0d50eba59d7669e4995e31a6da8fc8ba, type: 2}

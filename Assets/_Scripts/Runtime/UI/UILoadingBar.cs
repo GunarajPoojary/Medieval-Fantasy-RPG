@@ -9,7 +9,7 @@ namespace RPG.UI
         [SerializeField] private RectTransform _pivot;
         private RectTransform _loadingBarRect;
 
-        private void Awake() => _loadingBarRect = _loadingBar.GetComponent<RectTransform>();
+        private void Awake() => InitializeComponents();
 
         public void ResetBar() => _loadingBar.fillAmount = 0;
 
@@ -18,5 +18,7 @@ namespace RPG.UI
             _loadingBar.fillAmount = percentage;
             _pivot.anchoredPosition = new Vector2(_loadingBarRect.rect.width * percentage, 0);
         }
+
+        private void InitializeComponents() => _loadingBarRect = _loadingBar.GetComponent<RectTransform>();
     }
 }

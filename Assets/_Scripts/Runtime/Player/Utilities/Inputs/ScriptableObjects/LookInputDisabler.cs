@@ -8,14 +8,16 @@ namespace RPG.Utilities.Inputs.ScriptableObjects
 		[SerializeField] private InputReader _inputReader;
 		[SerializeField] private CinemachineInputAxisController _axisController;
 
-		private void OnEnable()
-		{
-			_inputReader.ToggleLookInput += ToggleLookInput;
-		}
+		private void OnEnable() => SubscribeToInputReader(true);
 
-		private void OnDisable()
+		private void OnDisable() => SubscribeToInputReader(false);
+
+		private void SubscribeToInputReader(bool subscribe)
 		{
-			_inputReader.ToggleLookInput -= ToggleLookInput;
+			if (subscribe)
+				_inputReader.ToggleLookInput += ToggleLookInput;
+			else
+				_inputReader.ToggleLookInput -= ToggleLookInput;
 		}
 
 		private void ToggleLookInput(bool toggle)

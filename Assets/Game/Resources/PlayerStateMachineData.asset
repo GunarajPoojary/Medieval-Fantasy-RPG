@@ -69,7 +69,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     <BaseRotationData>k__BackingField:
-      <TargetRotationReachTime>k__BackingField: {x: 0, y: 0.12, z: 0}
+      <TargetRotationReachTime>k__BackingField: {x: 0, y: 0.08, z: 0}
     <IdleData>k__BackingField:
       <SpeedModifier>k__BackingField: 0
     <WalkData>k__BackingField:

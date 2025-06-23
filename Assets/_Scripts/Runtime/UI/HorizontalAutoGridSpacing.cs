@@ -10,16 +10,14 @@ namespace RPG.UI
         private GridLayoutGroup _gridLayout;
         private RectTransform _rectTransform;
 
-        void OnEnable()
+        private void OnEnable()
         {
-            _gridLayout = GetComponent<GridLayoutGroup>();
-            _rectTransform = GetComponent<RectTransform>();
-
+            InitializeComponents();
             UpdateSpacingHorizontally();
         }
 
 #if UNITY_EDITOR
-        void Update()
+        private void Update()
         {
             if (!Application.isPlaying)
             {
@@ -53,6 +51,12 @@ namespace RPG.UI
 
             // Apply only X spacing; preserve Y spacing
             _gridLayout.spacing = new Vector2(spacingX, _gridLayout.spacing.y);
+        }
+
+        private void InitializeComponents()
+        {
+            _gridLayout = GetComponent<GridLayoutGroup>();
+            _rectTransform = GetComponent<RectTransform>();
         }
     }
 }

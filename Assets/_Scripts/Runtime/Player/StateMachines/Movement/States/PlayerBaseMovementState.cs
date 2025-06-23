@@ -1,3 +1,4 @@
+using System;
 using RPG.Player.Data.States.Airborne;
 using RPG.Player.Data.States.Grounded;
 using RPG.StateMachine;
@@ -20,7 +21,7 @@ namespace RPG.Player.StateMachines.Movement.States
         private const float ANIMATIONBLENDSPEED = 10.0f;
         private const float BLENDSNAPTHRESHOLD = 0.01f;
         private const float FULLROTATIONDEGREES = 360f;
-
+        
         public PlayerBaseMovementState(PlayerStateFactory playerStateFactory)
         {
             _stateFactory = playerStateFactory;
@@ -40,7 +41,21 @@ namespace RPG.Player.StateMachines.Movement.States
 
         public virtual void HandleInput() => ReadMovementInput();
 
-        public virtual void UpdateState() => UpdateMovementAnimation();
+        public virtual void UpdateState()
+        {
+            _stateFactory.PlayerController.PreUpdate?.Invoke();
+
+            UpdateMovementAnimation();
+            
+            if (_stateFactory.PlayerController.PostUpdate != null)
+            {
+                // Get local-space velocity
+                var vel = Quaternion.Inverse(_stateFactory.PlayerController.transform.rotation) * GetHorizontalVelocity();
+                vel.y = _stateFactory.PlayerController.Rigidbody.linearVelocity.y;
+                //PostUpdate(vel, m_IsSprinting ? JumpSpeed / SprintJumpSpeed : 1);
+                _stateFactory.PlayerController.PostUpdate(vel, 1);
+            }
+        }
 
         public virtual void PhysicsUpdate() => Move();
 
