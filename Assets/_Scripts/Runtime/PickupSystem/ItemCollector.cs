@@ -1,7 +1,7 @@
-using RPG.Events.EventChannel;
+using ProjectEmbersteel.Events.EventChannel;
 using UnityEngine;
 
-namespace RPG.Loot
+namespace ProjectEmbersteel.Loot
 {
     public class ItemCollector : MonoBehaviour
     {

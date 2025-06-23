@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     public class DataPersistenceManager : MonoBehaviour
     {

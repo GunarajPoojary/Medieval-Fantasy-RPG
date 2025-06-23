@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.States.Grounded.Moving
+namespace ProjectEmbersteel.Player.Data.States.Grounded.Moving
 {
     /// <summary>
     /// Contains data related to player run state, including speed and transition timing.

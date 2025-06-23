@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RPG.UI
+namespace ProjectEmbersteel.UI
 {
     [RequireComponent(typeof(GridLayoutGroup))]
     [ExecuteAlways] // Allows updates in edit mode

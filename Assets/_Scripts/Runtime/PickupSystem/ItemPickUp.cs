@@ -1,7 +1,7 @@
-using RPG.Item;
+using ProjectEmbersteel.Item;
 using UnityEngine;
 
-namespace RPG.Loot
+namespace ProjectEmbersteel.Loot
 {
     /// <summary>
     /// This class represents a pickable Item in the world

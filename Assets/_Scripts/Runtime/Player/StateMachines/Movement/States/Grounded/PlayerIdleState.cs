@@ -1,6 +1,6 @@
 using UnityEngine; 
 
-namespace RPG.Player.StateMachines.Movement.States.Grounded
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
 {
     /// <summary>
     /// Handles the Idle state of the player while grounded (not moving)

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     public interface IDataService
     {

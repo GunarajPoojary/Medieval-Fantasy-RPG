@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.States.Airborne
+namespace ProjectEmbersteel.Player.Data.States.Airborne
 {
     /// <summary>
     /// Contains data related to player jump state, including forces and slope modifiers.

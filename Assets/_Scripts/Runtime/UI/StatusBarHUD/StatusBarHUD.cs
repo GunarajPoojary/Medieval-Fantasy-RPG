@@ -1,9 +1,9 @@
-using RPG.Events.EventChannel;
-using RPG.StatSystem;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.StatSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RPG.UI
+namespace ProjectEmbersteel.UI
 {
     public class StatusBarHUD : MonoBehaviour
     {

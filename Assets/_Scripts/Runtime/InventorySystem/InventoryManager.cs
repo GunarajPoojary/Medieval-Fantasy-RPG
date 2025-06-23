@@ -1,10 +1,10 @@
 using System;
-using RPG.Events.EventChannel;
-using RPG.Loot;
-using RPG.UI.Inventory;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.Loot;
+using ProjectEmbersteel.UI.Inventory;
 using UnityEngine;
 
-namespace RPG.Inventory
+namespace ProjectEmbersteel.Inventory
 {
     public class InventoryManager : MonoBehaviour
     {

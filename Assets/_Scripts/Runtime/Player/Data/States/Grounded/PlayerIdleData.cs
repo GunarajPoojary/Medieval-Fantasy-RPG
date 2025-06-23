@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.States.Grounded
+namespace ProjectEmbersteel.Player.Data.States.Grounded
 {
     /// <summary>
     /// Contains data for player idle state, primarily speed adjustment.

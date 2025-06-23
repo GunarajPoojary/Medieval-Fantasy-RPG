@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Data.Colliders
+namespace ProjectEmbersteel.Data.Colliders
 {
     /// <summary>
     /// Contains configuration values for handling slope movement and step climbing behavior.

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.UI
+namespace ProjectEmbersteel.UI
 {
     [Serializable]
     public class InventoryMainTabData

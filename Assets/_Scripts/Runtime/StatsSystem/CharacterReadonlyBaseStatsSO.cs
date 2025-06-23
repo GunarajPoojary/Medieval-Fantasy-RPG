@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.StatSystem
+namespace ProjectEmbersteel.StatSystem
 {
     [CreateAssetMenu(fileName = "NewCharacterReadonlyBaseStats", menuName = "Custom/Stats/ReadonlyBaseStats/CharacterReadonlyBaseStats")]
     public class CharacterReadonlyBaseStatsSO : DescriptionBaseSO

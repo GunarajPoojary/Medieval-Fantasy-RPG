@@ -1,8 +1,8 @@
-using RPG.Player.Data.States.Grounded.Landing;
-using RPG.Player.Data.States.Grounded.Moving;
+using ProjectEmbersteel.Player.Data.States.Grounded.Landing;
+using ProjectEmbersteel.Player.Data.States.Grounded.Moving;
 using UnityEngine;
 
-namespace RPG.Player.Data.States.Grounded
+namespace ProjectEmbersteel.Player.Data.States.Grounded
 {
     /// <summary>
     /// Contains data related to the player's grounded state, including movement speeds, rotation data, and slope behavior.

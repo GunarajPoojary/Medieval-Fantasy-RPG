@@ -1,9 +1,9 @@
 using System;
-using RPG.Item;
-using RPG.StatSystem;
+using ProjectEmbersteel.Item;
+using ProjectEmbersteel.StatSystem;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem
+namespace ProjectEmbersteel.EquipmentSystem
 {
     public class PlayerEquipmentsController
     {

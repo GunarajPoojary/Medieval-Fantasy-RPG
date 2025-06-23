@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using RPG.Item;
+using ProjectEmbersteel.Item;
 using UnityEngine;
 
-namespace RPG.Inventory
+namespace ProjectEmbersteel.Inventory
 {
     /// <summary>
     /// Inventory model class that manages collections of items

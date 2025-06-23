@@ -1,7 +1,7 @@
-using RPG.Utilities.Inputs.ScriptableObjects;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 using UnityEngine; 
 
-namespace RPG.Player.StateMachines.Movement.States.Grounded.Landing 
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landing 
 {
     /// <summary>
     /// Represents the light landing state — when the player lands softly after a fall or jump

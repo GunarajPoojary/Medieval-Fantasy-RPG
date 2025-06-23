@@ -1,7 +1,7 @@
-using RPG.Item;
+using ProjectEmbersteel.Item;
 using UnityEngine;
 
-namespace RPG.Inventory
+namespace ProjectEmbersteel.Inventory
 {
     /// <summary>
     /// Class that represents Inventory item(Both stackable and Non-Stackable)

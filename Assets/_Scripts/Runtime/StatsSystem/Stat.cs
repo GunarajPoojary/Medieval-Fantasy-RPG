@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace RPG.StatSystem
+namespace ProjectEmbersteel.StatSystem
 {
     public class Stat
     {

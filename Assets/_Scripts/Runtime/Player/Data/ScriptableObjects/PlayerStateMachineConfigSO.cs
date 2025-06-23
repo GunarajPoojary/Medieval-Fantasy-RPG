@@ -1,8 +1,8 @@
-using RPG.Player.Data.States.Airborne;
-using RPG.Player.Data.States.Grounded;
+using ProjectEmbersteel.Player.Data.States.Airborne;
+using ProjectEmbersteel.Player.Data.States.Grounded;
 using UnityEngine;
 
-namespace RPG.Player.Data.ScriptableObjects
+namespace ProjectEmbersteel.Player.Data.ScriptableObjects
 {
     /// <summary>
     /// Holds configuration data for the player's state machine, including grounded and airborne states.

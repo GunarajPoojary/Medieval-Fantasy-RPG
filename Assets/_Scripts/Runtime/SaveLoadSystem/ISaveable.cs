@@ -1,4 +1,4 @@
-namespace RPG
+namespace ProjectEmbersteel
 {
     public interface ISaveable
     {

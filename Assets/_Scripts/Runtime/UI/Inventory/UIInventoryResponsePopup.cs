@@ -2,7 +2,7 @@ using PrimeTween;
 using TMPro;
 using UnityEngine;
 
-namespace RPG.UI.Inventory
+namespace ProjectEmbersteel.UI.Inventory
 {
     public class UIInventoryResponsePopup : MonoBehaviour
     {

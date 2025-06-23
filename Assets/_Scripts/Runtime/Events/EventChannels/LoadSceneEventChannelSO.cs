@@ -1,8 +1,8 @@
-﻿using RPG.SceneManagement;
+﻿using ProjectEmbersteel.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RPG.Events.EventChannel
+namespace ProjectEmbersteel.Events.EventChannel
 {
 	/// <summary>
 	/// This class is used for scene-loading events.

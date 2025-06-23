@@ -1,10 +1,10 @@
-using RPG.Player.Data.States;
-using RPG.Player.StateMachines.Movement.States.Airborne;
-using RPG.Player.StateMachines.Movement.States.Grounded;
-using RPG.Player.StateMachines.Movement.States.Grounded.Landing;
-using RPG.Player.StateMachines.Movement.States.Grounded.Moving;
+using ProjectEmbersteel.Player.Data.States;
+using ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne;
+using ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded;
+using ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landing;
+using ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Moving;
 
-namespace RPG.Player.StateMachines.Movement
+namespace ProjectEmbersteel.Player.StateMachines.Movement
 {
     /// <summary>
     /// Factory and container for all player states.

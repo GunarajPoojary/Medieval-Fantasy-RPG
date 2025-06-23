@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.Layers
+namespace ProjectEmbersteel.Player.Data.Layers
 {
     /// <summary>
     /// Holds data related to player layer interactions, specifically ground detection.

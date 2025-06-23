@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.Sounds
+namespace ProjectEmbersteel.Player.Data.Sounds
 {
     /// <summary>
     /// Serializable data container for player footstep and landing audio clips.

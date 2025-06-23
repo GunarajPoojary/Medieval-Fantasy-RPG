@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using RPG.Item;
+using ProjectEmbersteel.Item;
 
 [CustomEditor(typeof(ItemSO), true)]
 public class ItemSOEditor : Editor

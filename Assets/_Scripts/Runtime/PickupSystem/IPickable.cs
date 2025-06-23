@@ -1,6 +1,6 @@
-using RPG.Item;
+using ProjectEmbersteel.Item;
 
-namespace RPG.Loot
+namespace ProjectEmbersteel.Loot
 {
     /// <summary>
     /// Contract for pickable item

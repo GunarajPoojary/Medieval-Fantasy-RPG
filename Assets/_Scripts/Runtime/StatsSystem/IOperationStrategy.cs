@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace RPG.StatSystem
+namespace ProjectEmbersteel.StatSystem
 {
     public interface IModifierOperationStrategy
     {

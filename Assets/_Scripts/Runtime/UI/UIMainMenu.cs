@@ -1,8 +1,8 @@
-using RPG.Events.EventChannel;
-using RPG.SceneManagement;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.SceneManagement;
 using UnityEngine;
 
-namespace RPG.UI
+namespace ProjectEmbersteel.UI
 {
     public class UIMainMenu : MonoBehaviour
     {

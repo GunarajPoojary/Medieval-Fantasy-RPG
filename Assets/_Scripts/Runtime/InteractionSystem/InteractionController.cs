@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.InteractionSystem
+namespace ProjectEmbersteel.InteractionSystem
 {
     [RequireComponent(typeof(BoxCollider))]
     public class InteractionController : MonoBehaviour

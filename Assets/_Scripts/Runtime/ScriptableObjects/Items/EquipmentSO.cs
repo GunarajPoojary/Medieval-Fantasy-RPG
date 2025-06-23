@@ -1,6 +1,6 @@
-using RPG.StatSystem;
+using ProjectEmbersteel.StatSystem;
 
-namespace RPG.Item
+namespace ProjectEmbersteel.Item
 {
     public abstract class EquipmentSO : ItemSO
     {

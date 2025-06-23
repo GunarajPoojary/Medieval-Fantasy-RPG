@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     /// <summary>
     /// Replaces a SkinnedMeshRenderer with MeshRenderer and MeshFilter to make pickable gameobject.

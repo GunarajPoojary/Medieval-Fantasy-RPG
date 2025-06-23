@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     public class UIInteraction : MonoBehaviour
     {

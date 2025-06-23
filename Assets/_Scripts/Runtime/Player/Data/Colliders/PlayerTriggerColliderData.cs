@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.Colliders
+namespace ProjectEmbersteel.Player.Data.Colliders
 {
     /// <summary>
     /// Stores configuration and calculated data for the player's ground check trigger collider.

@@ -1,8 +1,8 @@
-using RPG.StatSystem;
+using ProjectEmbersteel.StatSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RPG.Events.EventChannel
+namespace ProjectEmbersteel.Events.EventChannel
 {
     [CreateAssetMenu(fileName = "RuntimeStatUpdateEventChannel", menuName = "Custom/Events/Runtime Stat Update Event Channel")]
     public class RuntimeStatUpdateEventChannel : DescriptionBaseSO

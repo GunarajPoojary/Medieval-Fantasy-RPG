@@ -1,7 +1,7 @@
-using RPG.InteractionSystem;
+using ProjectEmbersteel.InteractionSystem;
 using UnityEngine;
 
-namespace RPG.Characters
+namespace ProjectEmbersteel.Characters
 {
     public class NPC : MonoBehaviour, IInteractable
     {

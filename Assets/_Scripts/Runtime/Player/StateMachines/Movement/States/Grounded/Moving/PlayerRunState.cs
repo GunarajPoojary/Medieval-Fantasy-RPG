@@ -1,6 +1,6 @@
 using UnityEngine; 
 
-namespace RPG.Player.StateMachines.Movement.States.Grounded.Moving
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Moving
 {
     /// <summary>
     /// Handles the player running state logic while grounded

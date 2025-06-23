@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using RPG.Player.Data.Animations;
-using RPG.Player.Data.Layers;
-using RPG.Player.Data.ScriptableObjects;
-using RPG.Player.StateMachines.Movement;
-using RPG.Player.Utilities.Colliders;
-using RPG.Utilities.Inputs.ScriptableObjects;
+using ProjectEmbersteel.Player.Data.Animations;
+using ProjectEmbersteel.Player.Data.Layers;
+using ProjectEmbersteel.Player.Data.ScriptableObjects;
+using ProjectEmbersteel.Player.StateMachines.Movement;
+using ProjectEmbersteel.Player.Utilities.Colliders;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 using Unity.Cinemachine;
 using UnityEngine;
 
-namespace RPG.Player
+namespace ProjectEmbersteel.Player
 {
     [SelectionBase]
     [RequireComponent(typeof(PlayerResizableCapsuleCollider))]

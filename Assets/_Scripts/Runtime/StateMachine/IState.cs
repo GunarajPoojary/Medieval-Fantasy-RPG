@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.StateMachine
+namespace ProjectEmbersteel.StateMachine
 {
     /// <summary>
     /// Defines the contract for a state in a state machine, typically used for player.

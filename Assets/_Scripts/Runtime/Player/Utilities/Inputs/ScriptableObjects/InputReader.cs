@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
-using RPG.Player.InputActions;
+using ProjectEmbersteel.Player.InputActions;
 
-namespace RPG.Utilities.Inputs.ScriptableObjects
+namespace ProjectEmbersteel.Utilities.Inputs.ScriptableObjects
 {
 	public enum InputActionType
 	{

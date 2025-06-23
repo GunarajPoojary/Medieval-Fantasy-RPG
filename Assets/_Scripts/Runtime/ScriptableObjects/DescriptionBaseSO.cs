@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
 	/// <summary>
 	/// Base class for ScriptableObjects that need a public description field.

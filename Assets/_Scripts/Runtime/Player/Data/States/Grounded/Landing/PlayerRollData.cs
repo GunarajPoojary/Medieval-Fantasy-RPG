@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.States.Grounded.Landing
+namespace ProjectEmbersteel.Player.Data.States.Grounded.Landing
 {
     /// <summary>
     /// Contains data for player roll state, such as speed modifier.

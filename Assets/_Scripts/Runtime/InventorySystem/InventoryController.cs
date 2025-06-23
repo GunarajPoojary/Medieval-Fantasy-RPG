@@ -1,8 +1,8 @@
 using System;
-using RPG.Item;
-using RPG.UI.Inventory;
+using ProjectEmbersteel.Item;
+using ProjectEmbersteel.UI.Inventory;
 
-namespace RPG.Inventory
+namespace ProjectEmbersteel.Inventory
 {
     /// <summary>
     /// Class that manages communication between inventory model and view

@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-namespace RPG.UI
+namespace ProjectEmbersteel.UI
 {
     public class InventoryTabButton : UISelectableButton<int>
     {

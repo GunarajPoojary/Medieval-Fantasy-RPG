@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using RPG.Item;
+using ProjectEmbersteel.Item;
 using UnityEngine;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     public class PlayerCombat : MonoBehaviour
     {

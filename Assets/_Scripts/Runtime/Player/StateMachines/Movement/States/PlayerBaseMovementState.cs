@@ -1,10 +1,10 @@
 using System;
-using RPG.Player.Data.States.Airborne;
-using RPG.Player.Data.States.Grounded;
-using RPG.StateMachine;
+using ProjectEmbersteel.Player.Data.States.Airborne;
+using ProjectEmbersteel.Player.Data.States.Grounded;
+using ProjectEmbersteel.StateMachine;
 using UnityEngine;
 
-namespace RPG.Player.StateMachines.Movement.States
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States
 {
     /// <summary>
     /// Base class for player movement-related states that implements the IState interface and handles core movement logics.

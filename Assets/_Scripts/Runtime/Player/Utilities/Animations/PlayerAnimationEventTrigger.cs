@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Utilities.Animations
+namespace ProjectEmbersteel.Player.Utilities.Animations
 {
     /// <summary>
     /// Handles animation event triggers related to movement state changes for the player

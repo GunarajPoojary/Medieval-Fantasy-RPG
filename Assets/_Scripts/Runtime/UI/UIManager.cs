@@ -1,8 +1,8 @@
-﻿using RPG.Inventory;
-using RPG.Utilities.Inputs.ScriptableObjects;
+﻿using ProjectEmbersteel.Inventory;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 using UnityEngine;
 
-namespace RPG.UI
+namespace ProjectEmbersteel.UI
 {
 	public class UIManager : MonoBehaviour
 	{

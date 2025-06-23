@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using RPG.Player;
+using ProjectEmbersteel.Player;
 using UnityEngine;
 
 namespace Unity.Cinemachine.Samples

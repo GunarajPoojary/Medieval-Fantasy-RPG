@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RPG.SceneManagement
+namespace ProjectEmbersteel.SceneManagement
 {
     /// <summary>
     /// This class contains Settings specific to Gameplay scenes only

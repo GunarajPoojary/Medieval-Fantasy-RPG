@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using RPG.Events.EventChannel;
-using RPG.Inventory;
-using RPG.Item;
-using RPG.StatSystem;
-using RPG.Utilities;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.Inventory;
+using ProjectEmbersteel.Item;
+using ProjectEmbersteel.StatSystem;
+using ProjectEmbersteel.Utilities;
 using UnityEngine;
 
-namespace RPG.UI.Inventory
+namespace ProjectEmbersteel.UI.Inventory
 {
     [Serializable]
     public struct ItemContentPanel

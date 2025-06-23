@@ -1,8 +1,8 @@
-using RPG.StatSystem;
+using ProjectEmbersteel.StatSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RPG.Events.EventChannel
+namespace ProjectEmbersteel.Events.EventChannel
 {
     [CreateAssetMenu(fileName = "StatUpdateEventChannel", menuName = "Custom/Events/Stat Update Event Channel")]
     public class StatUpdateEventChannel : DescriptionBaseSO

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.States.Airborne
+namespace ProjectEmbersteel.Player.Data.States.Airborne
 {
     /// <summary>
     /// Contains data related to player fall state, such as fall speed limits and thresholds for hard landings.

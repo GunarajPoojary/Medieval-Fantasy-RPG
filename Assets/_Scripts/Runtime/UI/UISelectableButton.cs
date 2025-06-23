@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace RPG.UI
+namespace ProjectEmbersteel.UI
 {
     public abstract class UISelectableButton<T> : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {

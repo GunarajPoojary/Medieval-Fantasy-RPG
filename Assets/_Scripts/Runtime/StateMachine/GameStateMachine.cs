@@ -1,9 +1,9 @@
 using System;
-using RPG.EquipmentSystem;
-using RPG.Inventory;
-using RPG.Utilities.Inputs.ScriptableObjects;
+using ProjectEmbersteel.EquipmentSystem;
+using ProjectEmbersteel.Inventory;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 
-namespace RPG.StateMachine
+namespace ProjectEmbersteel.StateMachine
 {
     public class GameStateMachine
     {

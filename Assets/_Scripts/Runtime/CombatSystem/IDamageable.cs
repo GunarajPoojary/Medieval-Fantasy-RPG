@@ -1,4 +1,4 @@
-namespace RPG.CombatSystem
+namespace ProjectEmbersteel.CombatSystem
 {
     public interface IDamageable
     {

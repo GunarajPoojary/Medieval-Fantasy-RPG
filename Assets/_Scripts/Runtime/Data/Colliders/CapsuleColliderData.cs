@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Data.Colliders
+namespace ProjectEmbersteel.Data.Colliders
 {
     /// <summary>
     /// Encapsulates relevant data extracted from a CapsuleCollider,

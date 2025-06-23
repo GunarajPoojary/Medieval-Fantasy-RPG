@@ -1,4 +1,4 @@
-namespace RPG.InteractionSystem
+namespace ProjectEmbersteel.InteractionSystem
 {
     public interface IInteractable
     {

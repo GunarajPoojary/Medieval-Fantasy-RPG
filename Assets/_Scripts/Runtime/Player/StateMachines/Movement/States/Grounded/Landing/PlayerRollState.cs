@@ -1,6 +1,6 @@
 using UnityEngine; 
 
-namespace RPG.Player.StateMachines.Movement.States.Grounded.Landing 
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landing 
 {
     /// <summary>
     /// Handles the player's rolling state logic while grounded (after landing from a high fall)

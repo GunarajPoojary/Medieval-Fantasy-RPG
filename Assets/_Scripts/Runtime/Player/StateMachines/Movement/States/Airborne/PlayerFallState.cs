@@ -1,6 +1,6 @@
 using UnityEngine; 
 
-namespace RPG.Player.StateMachines.Movement.States.Airborne
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
 {
     /// <summary>
     /// Handles the player's falling state logic while airborne

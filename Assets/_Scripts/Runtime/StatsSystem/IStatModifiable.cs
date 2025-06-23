@@ -1,4 +1,4 @@
-namespace RPG.StatSystem
+namespace ProjectEmbersteel.StatSystem
 {
     public interface IStatModifiable
     {

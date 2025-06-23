@@ -1,12 +1,12 @@
-﻿using RPG.Events.EventChannel;
-using RPG.SceneManagement;
+﻿using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.SceneManagement;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace RPG.Bootstrap
+namespace ProjectEmbersteel.Bootstrap
 {
 	/// <summary>
 	/// This class is responsible for starting the game by loading the persistent managers scene 

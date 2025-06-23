@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.States
+namespace ProjectEmbersteel.Player.Data.States
 {
     /// <summary>
     /// Stores runtime reusable data for the player's movement.

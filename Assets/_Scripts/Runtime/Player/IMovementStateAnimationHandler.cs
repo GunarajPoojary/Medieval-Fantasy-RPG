@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     /// <summary>
     /// Interface for handling animation events related to player movement states.

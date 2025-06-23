@@ -1,6 +1,6 @@
 {
-    "name": "RPG.Player.Input",
-    "rootNamespace": "RPG",
+    "name": "ProjectEmbersteel.Player.Input",
+    "rootNamespace": "ProjectEmbersteel",
     "references": [
         "GUID:75469ad4d38634e559750d17036d5f7c"
     ],

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Item
+namespace ProjectEmbersteel.Item
 {
     public enum ArmorEquipSlot
     {

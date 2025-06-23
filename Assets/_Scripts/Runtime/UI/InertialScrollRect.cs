@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace RPG.UI
+namespace ProjectEmbersteel.UI
 {
     public class InertialScrollRect : ScrollRect
     {

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using RPG.Events.EventChannel;
-using RPG.Item;
-using RPG.StatSystem;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.Item;
+using ProjectEmbersteel.StatSystem;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem
+namespace ProjectEmbersteel.EquipmentSystem
 {
     [Serializable]
     public class EquipmentDatabase

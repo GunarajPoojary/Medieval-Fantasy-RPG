@@ -1,7 +1,7 @@
-using RPG.Utilities.Inputs.ScriptableObjects;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 using UnityEngine;
 
-namespace RPG.Player.StateMachines.Movement.States.Grounded.Landing 
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landing 
 {
     /// <summary>
     /// Handles the player's hard land state logic.

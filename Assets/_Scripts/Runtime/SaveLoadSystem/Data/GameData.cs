@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     /// <summary>
     /// Stores the game data that will be saved and loaded.

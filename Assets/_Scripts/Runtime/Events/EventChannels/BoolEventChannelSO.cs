@@ -1,7 +1,7 @@
 ﻿using UnityEngine.Events;
 using UnityEngine;
 
-namespace RPG.Events.EventChannel
+namespace ProjectEmbersteel.Events.EventChannel
 {
     /// <summary>
     /// This class is used for Events that have a bool argument.

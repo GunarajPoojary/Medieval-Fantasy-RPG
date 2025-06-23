@@ -1,8 +1,8 @@
-using RPG.Player.Data.Colliders;
-using RPG.Utilities.Colliders;
+using ProjectEmbersteel.Player.Data.Colliders;
+using ProjectEmbersteel.Utilities.Colliders;
 using UnityEngine;
 
-namespace RPG.Player.Utilities.Colliders
+namespace ProjectEmbersteel.Player.Utilities.Colliders
 {
     public class PlayerResizableCapsuleCollider : ResizableCapsuleCollider
     {

@@ -1,11 +1,11 @@
-using RPG.EquipmentSystem;
-using RPG.Inventory;
-using RPG.StateMachine;
-using RPG.UI;
-using RPG.Utilities.Inputs.ScriptableObjects;
+using ProjectEmbersteel.EquipmentSystem;
+using ProjectEmbersteel.Inventory;
+using ProjectEmbersteel.StateMachine;
+using ProjectEmbersteel.UI;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 using UnityEngine;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     public class GameManager : MonoBehaviour
     {

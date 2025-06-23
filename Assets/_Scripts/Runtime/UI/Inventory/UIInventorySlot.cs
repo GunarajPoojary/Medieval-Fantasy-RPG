@@ -1,12 +1,12 @@
 using System.Text;
-using RPG.Inventory;
-using RPG.Item;
+using ProjectEmbersteel.Inventory;
+using ProjectEmbersteel.Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace RPG.UI.Inventory
+namespace ProjectEmbersteel.UI.Inventory
 {
     public class UIInventorySlot : UISelectableButton<ItemSO>, IDeselectHandler
     {

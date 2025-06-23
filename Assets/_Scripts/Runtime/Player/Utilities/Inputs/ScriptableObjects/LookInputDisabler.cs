@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Cinemachine;
 
-namespace RPG.Utilities.Inputs.ScriptableObjects
+namespace ProjectEmbersteel.Utilities.Inputs.ScriptableObjects
 {
 	public class LookInputDisabler : MonoBehaviour
 	{

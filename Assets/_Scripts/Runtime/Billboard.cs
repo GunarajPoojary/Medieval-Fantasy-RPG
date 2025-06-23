@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     /// <summary>
     /// Responsible for making enemy HealthBar UI face the user camera

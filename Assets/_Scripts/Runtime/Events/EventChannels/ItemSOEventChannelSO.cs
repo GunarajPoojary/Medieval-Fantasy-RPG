@@ -1,8 +1,8 @@
 using UnityEngine.Events;
 using UnityEngine;
-using RPG.Item;
+using ProjectEmbersteel.Item;
 
-namespace RPG.Events.EventChannel
+namespace ProjectEmbersteel.Events.EventChannel
 {
     /// <summary>
     /// This class is used for Events that have a ItemSO argument.

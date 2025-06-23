@@ -1,9 +1,9 @@
-using RPG.CombatSystem;
-using RPG.Events.EventChannel;
-using RPG.StatSystem;
+using ProjectEmbersteel.CombatSystem;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.StatSystem;
 using UnityEngine;
 
-namespace RPG.Player
+namespace ProjectEmbersteel.Player
 {
     /// <summary>
     /// Example usage class demonstrating how to use the stats system.

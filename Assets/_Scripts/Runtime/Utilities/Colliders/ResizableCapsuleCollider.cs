@@ -1,7 +1,7 @@
-using RPG.Data.Colliders;
+using ProjectEmbersteel.Data.Colliders;
 using UnityEngine;
 
-namespace RPG.Utilities.Colliders
+namespace ProjectEmbersteel.Utilities.Colliders
 {
     /// <summary>
     /// Base class responsible for dynamically adjusting the 

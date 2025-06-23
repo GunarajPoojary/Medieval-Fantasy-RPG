@@ -1,6 +1,6 @@
-using RPG.StatSystem;
+using ProjectEmbersteel.StatSystem;
 
-namespace RPG.EquipmentSystem
+namespace ProjectEmbersteel.EquipmentSystem
 {
     public interface IEquippable
     {

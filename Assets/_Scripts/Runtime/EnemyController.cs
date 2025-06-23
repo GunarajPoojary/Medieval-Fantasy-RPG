@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     public class EnemyController : MonoBehaviour
     {

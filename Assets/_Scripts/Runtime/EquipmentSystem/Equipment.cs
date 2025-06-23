@@ -1,7 +1,7 @@
-using RPG.StatSystem;
+using ProjectEmbersteel.StatSystem;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem
+namespace ProjectEmbersteel.EquipmentSystem
 {
     /// <summary>
     /// Example equipment class that implements IStatModifierProvider.

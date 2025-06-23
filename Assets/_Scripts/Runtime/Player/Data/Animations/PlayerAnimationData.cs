@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.Animations
+namespace ProjectEmbersteel.Player.Data.Animations
 {
     /// <summary>
     /// Holds animator parameter names and their hashed values used to control player animation states.

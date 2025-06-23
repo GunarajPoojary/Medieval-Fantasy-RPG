@@ -1,11 +1,11 @@
 ﻿using System;
-using RPG.Events.EventChannel;
-using RPG.UI;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.UI;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     public class LoadingBarController : MonoBehaviour
     {

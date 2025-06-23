@@ -1,4 +1,4 @@
-namespace RPG.StatSystem
+namespace ProjectEmbersteel.StatSystem
 {
     /// <summary>
     /// Defines the available stat types for the system.

@@ -1,11 +1,11 @@
-using RPG.Events.EventChannel;
+using ProjectEmbersteel.Events.EventChannel;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace RPG.SceneManagement
+namespace ProjectEmbersteel.SceneManagement
 {
     /// <summary>
     /// Handles the loading and unloading of scenes using Unity Addressables.

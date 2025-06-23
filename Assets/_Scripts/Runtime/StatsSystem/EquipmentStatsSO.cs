@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.StatSystem
+namespace ProjectEmbersteel.StatSystem
 {
     [CreateAssetMenu(fileName = "NewEquipmentStats", menuName = "Custom/Stats/EquipmentStats")]
     public class EquipmentStatsSO : DescriptionBaseSO

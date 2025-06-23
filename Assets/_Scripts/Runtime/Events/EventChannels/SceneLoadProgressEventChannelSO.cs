@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
-namespace RPG.Events.EventChannel
+namespace ProjectEmbersteel.Events.EventChannel
 {
     /// <summary>
     /// This class is used for Events that have a AsyncOperationHandle argument.

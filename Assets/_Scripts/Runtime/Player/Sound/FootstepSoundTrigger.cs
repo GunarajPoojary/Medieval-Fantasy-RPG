@@ -1,7 +1,7 @@
-﻿using RPG.Player.Data.Sounds;
+﻿using ProjectEmbersteel.Player.Data.Sounds;
 using UnityEngine;
 
-namespace RPG.Player.Sound
+namespace ProjectEmbersteel.Player.Sound
 {
     /// <summary>
     /// Responsible for triggering footstep and landing sounds using animation events

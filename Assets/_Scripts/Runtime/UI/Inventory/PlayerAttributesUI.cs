@@ -1,10 +1,10 @@
 using System;
-using RPG.Events.EventChannel;
-using RPG.StatSystem;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.StatSystem;
 using TMPro;
 using UnityEngine;
 
-namespace RPG.UI.Inventory
+namespace ProjectEmbersteel.UI.Inventory
 {
     public class PlayerAttributesUI : MonoBehaviour
     {

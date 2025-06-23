@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Data.Colliders
+namespace ProjectEmbersteel.Data.Colliders
 {
     /// <summary>
     /// Defines default capsule collider dimensions for the player,

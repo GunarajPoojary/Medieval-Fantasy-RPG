@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.Player.Data.States
+namespace ProjectEmbersteel.Player.Data.States
 {
     /// <summary>
     /// Contains data for how quickly the player character reaches a target rotation.

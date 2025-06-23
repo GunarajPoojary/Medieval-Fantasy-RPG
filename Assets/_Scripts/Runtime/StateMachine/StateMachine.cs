@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RPG.StateMachine
+namespace ProjectEmbersteel.StateMachine
 {
     /// <summary>
     /// Abstract base class for managing state transitions and delegating behavior to the current state.

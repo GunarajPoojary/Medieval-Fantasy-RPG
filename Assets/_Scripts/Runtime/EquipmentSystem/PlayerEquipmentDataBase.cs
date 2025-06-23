@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using RPG.Item;
+using ProjectEmbersteel.Item;
 using UnityEngine;
 
-namespace RPG.EquipmentSystem
+namespace ProjectEmbersteel.EquipmentSystem
 {
     public class PlayerEquipmentDatabase
     {

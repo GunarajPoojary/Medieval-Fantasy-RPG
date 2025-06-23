@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Medieval-Fantasy-RPG.sln"
+    "dotnet.defaultSolution": "Project-Embersteel-Unity3D.sln"
 }

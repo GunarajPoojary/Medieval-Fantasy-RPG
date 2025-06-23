@@ -1,8 +1,8 @@
 using UnityEngine.Events;
 using UnityEngine;
-using RPG.Loot;
+using ProjectEmbersteel.Loot;
 
-namespace RPG.Events.EventChannel
+namespace ProjectEmbersteel.Events.EventChannel
 {
     /// <summary>
     /// This class is used for Events that have a IPickable argument.

@@ -1,9 +1,9 @@
 using System.Collections;
-using RPG.Player.Data.Colliders;
-using RPG.Utilities.Inputs.ScriptableObjects;
+using ProjectEmbersteel.Player.Data.Colliders;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 using UnityEngine;
 
-namespace RPG.Player.StateMachines.Movement.States.Grounded
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
 {
     /// <summary>
     /// Handles common movement logic related to the grounded state of the player

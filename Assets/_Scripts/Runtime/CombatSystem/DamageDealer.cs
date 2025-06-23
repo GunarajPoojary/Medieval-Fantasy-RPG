@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RPG
+namespace ProjectEmbersteel
 {
     /// <summary>
     /// Responsible for dealing damage to enemies within a certain range.

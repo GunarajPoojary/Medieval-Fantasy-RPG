@@ -1,12 +1,12 @@
-using RPG.EquipmentSystem;
-using RPG.Events.EventChannel;
-using RPG.Item;
-using RPG.StatSystem;
+using ProjectEmbersteel.EquipmentSystem;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.Item;
+using ProjectEmbersteel.StatSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RPG.UI.Inventory
+namespace ProjectEmbersteel.UI.Inventory
 {
     [System.Serializable]
     public class StatOverviewUI
