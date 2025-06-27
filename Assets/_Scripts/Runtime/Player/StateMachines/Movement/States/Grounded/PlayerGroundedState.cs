@@ -13,7 +13,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         private WaitForSeconds _jumpDelayWait;
         private readonly Collider[] _groundCheckResults = new Collider[2];
 
-        public PlayerGroundedState(PlayerStateFactory playerStateFactory) : base(playerStateFactory)
+        public PlayerGroundedState(PlayerStateFactory stateMachine) : base(stateMachine)
         {
             _jumpDelayWait = new WaitForSeconds(_groundedData.JumpDelay);
         }
@@ -23,7 +23,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         {
             base.Enter();
 
-            StartAnimation(_stateFactory.PlayerController.AnimationData.GroundedParameterHash);
+            StartAnimation(_stateMachine.PlayerController.AnimationData.GroundedParameterHash);
 
             UpdateShouldRunState();
         }
@@ -32,7 +32,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         {
             base.Exit();
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.GroundedParameterHash);
+            StopAnimation(_stateMachine.PlayerController.AnimationData.GroundedParameterHash);
         }
 
         public override void PhysicsUpdate()
@@ -45,10 +45,10 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         // Ensures ShouldRun is false if the player is not providing movement input
         private void UpdateShouldRunState()
         {
-            if (!_stateFactory.ReusableData.ShouldRun) return;
-            if (_stateFactory.ReusableData.MovementInput != Vector2.zero) return;
+            if (!_stateMachine.ReusableData.ShouldRun) return;
+            if (_stateMachine.ReusableData.MovementInput != Vector2.zero) return;
 
-            _stateFactory.ReusableData.ShouldRun = false;
+            _stateMachine.ReusableData.ShouldRun = false;
         }
         #endregion
 
@@ -57,15 +57,15 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         private void Float()
         {
             // Get collider center in world space
-            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             // Cast a ray down from the center of the capsule
             Ray downwardsRayFromCapsuleCenter = new(capsuleColliderCenterInWorldSpace, Vector3.down);
 
             // Check for ground hit using the float ray
             if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit,
-                _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.FloatRayDistance,
-                _stateFactory.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
+                _stateMachine.PlayerController.ResizableCapsuleCollider.SlopeData.FloatRayDistance,
+                _stateMachine.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
             {
                 // Calculate ground angle for slope detection
                 float groundAngle = Vector3.Angle(hit.normal, -downwardsRayFromCapsuleCenter.direction);
@@ -77,19 +77,19 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
 
                 // Calculate how far off the ground we are
                 float distanceToFloatingPoint =
-                    _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y *
-                    _stateFactory.PlayerController.transform.localScale.y - hit.distance;
+                    _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y *
+                    _stateMachine.PlayerController.transform.localScale.y - hit.distance;
 
                 if (distanceToFloatingPoint == 0f) return; // Already aligned with ground
 
                 // Calculate upward force needed to match ground height
                 float amountToLift = distanceToFloatingPoint *
-                    _stateFactory.PlayerController.ResizableCapsuleCollider.SlopeData.StepReachForce - GetVerticalVelocity().y;
+                    _stateMachine.PlayerController.ResizableCapsuleCollider.SlopeData.StepReachForce - GetVerticalVelocity().y;
 
                 // Apply vertical lift force
                 Vector3 liftForce = new Vector3(0f, amountToLift, 0f);
 
-                _stateFactory.PlayerController.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
+                _stateMachine.PlayerController.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
             }
         }
 
@@ -98,9 +98,9 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         {
             float slopeSpeedModifier = _groundedData.SlopeSpeedAngles.Evaluate(angle);
 
-            if (_stateFactory.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
+            if (_stateMachine.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
             {
-                _stateFactory.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
+                _stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
             }
 
             return slopeSpeedModifier;
@@ -109,12 +109,12 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         // Checks if there's still ground under the player (used to confirm grounded state)
         private bool IsThereGroundUnderneath()
         {
-            var triggerColliderData = _stateFactory.PlayerController.ResizableCapsuleCollider.TriggerColliderData;
+            PlayerTriggerColliderData triggerColliderData = _stateMachine.PlayerController.ResizableCapsuleCollider.TriggerColliderData;
 
             Vector3 center = triggerColliderData.GroundCheckCollider.bounds.center;
             Vector3 halfExtents = triggerColliderData.GroundCheckColliderVerticalExtents;
             Quaternion orientation = triggerColliderData.GroundCheckCollider.transform.rotation;
-            int layerMask = _stateFactory.PlayerController.LayerData.GroundLayer;
+            int layerMask = _stateMachine.PlayerController.LayerData.GroundLayer;
 
             int count = Physics.OverlapBoxNonAlloc(
                 center,
@@ -133,69 +133,70 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         protected override void AddInputActionsCallbacks()
         {
             base.AddInputActionsCallbacks();
-            _stateFactory.PlayerController.Input.JumpStartedAction += OnJumpStarted;
+            _stateMachine.PlayerController.Input.JumpStartedAction += OnJumpStarted;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
             base.RemoveInputActionsCallbacks();
-            _stateFactory.PlayerController.Input.JumpStartedAction -= OnJumpStarted;
+            
+            _stateMachine.PlayerController.Input.JumpStartedAction -= OnJumpStarted;
         }
 
         protected virtual void OnMove()
         {
-            if (_stateFactory.ReusableData.ShouldRun)
+            if (_stateMachine.ReusableData.ShouldRun)
             {
-                _stateFactory.SwitchState(_stateFactory.RunState);
+                _stateMachine.SwitchState(_stateMachine.RunState);
                 return;
             }
 
-            _stateFactory.SwitchState(_stateFactory.WalkState);
+            _stateMachine.SwitchState(_stateMachine.WalkState);
         }
 
         protected override void OnContactWithGroundExited(Collider collider)
         {
             if (IsThereGroundUnderneath()) return;
 
-            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             Ray downwardsRayFromCapsuleBottom = new(
-                capsuleColliderCenterInWorldSpace - _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents,
+                capsuleColliderCenterInWorldSpace - _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents,
                 Vector3.down
             );
 
             if (!Physics.Raycast(
                 downwardsRayFromCapsuleBottom, out _,
                 _groundedData.GroundToFallRayDistance,
-                _stateFactory.PlayerController.LayerData.GroundLayer,
+                _stateMachine.PlayerController.LayerData.GroundLayer,
                 QueryTriggerInteraction.Ignore)) OnFall();
         }
 
-        protected virtual void OnFall() => _stateFactory.SwitchState(_stateFactory.FallState);
+        protected virtual void OnFall() => _stateMachine.SwitchState(_stateMachine.FallState);
 
         // Called when landing from a jump — chooses walk/run/idle depending on input
         protected void OnLandToMovingState()
         {
-            if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (_stateMachine.ReusableData.MovementInput == Vector2.zero)
             {
-                _stateFactory.PlayerController.Input.EnableActionFor(InputActionType.Jump); // No movement input, just enable jump
+                _stateMachine.PlayerController.Input.EnableActionFor(InputActionType.Jump); // No movement input, just enable jump
                 return;
             }
 
-            if (_stateFactory.ReusableData.ShouldRun)
+            if (_stateMachine.ReusableData.ShouldRun)
             {
-                _stateFactory.PlayerController.StartCoroutine(EnableJumpAfterDelay()); // Delay jump after landing
+                _stateMachine.PlayerController.StartCoroutine(EnableJumpAfterDelay()); // Delay jump after landing
                 return;
             }
 
-            _stateFactory.PlayerController.StartCoroutine(EnableJumpAfterDelay()); // Default: delay then enable jump
+            _stateMachine.PlayerController.StartCoroutine(EnableJumpAfterDelay()); // Default: delay then enable jump
         }
 
         // Coroutine to enable jump input after a short delay
         private IEnumerator EnableJumpAfterDelay()
         {
             yield return _jumpDelayWait;
-            _stateFactory.PlayerController.Input.EnableActionFor(InputActionType.Jump); // Then enable jump
+            _stateMachine.PlayerController.Input.EnableActionFor(InputActionType.Jump); // Then enable jump
         }
         #endregion
 
@@ -204,7 +205,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
         {
             base.OnRun(shouldRun);
 
-            if (_stateFactory.ReusableData.MovementInput != Vector2.zero) OnMove();
+            if (_stateMachine.ReusableData.MovementInput != Vector2.zero) OnMove();
         }
 
         protected override void OnMovementPerformed(Vector2 moveInput)
@@ -215,7 +216,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
             UpdateTargetRotation(GetMovementInputDirection());
         }
 
-        protected virtual void OnJumpStarted() => _stateFactory.SwitchState(_stateFactory.JumpState);
+        protected virtual void OnJumpStarted() => _stateMachine.SwitchState(_stateMachine.JumpState);
         #endregion
     }
 }

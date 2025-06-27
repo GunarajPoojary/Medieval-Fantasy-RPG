@@ -7,24 +7,24 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
     /// </summary>
     public class PlayerRollState : PlayerGroundedState
     {
-        public PlayerRollState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
+        public PlayerRollState(PlayerStateFactory stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
         {
             // Set the movement speed to roll-specific speed
-            _stateFactory.ReusableData.MovementSpeedModifier = _groundedData.RollData.SpeedModifier;
+            _stateMachine.ReusableData.MovementSpeedModifier = _groundedData.RollData.SpeedModifier;
 
             base.Enter(); 
 
-            StartAnimation(_stateFactory.PlayerController.AnimationData.RollParameterHash);
+            StartAnimation(_stateMachine.PlayerController.AnimationData.RollParameterHash);
         }
 
         public override void Exit()
         {
             base.Exit(); 
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.RollParameterHash);
+            StopAnimation(_stateMachine.PlayerController.AnimationData.RollParameterHash);
         }
 
         public override void PhysicsUpdate()
@@ -32,7 +32,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
             base.PhysicsUpdate(); 
 
             // If player is providing movement input, don’t auto-rotate
-            if (_stateFactory.ReusableData.MovementInput != Vector2.zero)
+            if (_stateMachine.ReusableData.MovementInput != Vector2.zero)
                 return;
 
             // If no movement input, rotate to match last known target direction
@@ -42,9 +42,9 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
         public override void OnAnimationTransitionEvent()
         {
             // If no movement input, go to idle after roll ends
-            if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (_stateMachine.ReusableData.MovementInput == Vector2.zero)
             {
-                _stateFactory.SwitchState(_stateFactory.IdleState);
+                _stateMachine.SwitchState(_stateMachine.IdleState);
                 return;
             }
 

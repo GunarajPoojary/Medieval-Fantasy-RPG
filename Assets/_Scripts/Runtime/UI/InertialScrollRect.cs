@@ -53,7 +53,7 @@ namespace ProjectEmbersteel.UI
         {
             base.LateUpdate();
 
-            var deltaTime = Time.unscaledDeltaTime;
+            float deltaTime = Time.unscaledDeltaTime;
             if (deltaTime > 0.0f && _isDragging && inertia)
             {
                 Vector3 newVelocity = (content.anchoredPosition - _prevPosition) / deltaTime;

@@ -7,26 +7,27 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
     /// </summary>
     public class PlayerAirborneState : PlayerBaseMovementState
     {
-        public PlayerAirborneState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
+        public PlayerAirborneState(PlayerStateFactory stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
         {
+            _stateMachine.ReusableData.MovementSpeedModifier = 0;
             base.Enter(); 
 
-            StartAnimation(_stateFactory.PlayerController.AnimationData.AirborneParameterHash);
+            StartAnimation(_stateMachine.PlayerController.AnimationData.AirborneParameterHash);
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.AirborneParameterHash);
+            StopAnimation(_stateMachine.PlayerController.AnimationData.AirborneParameterHash);
         }
         #endregion
 
         #region Reusable Methods
-        protected override void OnContactWithGround(Collider collider) => _stateFactory.SwitchState(_stateFactory.LightLandState);
+        protected override void OnContactWithGround(Collider collider) => _stateMachine.SwitchState(_stateMachine.LightLandState);
         #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
     /// </summary>
     public class PlayerLightLandState : PlayerGroundedState
     {
-        public PlayerLightLandState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
+        public PlayerLightLandState(PlayerStateFactory stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
@@ -16,9 +16,9 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
             base.Enter();
 
             // Set jump force to stationary value (typically for idle jump after landing)
-            _stateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.StationaryForce;
+            _stateMachine.ReusableData.CurrentJumpForce = _airborneData.JumpData.StationaryForce;
 
-            _stateFactory.PlayerController.Input.DisableActionFor(InputActionType.Jump);
+            _stateMachine.PlayerController.Input.DisableActionFor(InputActionType.Jump);
 
             ResetVelocity();
         }
@@ -35,7 +35,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
         {
             base.UpdateState(); 
 
-            if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (_stateMachine.ReusableData.MovementInput == Vector2.zero)
                 return;
 
             // If movement input is detected, transition to walk/run
@@ -52,7 +52,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
             ResetVelocity();
         }
 
-        public override void OnAnimationTransitionEvent() => _stateFactory.SwitchState(_stateFactory.IdleState);
+        public override void OnAnimationTransitionEvent() => _stateMachine.SwitchState(_stateMachine.IdleState);
         #endregion
     }
 }

@@ -8,19 +8,19 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
     /// </summary>
     public class PlayerHardLandState : PlayerGroundedState
     {
-        public PlayerHardLandState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
+        public PlayerHardLandState(PlayerStateFactory stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
         {
             // Prevent movement by setting speed modifier to 0
-            _stateFactory.ReusableData.MovementSpeedModifier = 0f;
+            _stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
             base.Enter(); 
 
-            StartAnimation(_stateFactory.PlayerController.AnimationData.HardLandParameterHash);
+            StartAnimation(_stateMachine.PlayerController.AnimationData.HardLandParameterHash);
 
-            _stateFactory.PlayerController.Input.DisableActionFor(InputActionType.Move);
+            _stateMachine.PlayerController.Input.DisableActionFor(InputActionType.Move);
 
             ResetVelocity();
         }
@@ -29,10 +29,10 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
         {
             base.Exit();
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.HardLandParameterHash);
+            StopAnimation(_stateMachine.PlayerController.AnimationData.HardLandParameterHash);
 
             // Re-enable movement input after animation completes
-            _stateFactory.PlayerController.Input.EnableActionFor(InputActionType.Move);
+            _stateMachine.PlayerController.Input.EnableActionFor(InputActionType.Move);
         }
 
         public override void PhysicsUpdate()
@@ -45,9 +45,9 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
             ResetVelocity();
         }
 
-        public override void OnAnimationExitEvent() => _stateFactory.PlayerController.Input.EnableActionFor(InputActionType.Move);
+        public override void OnAnimationExitEvent() => _stateMachine.PlayerController.Input.EnableActionFor(InputActionType.Move);
 
-        public override void OnAnimationTransitionEvent() => _stateFactory.SwitchState(_stateFactory.IdleState);
+        public override void OnAnimationTransitionEvent() => _stateMachine.SwitchState(_stateMachine.IdleState);
         #endregion
 
         #region Reusable Methods
@@ -55,17 +55,17 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Landin
         {
             base.AddInputActionsCallbacks();
 
-            _stateFactory.PlayerController.Input.MoveStartedAction += OnMovementStarted;
+            _stateMachine.PlayerController.Input.MoveStartedAction += OnMovementStarted;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
             base.RemoveInputActionsCallbacks();
 
-            _stateFactory.PlayerController.Input.MoveStartedAction -= OnMovementStarted;
+            _stateMachine.PlayerController.Input.MoveStartedAction -= OnMovementStarted;
         }
 
-        protected override void OnMove() => _stateFactory.SwitchState(_stateFactory.WalkState);
+        protected override void OnMove() => _stateMachine.SwitchState(_stateMachine.WalkState);
         #endregion
 
         #region Input Methods

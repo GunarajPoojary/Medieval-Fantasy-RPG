@@ -172,13 +172,13 @@ public class UIBaker : EditorWindow
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Select All"))
         {
-            foreach (var element in detectedElements)
+            foreach (UIElementData element in detectedElements)
                 element.includeInConsolidation = true;
         }
 
         if (GUILayout.Button("Select None"))
         {
-            foreach (var element in detectedElements)
+            foreach (UIElementData element in detectedElements)
                 element.includeInConsolidation = false;
         }
         EditorGUILayout.EndHorizontal();
@@ -386,7 +386,7 @@ public class UIBaker : EditorWindow
         Canvas canvas = targetUIParent.GetComponentInParent<Canvas>();
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
 
-        foreach (var element in detectedElements)
+        foreach (UIElementData element in detectedElements)
         {
             if (element.includeInConsolidation && element.gameObject.activeInHierarchy)
             {
@@ -501,7 +501,7 @@ public class UIBaker : EditorWindow
         Canvas canvas = targetUIParent.GetComponentInParent<Canvas>();
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
 
-        foreach (var element in detectedElements)
+        foreach (UIElementData element in detectedElements)
         {
             if (element.includeInConsolidation && element.gameObject.activeInHierarchy)
             {
@@ -561,7 +561,7 @@ public class UIBaker : EditorWindow
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         Canvas.ForceUpdateCanvases();
 
-        foreach (var element in detectedElements)
+        foreach (UIElementData element in detectedElements)
         {
             if (element.includeInConsolidation)
             {
@@ -598,7 +598,7 @@ public class UIBaker : EditorWindow
         Dictionary<GameObject, bool> originalActiveStates = new Dictionary<GameObject, bool>();
         // Remove the originalColors dictionary since we're no longer modifying colors
 
-        foreach (var element in detectedElements)
+        foreach (UIElementData element in detectedElements)
         {
             originalActiveStates[element.gameObject] = element.gameObject.activeSelf;
             // Remove the color storage logic
@@ -870,7 +870,7 @@ public class UIBaker : EditorWindow
         canvas.worldCamera = originalCamera;
         canvas.sortingOrder = originalSortingOrder;
 
-        foreach (var kvp in originalActiveStates)
+        foreach (KeyValuePair<GameObject, bool> kvp in originalActiveStates)
         {
             if (kvp.Key != null)
             {
@@ -1109,7 +1109,7 @@ public class UIBaker : EditorWindow
 
     private void DisableOriginalElements()
     {
-        foreach (var element in detectedElements)
+        foreach (UIElementData element in detectedElements)
         {
             if (element.includeInConsolidation)
             {
@@ -1120,7 +1120,7 @@ public class UIBaker : EditorWindow
 
     private void DestroyOriginalElements()
     {
-        foreach (var element in detectedElements)
+        foreach (UIElementData element in detectedElements)
         {
             if (element.includeInConsolidation)
             {

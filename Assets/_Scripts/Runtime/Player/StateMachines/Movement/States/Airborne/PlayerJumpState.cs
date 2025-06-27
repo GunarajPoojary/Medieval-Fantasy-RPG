@@ -10,7 +10,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
         private bool _shouldKeepRotating; 
         private bool _canStartFalling; 
 
-        public PlayerJumpState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
+        public PlayerJumpState(PlayerStateFactory stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
@@ -18,13 +18,13 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
             base.Enter(); 
 
             // Set deceleration force while jumping (to slow vertical velocity)
-            _stateFactory.ReusableData.MovementDecelerationForce = _airborneData.JumpData.DecelerationForce;
+            _stateMachine.ReusableData.MovementDecelerationForce = _airborneData.JumpData.DecelerationForce;
 
             // Override rotation data specifically for jump
-            _stateFactory.ReusableData.RotationData = _airborneData.JumpData.RotationData;
+            _stateMachine.ReusableData.RotationData = _airborneData.JumpData.RotationData;
 
             // Determine if the player should keep rotating mid-jump (only if input exists)
-            _shouldKeepRotating = _stateFactory.ReusableData.MovementInput != Vector2.zero;
+            _shouldKeepRotating = _stateMachine.ReusableData.MovementInput != Vector2.zero;
 
             Jump(); 
         }
@@ -50,7 +50,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
             if (!_canStartFalling || IsMovingUp(0f)) 
                 return;
 
-            _stateFactory.SwitchState(_stateFactory.FallState);
+            _stateMachine.SwitchState(_stateMachine.FallState);
         }
 
         public override void PhysicsUpdate()
@@ -71,10 +71,10 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
         private void Jump()
         {
             // Get jump force vector based on current data
-            Vector3 jumpForce = _stateFactory.ReusableData.CurrentJumpForce;
+            Vector3 jumpForce = _stateMachine.ReusableData.CurrentJumpForce;
 
             // Default jump direction is forward (in local space)
-            Vector3 jumpDirection = _stateFactory.PlayerController.transform.forward;
+            Vector3 jumpDirection = _stateMachine.PlayerController.transform.forward;
 
             if (_shouldKeepRotating)
             {
@@ -82,7 +82,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
                 UpdateTargetRotation(GetMovementInputDirection());
 
                 // Adjust direction based on camera-relative movement input
-                jumpDirection = GetTargetRotationDirection(_stateFactory.ReusableData.CurrentTargetRotation.y);
+                jumpDirection = GetTargetRotationDirection(_stateMachine.ReusableData.CurrentTargetRotation.y);
             }
 
             // Multiply horizontal force by directional values
@@ -94,13 +94,13 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
 
             ResetVelocity(); 
 
-            _stateFactory.PlayerController.Rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
+            _stateMachine.PlayerController.Rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
         }
 
         // Modifies the jump force based on ground slope beneath player
         private Vector3 GetJumpForceOnSlope(Vector3 jumpForce)
         {
-            Vector3 capsuleColliderCenterInWorldSpace = _stateFactory.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            Vector3 capsuleColliderCenterInWorldSpace = _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
 
             // Create a ray straight down from the player's position
             Ray downwardsRayFromCapsuleCenter = new(capsuleColliderCenterInWorldSpace, Vector3.down);
@@ -110,7 +110,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
                     downwardsRayFromCapsuleCenter,
                     out RaycastHit hit,
                     _airborneData.JumpData.JumpToGroundRayDistance,
-                    _stateFactory.PlayerController.LayerData.GroundLayer,
+                    _stateMachine.PlayerController.LayerData.GroundLayer,
                     QueryTriggerInteraction.Ignore))
             {
                 // Get the angle between ground normal and downward direction

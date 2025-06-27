@@ -11,4 +11,4 @@ ScriptedImporter:
   generateWrapperCode: 1
   wrapperCodePath: 
   wrapperClassName: 
-  wrapperCodeNamespace: RPG.Player.InputActions
+  wrapperCodeNamespace: ProjectEmbersteel.Player.InputActions

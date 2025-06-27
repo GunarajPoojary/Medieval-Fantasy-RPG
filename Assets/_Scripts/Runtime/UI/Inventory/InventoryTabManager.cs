@@ -58,7 +58,7 @@ namespace ProjectEmbersteel.UI
                 else
                     _inventoryTabs[i].mainTabButton.OnClick -= OnMainTabSelected;
 
-                foreach (var sub in _inventoryTabs[i].subTabs)
+                foreach (InventorySubTabData sub in _inventoryTabs[i].subTabs)
                 {
                     if (subscribe)
                         sub.subTabButton.OnClick += OnSubTabSelected;

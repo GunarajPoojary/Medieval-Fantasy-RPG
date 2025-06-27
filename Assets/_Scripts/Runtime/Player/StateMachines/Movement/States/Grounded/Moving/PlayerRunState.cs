@@ -10,24 +10,24 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Moving
         private float _startTime; 
         private bool _keepRunning; 
 
-        public PlayerRunState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
+        public PlayerRunState(PlayerStateFactory stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
         {
             // Set movement speed modifier to the configured running speed
-            _stateFactory.ReusableData.MovementSpeedModifier = _groundedData.RunData.SpeedModifier;
+            _stateMachine.ReusableData.MovementSpeedModifier = _groundedData.RunData.SpeedModifier;
 
             base.Enter(); 
 
             // Set jump force appropriate for medium (running) jumps
-            _stateFactory.ReusableData.CurrentJumpForce = _airborneData.JumpData.MediumForce;
+            _stateMachine.ReusableData.CurrentJumpForce = _airborneData.JumpData.MediumForce;
 
             // Save the time the run state was entered
             _startTime = Time.time;
 
             // If the run input was not held, don't keep running
-            if (!_stateFactory.ReusableData.ShouldRun)
+            if (!_stateMachine.ReusableData.ShouldRun)
                 _keepRunning = false;
         }
 
@@ -49,13 +49,13 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Moving
         private void StopRunning()
         {
             // If there's no movement input, go idle
-            if (_stateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (_stateMachine.ReusableData.MovementInput == Vector2.zero)
             {
-                _stateFactory.SwitchState(_stateFactory.IdleState);
+                _stateMachine.SwitchState(_stateMachine.IdleState);
                 return;
             }
 
-            _stateFactory.SwitchState(_stateFactory.WalkState);
+            _stateMachine.SwitchState(_stateMachine.WalkState);
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded.Moving
 
         protected override void OnMovementCanceled(Vector2 moveInput)
         {
-            _stateFactory.SwitchState(_stateFactory.IdleState);
+            _stateMachine.SwitchState(_stateMachine.IdleState);
 
             base.OnMovementCanceled(moveInput);
         }

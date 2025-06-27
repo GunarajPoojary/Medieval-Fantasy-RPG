@@ -59,7 +59,7 @@ namespace ProjectEmbersteel
 
         public void DeleteAll()
         {
-            foreach (var filepath in Directory.GetFiles(_dataPath))
+            foreach (string filepath in Directory.GetFiles(_dataPath))
             {
                 File.Delete(filepath);
             }
@@ -67,7 +67,7 @@ namespace ProjectEmbersteel
 
         public IEnumerable<string> ListSaves()
         {
-            foreach (var path in Directory.EnumerateFiles(_dataPath))
+            foreach (string path in Directory.EnumerateFiles(_dataPath))
             {
                 if (Path.GetExtension(path) == _fileExtension)
                 {

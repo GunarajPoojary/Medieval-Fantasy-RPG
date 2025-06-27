@@ -22,7 +22,7 @@ public partial class RaycastTargetDisabler : EditorWindow
         }
 
         // Collect all Graphics in selected GameObjects and their children (including inactive)
-        var graphics = new System.Collections.Generic.List<Graphic>();
+        System.Collections.Generic.List<Graphic> graphics = new System.Collections.Generic.List<Graphic>();
         foreach (Transform root in Selection.transforms)
         {
             graphics.AddRange(root.GetComponentsInChildren<Graphic>(true));

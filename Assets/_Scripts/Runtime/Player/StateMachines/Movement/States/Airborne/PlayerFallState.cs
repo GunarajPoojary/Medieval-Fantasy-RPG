@@ -9,7 +9,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
     {
         private Vector3 _playerPositionOnEnter; 
 
-        public PlayerFallState(PlayerStateFactory playerStateFactory) : base(playerStateFactory) { }
+        public PlayerFallState(PlayerStateFactory stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
@@ -17,10 +17,10 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
             base.Enter();
 
             // Play the falling animation (e.g., arms waving, falling pose)
-            StartAnimation(_stateFactory.PlayerController.AnimationData.FallParameterHash);
+            StartAnimation(_stateMachine.PlayerController.AnimationData.FallParameterHash);
 
             // Store the initial Y position to calculate fall distance later
-            _playerPositionOnEnter = _stateFactory.PlayerController.transform.position;
+            _playerPositionOnEnter = _stateMachine.PlayerController.transform.position;
 
             ResetVerticalVelocity();
         }
@@ -29,7 +29,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
         {
             base.Exit(); 
 
-            StopAnimation(_stateFactory.PlayerController.AnimationData.FallParameterHash);
+            StopAnimation(_stateMachine.PlayerController.AnimationData.FallParameterHash);
         }
 
         public override void PhysicsUpdate()
@@ -59,7 +59,7 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
             );
 
             // Apply force to cap fall speed
-            _stateFactory.PlayerController.Rigidbody.AddForce(limitedVelocityForce, ForceMode.VelocityChange);
+            _stateMachine.PlayerController.Rigidbody.AddForce(limitedVelocityForce, ForceMode.VelocityChange);
         }
         #endregion
 
@@ -67,23 +67,23 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
         protected override void OnContactWithGround(Collider collider)
         {
             // Calculate how far the player has fallen
-            float fallDistance = _playerPositionOnEnter.y - _stateFactory.PlayerController.transform.position.y;
+            float fallDistance = _playerPositionOnEnter.y - _stateMachine.PlayerController.transform.position.y;
 
             // If fall distance is small, do a soft landing
             if (fallDistance < _airborneData.FallData.MinimumDistanceToBeConsideredHardFall)
             {
-                _stateFactory.SwitchState(_stateFactory.LightLandState);
+                _stateMachine.SwitchState(_stateMachine.LightLandState);
                 return;
             }
 
             // If no input or not running, do a hard landing (heavier impact)
-            if (!_stateFactory.ReusableData.ShouldRun || _stateFactory.ReusableData.MovementInput == Vector2.zero)
+            if (!_stateMachine.ReusableData.ShouldRun || _stateMachine.ReusableData.MovementInput == Vector2.zero)
             {
-                _stateFactory.SwitchState(_stateFactory.HardLandState);
+                _stateMachine.SwitchState(_stateMachine.HardLandState);
                 return;
             }
 
-            _stateFactory.SwitchState(_stateFactory.RollState);
+            _stateMachine.SwitchState(_stateMachine.RollState);
         }
         #endregion
     }

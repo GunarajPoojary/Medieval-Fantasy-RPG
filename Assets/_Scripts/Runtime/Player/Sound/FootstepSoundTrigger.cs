@@ -27,7 +27,7 @@ namespace ProjectEmbersteel.Player.Sound
             {
                 if (_footStepAudioData.FootstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, _footStepAudioData.FootstepAudioClips.Length);
+                    int index = Random.Range(0, _footStepAudioData.FootstepAudioClips.Length);
 
                     AudioSource.PlayClipAtPoint(
                         _footStepAudioData.FootstepAudioClips[index],

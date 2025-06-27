@@ -74,7 +74,7 @@ namespace ProjectEmbersteel.Inventory
             else
             {
                 // Create new inventory item entry for non-stackable items or new item types
-                var newItem = new InventoryItem(worldItem, remaining);
+                InventoryItem newItem = new InventoryItem(worldItem, remaining);
                 _itemsById[worldItem.ID] = newItem;
                 _currentCapacity += remaining;
 

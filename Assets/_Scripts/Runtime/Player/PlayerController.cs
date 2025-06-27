@@ -1,21 +1,19 @@
 using System;
-using System.Collections.Generic;
 using ProjectEmbersteel.Player.Data.Animations;
 using ProjectEmbersteel.Player.Data.Layers;
 using ProjectEmbersteel.Player.Data.ScriptableObjects;
 using ProjectEmbersteel.Player.StateMachines.Movement;
 using ProjectEmbersteel.Player.Utilities.Colliders;
 using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
-using Unity.Cinemachine;
 using UnityEngine;
 
 namespace ProjectEmbersteel.Player
 {
     [SelectionBase]
     [RequireComponent(typeof(PlayerResizableCapsuleCollider))]
-    public class PlayerController : MonoBehaviour, IMovementStateAnimationEventsHandler, Unity.Cinemachine.IInputAxisOwner
+    public class PlayerController : MonoBehaviour, IMovementStateAnimationEventsHandler
     {
-        private PlayerStateFactory _stateFactory;
+        private PlayerStateFactory _stateMachine;
 
         [field: Header("References")]
         [field: SerializeField] public PlayerStateMachineConfigSO Data { get; private set; }
@@ -28,25 +26,8 @@ namespace ProjectEmbersteel.Player
 
         [field: Header("Input")]
         [field: SerializeField] public InputReader Input { get; private set; }
-
-        [Header("Input Axes")]
-        [Tooltip("X Axis movement.  Value is -1..1.  Controls the sideways movement")]
-        public InputAxis MoveX = InputAxis.DefaultMomentary;
-
-        [Tooltip("Z Axis movement.  Value is -1..1. Controls the forward movement")]
-        public InputAxis MoveZ = InputAxis.DefaultMomentary;
-
-        [Tooltip("Jump movement.  Value is 0 or 1. Controls the vertical movement")]
-        public InputAxis Jump = InputAxis.DefaultMomentary;
-
-        [Tooltip("Sprint movement.  Value is 0 or 1. If 1, then is sprinting")]
-        public InputAxis Sprint = InputAxis.DefaultMomentary;
-
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
-
-        public Action PreUpdate;
-        public Action<Vector3, float> PostUpdate;
 
         public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
 
@@ -90,27 +71,19 @@ namespace ProjectEmbersteel.Player
             ResizableCapsuleCollider = GetComponent<PlayerResizableCapsuleCollider>();
         }
 
-        private void CreateStateFactory() => _stateFactory = new PlayerStateFactory(this);
+        private void CreateStateFactory() => _stateMachine = new PlayerStateFactory(this);
 
-        private void SetDefaultState() => _stateFactory.SwitchState(_stateFactory.IdleState);
-        private void HandleInput() => _stateFactory.HandleInput();
-        private void UpdateState() => _stateFactory.UpdateState();
-        private void PhysicsUpdate() => _stateFactory.PhysicsUpdate();
-        private void StateOnTriggerEnter(Collider collider) => _stateFactory.OnTriggerEnter(collider);
-        private void StateOnTriggerExit(Collider collider) => _stateFactory.OnTriggerExit(collider);
+        private void SetDefaultState() => _stateMachine.SwitchState(_stateMachine.IdleState);
+        private void HandleInput() => _stateMachine.HandleInput();
+        private void UpdateState() => _stateMachine.UpdateState();
+        private void PhysicsUpdate() => _stateMachine.PhysicsUpdate();
+        private void StateOnTriggerEnter(Collider collider) => _stateMachine.OnTriggerEnter(collider);
+        private void StateOnTriggerExit(Collider collider) => _stateMachine.OnTriggerExit(collider);
 
-        public void OnMovementStateAnimationEnterEvent() => _stateFactory.OnAnimationEnterEvent();
+        public void OnMovementStateAnimationEnterEvent() => _stateMachine.OnAnimationEnterEvent();
 
-        public void OnMovementStateAnimationExitEvent() => _stateFactory.OnAnimationExitEvent();
+        public void OnMovementStateAnimationExitEvent() => _stateMachine.OnAnimationExitEvent();
 
-        public void OnMovementStateAnimationTransitionEvent() => _stateFactory.OnAnimationTransitionEvent();
-
-        public void GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
-        {
-            axes.Add(new() { DrivenAxis = () => ref MoveX, Name = "Move X", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
-            axes.Add(new() { DrivenAxis = () => ref MoveZ, Name = "Move Z", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
-            axes.Add(new() { DrivenAxis = () => ref Jump, Name = "Jump" });
-            axes.Add(new() { DrivenAxis = () => ref Sprint, Name = "Sprint" });
-        }
+        public void OnMovementStateAnimationTransitionEvent() => _stateMachine.OnAnimationTransitionEvent();
     }
 }

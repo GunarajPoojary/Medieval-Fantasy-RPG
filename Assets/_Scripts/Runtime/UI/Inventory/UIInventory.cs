@@ -95,7 +95,7 @@ namespace ProjectEmbersteel.UI.Inventory
 
         private void CreateSlotPoolContainer()
         {
-            var containerGO = new GameObject("InventorySlotPool", typeof(RectTransform));
+            GameObject containerGO = new GameObject("InventorySlotPool", typeof(RectTransform));
             _itemPoolContainer = containerGO.GetComponent<RectTransform>();
             _itemPoolContainer.SetParent((RectTransform)transform);
         }
@@ -165,13 +165,13 @@ namespace ProjectEmbersteel.UI.Inventory
 
         private void HandleStackableItem(InventoryItem item, ItemType itemType, Transform container)
         {
-            if (_stackableItemSlots.TryGetValue(item.Item, out var existingSlot))
+            if (_stackableItemSlots.TryGetValue(item.Item, out UIInventorySlot existingSlot))
             {
                 existingSlot.UpdateStackCount();
                 return;
             }
 
-            var newSlot = CreateAndSetupSlot(item, itemType, container);
+            UIInventorySlot newSlot = CreateAndSetupSlot(item, itemType, container);
             _stackableItemSlots[item.Item] = newSlot;
         }
 
@@ -182,7 +182,7 @@ namespace ProjectEmbersteel.UI.Inventory
 
         private UIInventorySlot CreateAndSetupSlot(InventoryItem item, ItemType itemType, Transform container)
         {
-            var slot = _slotsPool.Get();
+            UIInventorySlot slot = _slotsPool.Get();
             slot.Initialize(item, container, _uiAudioSource);
             slot.OnClick += OnItemClicked;
 
@@ -210,7 +210,7 @@ namespace ProjectEmbersteel.UI.Inventory
         #region Object Pool Management
         private UIInventorySlot CreateSlotObject()
         {
-            var slot = Instantiate(_slotPrefab, _itemPoolContainer);
+            UIInventorySlot slot = Instantiate(_slotPrefab, _itemPoolContainer);
             slot.gameObject.SetActive(false);
             return slot;
         }
@@ -227,9 +227,9 @@ namespace ProjectEmbersteel.UI.Inventory
         #region Cleanup
         private void CleanupSlotEvents()
         {
-            foreach (var slotList in _slotUIsByType.Values)
+            foreach (List<UIInventorySlot> slotList in _slotUIsByType.Values)
             {
-                foreach (var slot in slotList)
+                foreach (UIInventorySlot slot in slotList)
                 {
                     if (slot != null)
                         slot.OnClick -= OnItemClicked;
