@@ -24,15 +24,13 @@ namespace ProjectEmbersteel.Utilities.Inputs.ScriptableObjects
 		public Vector2 MoveDirection => _playerInputActions?.Player.Move.ReadValue<Vector2>() ?? Vector2.zero;
 
 		// Gameplay
-		public UnityAction<Vector2> MoveStartedAction = delegate { };
 		public UnityAction<Vector2> MovePerformedAction = delegate { };
-		public UnityAction<Vector2> MoveCanceledAction = delegate { };
+		public UnityAction MoveCanceledAction = delegate { };
 		public UnityAction JumpStartedAction = delegate { };
 		public UnityAction JumpPerformedAction = delegate { };
 		public UnityAction JumpCanceledAction = delegate { };
-		public UnityAction<bool> RunStartedAction = delegate { };
-		public UnityAction<bool> RunPerformedAction = delegate { };
-		public UnityAction<bool> RunCanceledAction = delegate { };
+		public UnityAction RunPerformedAction = delegate { };
+		public UnityAction RunCanceledAction = delegate { };
 		public UnityAction InventoryAction = delegate { };
 		public UnityAction EquipmentMenuAction = delegate { };
 
@@ -109,14 +107,11 @@ namespace ProjectEmbersteel.Utilities.Inputs.ScriptableObjects
 		{
 			switch (context.phase)
 			{
-				case InputActionPhase.Started:
-					MoveStartedAction.Invoke(context.ReadValue<Vector2>());
-					break;
 				case InputActionPhase.Performed:
 					MovePerformedAction.Invoke(context.ReadValue<Vector2>());
 					break;
 				case InputActionPhase.Canceled:
-					MoveCanceledAction.Invoke(Vector2.zero);
+					MoveCanceledAction.Invoke();
 					break;
 			}
 		}
@@ -141,14 +136,11 @@ namespace ProjectEmbersteel.Utilities.Inputs.ScriptableObjects
 		{
 			switch (context.phase)
 			{
-				case InputActionPhase.Started:
-					RunStartedAction.Invoke(true);
-					break;
 				case InputActionPhase.Performed:
-					RunPerformedAction.Invoke(true);
+					RunPerformedAction.Invoke();
 					break;
 				case InputActionPhase.Canceled:
-					RunCanceledAction.Invoke(false);
+					RunCanceledAction.Invoke();
 					break;
 			}
 		}

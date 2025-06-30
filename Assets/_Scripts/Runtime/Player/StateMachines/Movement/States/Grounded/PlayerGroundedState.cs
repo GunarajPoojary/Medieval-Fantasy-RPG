@@ -1,31 +1,34 @@
-using System.Collections;
-using ProjectEmbersteel.Player.Data.Colliders;
-using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 using UnityEngine;
 
-namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States
 {
     /// <summary>
-    /// Handles common movement logic related to the grounded state of the player
+    /// Handles grounded states.
+    /// Base class for Idle and Move(Run and Walk) states.
     /// </summary>
-    public class PlayerGroundedState : PlayerBaseMovementState
+    public class PlayerGroundedState : PlayerBaseState
     {
-        private WaitForSeconds _jumpDelayWait;
-        private readonly Collider[] _groundCheckResults = new Collider[2];
+        private const float BLENDSNAPTHRESHOLD = 0.01f;
 
-        public PlayerGroundedState(PlayerStateFactory stateMachine) : base(stateMachine)
-        {
-            _jumpDelayWait = new WaitForSeconds(_groundedData.JumpDelay);
-        }
+        public PlayerGroundedState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
         {
             base.Enter();
 
-            StartAnimation(_stateMachine.PlayerController.AnimationData.GroundedParameterHash);
+            _stateMachine.ReusableData.CurrentVerticalVelocity = 0f;
 
-            UpdateShouldRunState();
+            StartAnimation(_stateMachine.PlayerController.AnimationData.GroundedParameterHash);
+        }
+
+        public override void UpdateState()
+        {
+            base.UpdateState();
+
+            ReadMovementInput();
+
+            UpdateBlendTreeAnimation();
         }
 
         public override void Exit()
@@ -34,113 +37,21 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
 
             StopAnimation(_stateMachine.PlayerController.AnimationData.GroundedParameterHash);
         }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
-
-            Float();
-        }
-
-        // Ensures ShouldRun is false if the player is not providing movement input
-        private void UpdateShouldRunState()
-        {
-            if (!_stateMachine.ReusableData.ShouldRun) return;
-            if (_stateMachine.ReusableData.MovementInput != Vector2.zero) return;
-
-            _stateMachine.ReusableData.ShouldRun = false;
-        }
         #endregion
 
-        #region Main Methods
-        // Applies a "float" force to keep the player hovering correctly over sloped terrain
-        private void Float()
-        {
-            // Get collider center in world space
-            Vector3 capsuleColliderCenterInWorldSpace = _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
-
-            // Cast a ray down from the center of the capsule
-            Ray downwardsRayFromCapsuleCenter = new(capsuleColliderCenterInWorldSpace, Vector3.down);
-
-            // Check for ground hit using the float ray
-            if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit hit,
-                _stateMachine.PlayerController.ResizableCapsuleCollider.SlopeData.FloatRayDistance,
-                _stateMachine.PlayerController.LayerData.GroundLayer, QueryTriggerInteraction.Ignore))
-            {
-                // Calculate ground angle for slope detection
-                float groundAngle = Vector3.Angle(hit.normal, -downwardsRayFromCapsuleCenter.direction);
-
-                // Modify movement speed based on slope steepness
-                float slopeSpeedModifier = SetSlopeSpeedModifierOnAngle(groundAngle);
-
-                if (slopeSpeedModifier == 0f) return; // Can't move on this slope
-
-                // Calculate how far off the ground we are
-                float distanceToFloatingPoint =
-                    _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderCenterInLocalSpace.y *
-                    _stateMachine.PlayerController.transform.localScale.y - hit.distance;
-
-                if (distanceToFloatingPoint == 0f) return; // Already aligned with ground
-
-                // Calculate upward force needed to match ground height
-                float amountToLift = distanceToFloatingPoint *
-                    _stateMachine.PlayerController.ResizableCapsuleCollider.SlopeData.StepReachForce - GetVerticalVelocity().y;
-
-                // Apply vertical lift force
-                Vector3 liftForce = new Vector3(0f, amountToLift, 0f);
-
-                _stateMachine.PlayerController.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
-            }
-        }
-
-        // Sets slope-based movement speed modifier
-        private float SetSlopeSpeedModifierOnAngle(float angle)
-        {
-            float slopeSpeedModifier = _groundedData.SlopeSpeedAngles.Evaluate(angle);
-
-            if (_stateMachine.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
-            {
-                _stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
-            }
-
-            return slopeSpeedModifier;
-        }
-
-        // Checks if there's still ground under the player (used to confirm grounded state)
-        private bool IsThereGroundUnderneath()
-        {
-            PlayerTriggerColliderData triggerColliderData = _stateMachine.PlayerController.ResizableCapsuleCollider.TriggerColliderData;
-
-            Vector3 center = triggerColliderData.GroundCheckCollider.bounds.center;
-            Vector3 halfExtents = triggerColliderData.GroundCheckColliderVerticalExtents;
-            Quaternion orientation = triggerColliderData.GroundCheckCollider.transform.rotation;
-            int layerMask = _stateMachine.PlayerController.LayerData.GroundLayer;
-
-            int count = Physics.OverlapBoxNonAlloc(
-                center,
-                halfExtents,
-                _groundCheckResults,
-                orientation,
-                layerMask,
-                QueryTriggerInteraction.Ignore
-            );
-
-            return count > 0;
-        }
-        #endregion
-
-        #region Reusable Methods
+        #region  Reusable Methods
         protected override void AddInputActionsCallbacks()
         {
             base.AddInputActionsCallbacks();
-            _stateMachine.PlayerController.Input.JumpStartedAction += OnJumpStarted;
+
+            _stateMachine.PlayerController.Input.JumpPerformedAction += OnJumpPerformed;
         }
 
         protected override void RemoveInputActionsCallbacks()
         {
             base.RemoveInputActionsCallbacks();
-            
-            _stateMachine.PlayerController.Input.JumpStartedAction -= OnJumpStarted;
+
+            _stateMachine.PlayerController.Input.JumpPerformedAction -= OnJumpPerformed;
         }
 
         protected virtual void OnMove()
@@ -153,70 +64,58 @@ namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
 
             _stateMachine.SwitchState(_stateMachine.WalkState);
         }
+        #endregion
 
-        protected override void OnContactWithGroundExited(Collider collider)
+        #region Main Methods
+        private void ReadMovementInput() =>
+            _stateMachine.ReusableData.MovementInput = _stateMachine.PlayerController.Input.MoveDirection;
+
+        // Smoothly interpolates animation blend based on movement input and thresholds.
+        private void UpdateBlendTreeAnimation()
         {
-            if (IsThereGroundUnderneath()) return;
+            // Determine target animation speed based on input
+            float targetThreshold = UpdateBlendTreeThreshold();
 
-            Vector3 capsuleColliderCenterInWorldSpace = _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
+            // Smooth blend current animation speed towards target threshold
+            _stateMachine.PlayerController.AnimationData.MovementAnimationBlend =
+                Mathf.Lerp(
+                    _stateMachine.PlayerController.AnimationData.MovementAnimationBlend,
+                    targetThreshold,
+                    Time.deltaTime * _stateMachine.PlayerController.AnimationData.AnimationBlendSpeed);
 
-            Ray downwardsRayFromCapsuleBottom = new(
-                capsuleColliderCenterInWorldSpace - _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.ColliderVerticalExtents,
-                Vector3.down
+            // Snap to zero if blend is too low
+            if (_stateMachine.PlayerController.AnimationData.MovementAnimationBlend < BLENDSNAPTHRESHOLD)
+                _stateMachine.PlayerController.AnimationData.MovementAnimationBlend = 0.0f;
+
+            // Apply animation blend value to Animator
+            _stateMachine.PlayerController.Animator.SetFloat(
+                _stateMachine.PlayerController.AnimationData.SpeedParameterHash,
+                _stateMachine.PlayerController.AnimationData.MovementAnimationBlend
             );
-
-            if (!Physics.Raycast(
-                downwardsRayFromCapsuleBottom, out _,
-                _groundedData.GroundToFallRayDistance,
-                _stateMachine.PlayerController.LayerData.GroundLayer,
-                QueryTriggerInteraction.Ignore)) OnFall();
         }
 
-        protected virtual void OnFall() => _stateMachine.SwitchState(_stateMachine.FallState);
-
-        // Called when landing from a jump — chooses walk/run/idle depending on input
-        protected void OnLandToMovingState()
+        // Calculates the target threshold for animation blending based on input state.
+        private float UpdateBlendTreeThreshold()
         {
-            if (_stateMachine.ReusableData.MovementInput == Vector2.zero)
+            float targetThreshold;
+
+            if (_stateMachine.ReusableData.MovementInput != Vector2.zero)
             {
-                _stateMachine.PlayerController.Input.EnableActionFor(InputActionType.Jump); // No movement input, just enable jump
-                return;
+                targetThreshold = _stateMachine.ReusableData.ShouldRun
+                    ? _stateMachine.PlayerController.AnimationData.RunThreshold
+                    : _stateMachine.PlayerController.AnimationData.WalkThreshold;
+            }
+            else
+            {
+                targetThreshold = _groundedData.IdleData.SpeedModifier;
             }
 
-            if (_stateMachine.ReusableData.ShouldRun)
-            {
-                _stateMachine.PlayerController.StartCoroutine(EnableJumpAfterDelay()); // Delay jump after landing
-                return;
-            }
-
-            _stateMachine.PlayerController.StartCoroutine(EnableJumpAfterDelay()); // Default: delay then enable jump
-        }
-
-        // Coroutine to enable jump input after a short delay
-        private IEnumerator EnableJumpAfterDelay()
-        {
-            yield return _jumpDelayWait;
-            _stateMachine.PlayerController.Input.EnableActionFor(InputActionType.Jump); // Then enable jump
+            return targetThreshold;
         }
         #endregion
 
         #region Input Methods
-        protected override void OnRun(bool shouldRun)
-        {
-            base.OnRun(shouldRun);
-
-            if (_stateMachine.ReusableData.MovementInput != Vector2.zero) OnMove();
-        }
-
-        protected override void OnMovementPerformed(Vector2 moveInput)
-        {
-            base.OnMovementPerformed(moveInput);
-
-            // Update facing direction when movement starts
-            UpdateTargetRotation(GetMovementInputDirection());
-        }
-
-        protected virtual void OnJumpStarted() => _stateMachine.SwitchState(_stateMachine.JumpState);
+        protected virtual void OnJumpPerformed() => _stateMachine.SwitchState(_stateMachine.JumpState);
         #endregion
     }
 }

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace ProjectEmbersteel.StateMachine
 {
     /// <summary>
@@ -23,16 +21,8 @@ namespace ProjectEmbersteel.StateMachine
 
         public void UpdateState() => _currentState?.UpdateState();
 
-        public void PhysicsUpdate() => _currentState?.PhysicsUpdate();
-
-        public void OnTriggerEnter(Collider collider) => _currentState?.OnTriggerEnter(collider);
-
-        public void OnTriggerExit(Collider collider) => _currentState?.OnTriggerExit(collider);
-
         public void OnAnimationEnterEvent() => _currentState?.OnAnimationEnterEvent();
-
         public void OnAnimationExitEvent() => _currentState?.OnAnimationExitEvent();
-
         public void OnAnimationTransitionEvent() => _currentState?.OnAnimationTransitionEvent();
     }
 }

@@ -13,9 +13,6 @@ namespace ProjectEmbersteel.StateMachine
         public void Exit();
         public void HandleInput();
         public void UpdateState();
-        public void PhysicsUpdate();
-        public void OnTriggerEnter(Collider collider);
-        public void OnTriggerExit(Collider collider);
 
         /// <summary>
         /// Called at the beginning of an animation event.

@@ -82,8 +82,8 @@ namespace ProjectEmbersteel.Player
             {
                 _inputReader.MovePerformedAction += OnMovePerformed;
                 _inputReader.MoveCanceledAction += OnMoveCanceled;
-                _inputReader.RunPerformedAction += OnRun;
-                _inputReader.RunCanceledAction += OnRun;
+                _inputReader.RunPerformedAction += OnRunPerformed;
+                _inputReader.RunCanceledAction += OnRunCanceled;
                 _inputReader.JumpPerformedAction += OnJumpPerformed;
                 _inputReader.JumpCanceledAction += OnJumpCanceled;
             }
@@ -95,8 +95,8 @@ namespace ProjectEmbersteel.Player
             {
                 _inputReader.MovePerformedAction -= OnMovePerformed;
                 _inputReader.MoveCanceledAction -= OnMoveCanceled;
-                _inputReader.RunPerformedAction -= OnRun;
-                _inputReader.RunCanceledAction -= OnRun;
+                _inputReader.RunPerformedAction -= OnRunPerformed;
+                _inputReader.RunCanceledAction -= OnRunCanceled;
                 _inputReader.JumpPerformedAction -= OnJumpPerformed;
                 _inputReader.JumpCanceledAction -= OnJumpCanceled;
             }
@@ -177,8 +177,9 @@ namespace ProjectEmbersteel.Player
         #region Input Methods
         private void OnJumpCanceled() => _jump = false;
         private void OnJumpPerformed() => _jump = true;
-        private void OnRun(bool shouldRun) => _sprint = shouldRun;
-        private void OnMoveCanceled(Vector2 moveInput) => _moveInput = moveInput;
+        private void OnRunPerformed() => _sprint = true;
+        private void OnRunCanceled() => _sprint = false;
+        private void OnMoveCanceled() => _moveInput = Vector2.zero;
         private void OnMovePerformed(Vector2 moveInput) => _moveInput = moveInput;
         #endregion
 

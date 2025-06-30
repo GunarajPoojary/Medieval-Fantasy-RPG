@@ -1293,6 +1293,8 @@ GameObject:
   m_Component:
   - component: {fileID: 390874272}
   - component: {fileID: 390874273}
+  - component: {fileID: 390874274}
+  - component: {fileID: 390874275}
   m_Layer: 0
   m_Name: Free Low Poly Modular Character
   m_TagString: Untagged
@@ -1333,7 +1335,7 @@ Animator:
   m_GameObject: {fileID: 390874271}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 831f7229e82863e4d80ada075e09eba6, type: 3}
-  m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
+  m_Controller: {fileID: 9100000, guid: 51823d8c30521b24bb2468fe648972b9, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1345,6 +1347,47 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &390874274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390874271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93b7e06289d9cdd4bb8002bfccff3666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &390874275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390874271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec6dd5ec15a8b44caf5e78ffe7bdf31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minLandClipWieghtThreshold: 0.5
+  _minMoveWieghtThreshold: 0.5
+  _groundCheckObject: {fileID: 832643315}
+  _footstepAudioVolume: 0.5
+  _footStepAudioData:
+    FootstepAudioClips:
+    - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
+    - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
+    - {fileID: 8300000, guid: 186de84b3207156479abe98f4958fed0, type: 3}
+    - {fileID: 8300000, guid: 1a91fcd19acf1e54bba0945d9f390849, type: 3}
+    - {fileID: 8300000, guid: 14e8a8d2158bec840b56c54f5266e692, type: 3}
+    - {fileID: 8300000, guid: 29841e7d5bbfb5b419c9ad16ca8bc4c1, type: 3}
+    - {fileID: 8300000, guid: dd1af302b8902684d9381de1f2d3a5af, type: 3}
+    - {fileID: 8300000, guid: 67c8b33e424ccdc4486edf538ab91c5a, type: 3}
+    - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
+    - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
+    LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,6 +2607,37 @@ Transform:
   - {fileID: 514525375}
   m_Father: {fileID: 627811066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &832643314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 832643315}
+  m_Layer: 0
+  m_Name: GroundCheckObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &832643315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832643314}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1257736821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &849414647
 GameObject:
   m_ObjectHideFlags: 0
@@ -3412,7 +3486,7 @@ MonoBehaviour:
       Wait: 1
       Time: 2
     Restrictions: 0
-  _controller: {fileID: 1257736819}
+  _controller: {fileID: 1257736823}
 --- !u!4 &1155126269
 Transform:
   m_ObjectHideFlags: 0
@@ -3438,8 +3512,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1257736821}
   - component: {fileID: 1257736820}
-  - component: {fileID: 1257736819}
   - component: {fileID: 1257736822}
+  - component: {fileID: 1257736823}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3447,33 +3521,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1257736819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257736817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d48b7df2d046045926fe2aaaec64ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 5df3d0f5f40f0fc4ab034c1520e05121, type: 2}
-  _baseMoveSpeed: 2
-  _walkSpeedModifier: 1
-  _sprintSpeedModifier: 4
-  _speedChangeRate: 10
-  _baseJumpForce: 4
-  _walkJumpForceModifier: 1
-  _sprintJumpForceModifier: 1.5
-  _damping: 0.5
-  _onLandDamping: 0.3
-  _strafe: 0
-  _groundLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  _gravityMultiplier: 1
 --- !u!143 &1257736820
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3514,6 +3561,7 @@ Transform:
   m_Children:
   - {fileID: 390874272}
   - {fileID: 1155126269}
+  - {fileID: 832643315}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1257736822
@@ -3561,6 +3609,32 @@ MonoBehaviour:
         DecelTime: 0.2
   PlayerIndex: -1
   AutoEnableInputs: 1
+--- !u!114 &1257736823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257736817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40926147b91667469157aaf9dba941a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Data>k__BackingField: {fileID: 11400000, guid: 6dbf69c4e31fb1c4fb135e943897a584, type: 2}
+  <LayerData>k__BackingField:
+    <GroundLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 64
+  <AnimationData>k__BackingField:
+    _groundedParameterName: Grounded
+    _airborneParameterName: Airborne
+    _speedeParameterName: Speed
+    _fallParameterName: isFalling
+    <AnimationBlendSpeed>k__BackingField: 10
+    <WalkThreshold>k__BackingField: 2
+    <RunThreshold>k__BackingField: 5.335
+  <Input>k__BackingField: {fileID: 11400000, guid: 5df3d0f5f40f0fc4ab034c1520e05121, type: 2}
 --- !u!1 &1280721186
 GameObject:
   m_ObjectHideFlags: 0

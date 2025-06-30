@@ -14,10 +14,10 @@ namespace ProjectEmbersteel.Player.Sound
         [Range(0f, 1f)]
         [SerializeField] private float _minMoveWieghtThreshold = 0.5f;
 
-        [SerializeField] private BoxCollider _groundCheckCollider;
+        [SerializeField] private Transform _groundCheckObject;
 
         [Range(0, 1)]
-        [SerializeField] private float FootstepAudioVolume = 0.5f;
+        [SerializeField] private float _footstepAudioVolume = 0.5f;
 
         [SerializeField] private PlayerFootStepAudioData _footStepAudioData;
         
@@ -31,8 +31,8 @@ namespace ProjectEmbersteel.Player.Sound
 
                     AudioSource.PlayClipAtPoint(
                         _footStepAudioData.FootstepAudioClips[index],
-                        transform.TransformPoint(_groundCheckCollider.center),
-                        FootstepAudioVolume);
+                        transform.TransformPoint(_groundCheckObject.position),
+                        _footstepAudioVolume);
                 }
             }
         }
@@ -43,8 +43,8 @@ namespace ProjectEmbersteel.Player.Sound
             {
                 AudioSource.PlayClipAtPoint(
                     _footStepAudioData.LandingAudioClip,
-                    transform.TransformPoint(_groundCheckCollider.center),
-                    FootstepAudioVolume);
+                    transform.TransformPoint(_groundCheckObject.position),
+                    _footstepAudioVolume);
             }
         }
     }

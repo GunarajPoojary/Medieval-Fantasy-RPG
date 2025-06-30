@@ -1,49 +1,31 @@
-using UnityEngine; 
+using UnityEngine;
 
-namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Grounded
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States
 {
     /// <summary>
-    /// Handles the Idle state of the player while grounded (not moving)
+    /// Class responsible for handling player idle state.
     /// </summary>
     public class PlayerIdleState : PlayerGroundedState
     {
-        public PlayerIdleState(PlayerStateFactory stateMachine) : base(stateMachine) { }
+        public PlayerIdleState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
         {
-            // Set the movement speed modifier to the idle value (usually 0)
             _stateMachine.ReusableData.MovementSpeedModifier = _groundedData.IdleData.SpeedModifier;
 
-            base.Enter(); 
+            base.Enter();
 
-            // Set the jump force to stationary jump force (for idle jump behavior)
             _stateMachine.ReusableData.CurrentJumpForce = _airborneData.JumpData.StationaryForce;
 
-            // Completely stop the player's movement
             ResetVelocity();
+
+            ApplyMotion();
         }
+        #endregion
 
-        public override void UpdateState()
-        {
-            base.UpdateState();
-
-            // If there's no movement input, remain idle
-            if (_stateMachine.ReusableData.MovementInput == Vector2.zero) return;
-
-            OnMove();
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
-
-            // If the player is not sliding or drifting slightly, do nothing
-            if (!IsMovingHorizontally()) return;
-
-            // Otherwise, forcibly stop all horizontal movement
-            ResetVelocity();
-        }
+        #region Input Methods
+        protected override void OnMovementPerformed(Vector2 moveInput) => OnMove();
         #endregion
     }
 }

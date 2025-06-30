@@ -8,6 +8,6 @@ namespace ProjectEmbersteel.Player.Data.States
     [System.Serializable]
     public class PlayerRotationData
     {
-        [field: SerializeField] public Vector3 TargetRotationReachTime { get; private set; }
+        [field: SerializeField] public float RotationDamping { get; private set; } = 0.5f;
     }
 }

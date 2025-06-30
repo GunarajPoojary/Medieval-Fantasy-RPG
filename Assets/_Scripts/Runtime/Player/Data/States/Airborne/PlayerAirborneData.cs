@@ -9,6 +9,6 @@ namespace ProjectEmbersteel.Player.Data.States.Airborne
     public class PlayerAirborneData
     {
         [field: SerializeField] public PlayerJumpData JumpData { get; private set; }
-        [field: SerializeField] public PlayerFallData FallData { get; private set; }
+        [field: SerializeField] public float GravityMultiplier { get; private set; } = 1f;
     }
 }

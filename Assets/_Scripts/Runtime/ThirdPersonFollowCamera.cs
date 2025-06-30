@@ -4,7 +4,7 @@ using Unity.Cinemachine;
 
 namespace ProjectEmbersteel.Player
 {
-    public class ThirdPersonAimController : MonoBehaviour, IInputAxisOwner
+    public class ThirdPersonFollowCamera : MonoBehaviour, IInputAxisOwner
     {
         [Tooltip("Horizontal Rotation.  Value is in degrees, with 0 being centered.")]
         [SerializeField] private InputAxis _horizontalLook = new() { Range = new Vector2(-180, 180), Wrap = true, Recentering = InputAxis.RecenteringSettings.Default };
@@ -12,7 +12,7 @@ namespace ProjectEmbersteel.Player
         [Tooltip("Vertical Rotation.  Value is in degrees, with 0 being centered.")]
         [SerializeField] private InputAxis _verticalLook = new() { Range = new Vector2(-70, 70), Recentering = InputAxis.RecenteringSettings.Default };
 
-        [SerializeField] private ThirdPersonPlayerController _controller;
+        [SerializeField] private PlayerController _controller;
         
         private Transform _controllerTransform;    // cached for efficiency
         private Quaternion _desiredWorldRotation;

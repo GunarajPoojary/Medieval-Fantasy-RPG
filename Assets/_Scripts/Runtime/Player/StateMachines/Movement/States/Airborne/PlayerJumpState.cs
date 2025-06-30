@@ -1,143 +1,59 @@
-using UnityEngine; 
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
+using UnityEngine;
 
-namespace ProjectEmbersteel.Player.StateMachines.Movement.States.Airborne
+namespace ProjectEmbersteel.Player.StateMachines.Movement.States
 {
     /// <summary>
-    /// Handles the player's jumping state
+    /// Class responsible for handling player jump state.
     /// </summary>
     public class PlayerJumpState : PlayerAirborneState
     {
-        private bool _shouldKeepRotating; 
-        private bool _canStartFalling; 
+        private float _previousVerticalVelocity;
 
-        public PlayerJumpState(PlayerStateFactory stateMachine) : base(stateMachine) { }
+        public PlayerJumpState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
         #region IState Methods
         public override void Enter()
         {
-            base.Enter(); 
+            base.Enter();
 
-            // Set deceleration force while jumping (to slow vertical velocity)
-            _stateMachine.ReusableData.MovementDecelerationForce = _airborneData.JumpData.DecelerationForce;
+            _stateMachine.PlayerController.Input.DisableActionFor(InputActionType.Jump);
 
-            // Override rotation data specifically for jump
-            _stateMachine.ReusableData.RotationData = _airborneData.JumpData.RotationData;
+            Jump();
 
-            // Determine if the player should keep rotating mid-jump (only if input exists)
-            _shouldKeepRotating = _stateMachine.ReusableData.MovementInput != Vector2.zero;
-
-            Jump(); 
-        }
-
-        public override void Exit()
-        {
-            base.Exit(); 
-
-            SetBaseRotationData();
-
-            _canStartFalling = false;
+            _previousVerticalVelocity = _stateMachine.PlayerController.Controller.velocity.y;
         }
 
         public override void UpdateState()
         {
-            base.UpdateState(); 
+            base.UpdateState();
 
-            // Wait until character has started moving upward before enabling fall transition
-            if (!_canStartFalling && IsMovingUp(0f)) 
-                _canStartFalling = true;
-
-            // If not ready to fall or still moving up, skip
-            if (!_canStartFalling || IsMovingUp(0f)) 
-                return;
-
-            _stateMachine.SwitchState(_stateMachine.FallState);
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
-
-            // Keep rotating toward input direction if applicable
-            if (_shouldKeepRotating) 
-                RotateTowardsTargetRotation();
-
-            // Apply deceleration if still moving up
-            if (IsMovingUp()) 
-                DecelerateVertically();
+            CheckForFall();
         }
         #endregion
 
         #region Main Methods
+        // Checks if the player has has reached max vertical velocity.
+        // If vertical velocity drops, the player is now falling and transitions to the fall state.
+        private void CheckForFall()
+        {
+            if (_previousVerticalVelocity > _stateMachine.PlayerController.Controller.velocity.y)
+            {
+                _stateMachine.SwitchState(_stateMachine.FallState);
+                return;
+            }
+
+            _previousVerticalVelocity = _stateMachine.PlayerController.Controller.velocity.y;
+        }
+
+        // Sets the vertical velocity based on the jump force data from the state machine.
+        // Note: The velocity applied to character controller in the PlayerBaseState class in the UpdateState Method
         private void Jump()
         {
-            // Get jump force vector based on current data
             Vector3 jumpForce = _stateMachine.ReusableData.CurrentJumpForce;
 
-            // Default jump direction is forward (in local space)
-            Vector3 jumpDirection = _stateMachine.PlayerController.transform.forward;
-
-            if (_shouldKeepRotating)
-            {
-                // Update rotation to align with movement direction
-                UpdateTargetRotation(GetMovementInputDirection());
-
-                // Adjust direction based on camera-relative movement input
-                jumpDirection = GetTargetRotationDirection(_stateMachine.ReusableData.CurrentTargetRotation.y);
-            }
-
-            // Multiply horizontal force by directional values
-            jumpForce.x *= jumpDirection.x;
-            jumpForce.z *= jumpDirection.z;
-
-            // Adjust jump force based on slope detection
-            jumpForce = GetJumpForceOnSlope(jumpForce);
-
-            ResetVelocity(); 
-
-            _stateMachine.PlayerController.Rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
+            _stateMachine.ReusableData.CurrentVerticalVelocity = jumpForce.y;
         }
-
-        // Modifies the jump force based on ground slope beneath player
-        private Vector3 GetJumpForceOnSlope(Vector3 jumpForce)
-        {
-            Vector3 capsuleColliderCenterInWorldSpace = _stateMachine.PlayerController.ResizableCapsuleCollider.CapsuleColliderData.Collider.bounds.center;
-
-            // Create a ray straight down from the player's position
-            Ray downwardsRayFromCapsuleCenter = new(capsuleColliderCenterInWorldSpace, Vector3.down);
-
-            // Cast a ray to detect slope below
-            if (Physics.Raycast(
-                    downwardsRayFromCapsuleCenter,
-                    out RaycastHit hit,
-                    _airborneData.JumpData.JumpToGroundRayDistance,
-                    _stateMachine.PlayerController.LayerData.GroundLayer,
-                    QueryTriggerInteraction.Ignore))
-            {
-                // Get the angle between ground normal and downward direction
-                float groundAngle = Vector3.Angle(hit.normal, -downwardsRayFromCapsuleCenter.direction);
-
-                if (IsMovingUp())
-                {
-                    // Reduce jump force when jumping uphill
-                    float forceModifier = _airborneData.JumpData.JumpForceModifierOnSlopeUpwards.Evaluate(groundAngle);
-                    jumpForce.x *= forceModifier;
-                    jumpForce.z *= forceModifier;
-                }
-
-                if (IsMovingDown())
-                {
-                    // Modify vertical jump force when falling off slope
-                    float forceModifier = _airborneData.JumpData.JumpForceModifierOnSlopeDownwards.Evaluate(groundAngle);
-                    jumpForce.y *= forceModifier;
-                }
-            }
-
-            return jumpForce; 
-        }
-        #endregion
-
-        #region Input Method
-        protected override void OnMovementCanceled(Vector2 moveInput) { }
         #endregion
     }
 }
