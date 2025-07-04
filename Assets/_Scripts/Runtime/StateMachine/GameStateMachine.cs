@@ -1,51 +1,57 @@
 using System;
-using ProjectEmbersteel.EquipmentSystem;
-using ProjectEmbersteel.Inventory;
-using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 
 namespace ProjectEmbersteel.StateMachine
 {
     public class GameStateMachine
     {
-        private readonly InventoryManager _inventoryManager;
-        private readonly InputReader _input;
-        public GameState CurrentState { get; private set; }
-        public event Action<GameState> OnStateChanged;
-        private bool _isInventoryOpen = false;
+        private GameState _currentState;
 
-        public GameStateMachine(InputReader input, InventoryManager inventoryManager)
+        public Action InventoryEnterAction;
+        public Action DialogueEnterAction;
+        public Action CombatEnterAction;
+
+        public Action InventoryExitAction;
+        public Action DialogueExitAction;
+        public Action CombatExitAction;
+
+        public void AddEnterActionCallbacks(Action inventoryEnterAction, Action dialogueEnterAction, Action combatEnterAction)
         {
-            _inventoryManager = inventoryManager;
-            _input = input;
+            InventoryEnterAction += inventoryEnterAction;
+            DialogueEnterAction += dialogueEnterAction;
+            CombatEnterAction += combatEnterAction;
         }
 
-        public void AddInputActionCallbacks()
+        public void AddExitActionCallbacks(Action inventoryExitAction, Action dialogueExitAction, Action combatExitAction)
         {
-            _input.InventoryAction += ToggleInventoryState;
-            _input.EquipmentMenuAction += ToggleEquipmentState;
+            InventoryExitAction += inventoryExitAction;
+            DialogueExitAction += dialogueExitAction;
+            CombatExitAction += combatExitAction;
         }
 
-        public void RemoveInputActionCallbacks()
+        public void RemoveEnterActionCallbacks(Action inventoryEnterAction, Action dialogueEnterAction, Action combatEnterAction)
         {
-            _input.InventoryAction -= ToggleInventoryState;
-            _input.EquipmentMenuAction -= ToggleEquipmentState;
+            InventoryEnterAction -= inventoryEnterAction;
+            DialogueEnterAction -= dialogueEnterAction;
+            CombatEnterAction -= combatEnterAction;
         }
 
-        private void ToggleEquipmentState() => SwitchState(GameState.EquipmentMenu);
-
-        private void ToggleInventoryState() => SwitchState(GameState.Inventory);
+        public void RemoveExitActionCallbacks(Action inventoryExitAction, Action dialogueExitAction, Action combatExitAction)
+        {
+            InventoryExitAction -= inventoryExitAction;
+            DialogueExitAction -= dialogueExitAction;
+            CombatExitAction -= combatExitAction;
+        }
 
         public void SwitchState(GameState newState)
         {
-            if (CurrentState == newState)
+            if (_currentState == newState)
             {
-                // Toggle behavior (e.g., close menu and return to gameplay)
                 if (newState != GameState.Gameplay)
                     SwitchState(GameState.Gameplay);
                 return;
             }
 
-            ExitState(CurrentState);
+            ExitState(_currentState);
             EnterState(newState);
         }
 
@@ -54,22 +60,17 @@ namespace ProjectEmbersteel.StateMachine
             switch (newState)
             {
                 case GameState.Inventory:
-                    _inventoryManager.ToggleInventory(true);
-                    _input.DisablePlayerMovementActions();
+                    InventoryEnterAction?.Invoke();
                     break;
-                case GameState.ShopMenu:
-                    //ShopMenu.Instance.Open();
-                    break;
-                case GameState.Settings:
-                    //SettingsMenu.Instance.Open();
+                case GameState.Dialogue:
+                    DialogueEnterAction?.Invoke();
                     break;
                 case GameState.Combat:
-                    // Enable combat UI
+                    CombatEnterAction?.Invoke();
                     break;
             }
 
-            CurrentState = newState;
-            OnStateChanged?.Invoke(CurrentState);
+            _currentState = newState;
         }
 
         public void ExitState(GameState state)
@@ -77,17 +78,13 @@ namespace ProjectEmbersteel.StateMachine
             switch (state)
             {
                 case GameState.Inventory:
-                    _inventoryManager.ToggleInventory(false);
-                    _input.EnablePlayerMovementActions();
+                    InventoryExitAction?.Invoke();
                     break;
-                case GameState.ShopMenu:
-                    //ShopMenu.Instance.Close();
-                    break;
-                case GameState.Settings:
-                    //SettingsMenu.Instance.Close();
+                case GameState.Dialogue:
+                    DialogueExitAction?.Invoke();
                     break;
                 case GameState.Combat:
-                    // Disable combat UI
+                    CombatExitAction?.Invoke();
                     break;
             }
         }

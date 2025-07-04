@@ -3,21 +3,19 @@ using UnityEngine;
 
 namespace ProjectEmbersteel.Loot
 {
+    [RequireComponent(typeof(CapsuleCollider))]
     public class ItemCollector : MonoBehaviour
     {
         [SerializeField] private LayerMask _pickables;
         [SerializeField] private IPickableEventChannelSO _onItemPickedEventChannel = default;
 
-        private void OnTriggerEnter(Collider collider)
+        private void OnTriggerEnter(Collider other)
         {
-            if (((1 << collider.gameObject.layer) & _pickables) != 0)
-            {
-                if (collider.TryGetComponent(out IPickable pickable))
-                {
-                    if (pickable != null)
-                        _onItemPickedEventChannel.RaiseEvent(pickable);
-                }
-            }
+            if (((1 << other.gameObject.layer) & _pickables) == 0)
+                return;
+
+            if (other.TryGetComponent(out IPickable pickable))
+                _onItemPickedEventChannel.RaiseEvent(pickable);
         }
     }
 }

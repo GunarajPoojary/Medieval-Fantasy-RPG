@@ -25,8 +25,13 @@ namespace ProjectEmbersteel.UI.Inventory
         [Header("Item Details Panel")]
         [SerializeField] private UIInventoryItemOverview _itemOverviewPanel;
         [SerializeField] private UIInventoryResponsePopup _uiInventoryResponsePopup;
+
         [Header("Listening to")]
-        [SerializeField] private StatUpdateEventChannel _statUpdateEventChannel;
+        [SerializeField] private StatUpdateEventChannelSO _statUpdateEventChannel;
+
+        [Header("Broadcasting to")]
+        [SerializeField] private VoidEventChannelSO _openInventoryEventChannel;
+        [SerializeField] private VoidEventChannelSO _closeInventoryEventChannel;
         [SerializeField] private PlayerAttributesUI _attributesUI;
         [SerializeField] private AudioSource _uiAudioSource;
 
@@ -140,11 +145,18 @@ namespace ProjectEmbersteel.UI.Inventory
                 HandleNonStackableItem(item, itemType, contentPanel);
         }
 
-        public void ToggleInventory(bool setActive)
+        public void ToggleInventory() => ToggleInventory(!_inventoryPanel.activeSelf);
+        public void ToggleInventory(bool toggle)
         {
-            _inventoryPanel.SetActive(setActive);
+            _inventoryPanel.SetActive(toggle);
+
+            if (toggle)
+                _openInventoryEventChannel.RaiseEvent();
+            else
+                _closeInventoryEventChannel.RaiseEvent();
         }
         #endregion
+
 
         #region Item Management
         private bool ValidateInventoryItem(InventoryItem item)

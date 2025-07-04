@@ -14,12 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: LocationScenes
   m_GUID: 52facb70ec777674c9713f34bd62a1a4
-  m_SerializeEntries:
-  - m_GUID: 99c9720ab356a0642a771bea13969a05
-    m_Address: Assets/Scenes/SandBox.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 11df17cf64f824047834b5018353cd7b, type: 2}
   m_SchemaSet:

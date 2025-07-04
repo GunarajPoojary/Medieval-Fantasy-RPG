@@ -1,6 +1,7 @@
 using System;
 using ProjectEmbersteel.Item;
 using ProjectEmbersteel.UI.Inventory;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 
 namespace ProjectEmbersteel.Inventory
 {
@@ -11,33 +12,33 @@ namespace ProjectEmbersteel.Inventory
     {
         private readonly Inventory _model;
         private readonly UIInventory _view;
+        private readonly InputReader _input;
 
         public event Action OnItemAdded;
         public event Action OnItemAddFail;
 
-        public InventoryController(Inventory model, UIInventory view)
+        public InventoryController(InputReader input, Inventory model, UIInventory view)
         {
+            _input = input;
             _model = model;
             _view = view;
         }
 
-        /// <summary>
-        /// Method to subscribe to all necessary events and input actions
-        /// </summary>
         public void AddListeners()
         {
+            _input.InventoryAction += ToggleInventory;
+
             _model.OnInventoryFull += OnInventoryFull;
             _model.OnItemNull += OnItemNull;
             _model.OnInvalidQuantity += OnInvalidQuantity;
             _model.OnItemStackLimitReached += OnItemStackLimitReached;
             _model.OnItemAdded += OnInventoryItemAdded;
         }
-
-        /// <summary>
-        /// Method to unsubscribe from all events and input actions to prevent memory leaks
-        /// </summary>
+        
         public void RemoveListeners()
         {
+            _input.InventoryAction -= ToggleInventory;
+
             _model.OnInventoryFull -= OnInventoryFull;
             _model.OnItemNull -= OnItemNull;
             _model.OnInvalidQuantity -= OnInvalidQuantity;
@@ -45,7 +46,8 @@ namespace ProjectEmbersteel.Inventory
             _model.OnItemAdded -= OnInventoryItemAdded;
         }
 
-        public void ToggleInventory(bool setActive) => _view.ToggleInventory(setActive);
+        public void ToggleInventory() => _view.ToggleInventory();
+        public void ToggleInventory(bool toggle) => _view.ToggleInventory(toggle);
 
         // Event handler for when items are added to the inventory
         private void OnInventoryItemAdded(InventoryItem item)

@@ -1,32 +1,48 @@
-using UnityEngine;
+using ProjectEmbersteel.Events.EventChannel;
+using ProjectEmbersteel.Utilities.Inputs.ScriptableObjects;
 
 namespace ProjectEmbersteel.InteractionSystem
 {
-    [RequireComponent(typeof(BoxCollider))]
-    public class InteractionController : MonoBehaviour
+    public class InteractionController
     {
-        [SerializeField] private LayerMask _interactableLayer;
-        [SerializeField] private UIInteraction _uIInteraction;
+        private readonly InputReader _inputReader;
+        private readonly BoolEventChannelSO _toggleViewChannel;
         private IInteractable _currentInteractable;
 
-        private void OnTriggerEnter(Collider collider)
+        public InteractionController(InputReader inputReader, BoolEventChannelSO toggleViewChannel)
         {
-            if (((1 << collider.gameObject.layer) & _interactableLayer) != 0)
+            _inputReader = inputReader;
+            _inputReader.DisableActionFor(InputActionType.Interact);
+            _toggleViewChannel = toggleViewChannel;
+        }
+
+        public void AddInputActionCallback() => _inputReader.InteractPerformedAction += Interact;
+        public void RemoveInputActionCallback() => _inputReader.InteractPerformedAction -= Interact;
+
+        public void AddInteractable(IInteractable interactable)
+        {
+            _currentInteractable = interactable;
+            _inputReader.EnableActionFor(InputActionType.Interact);
+            _toggleViewChannel.RaiseEvent(true);
+        }
+
+        public void RemoveInteractable(IInteractable interactable)
+        {
+            if (interactable == _currentInteractable)
             {
-                if (!collider.TryGetComponent(out IInteractable interactable))
-                    return;
-
-                _uIInteraction.ToggleUI(true);
-
-                _currentInteractable = interactable;
-
-                _currentInteractable.Interact();
+                _currentInteractable = null;
+                _inputReader.DisableActionFor(InputActionType.Interact);
+                _toggleViewChannel.RaiseEvent(false);
             }
         }
 
-        private void OnTriggerExit(Collider collider)
+        private void Interact()
         {
-            _uIInteraction.ToggleUI(false);
+            if (_currentInteractable != null)
+            {
+                _currentInteractable.Interact();
+                RemoveInteractable(_currentInteractable);
+            }
         }
     }
 }

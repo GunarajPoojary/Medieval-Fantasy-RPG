@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2a7da8c6c68aa41a5e3b21cd48c4d1, type: 3}
+  m_Name: VillageChiefDialogue
+  m_EditorClassIdentifier: 
+  <Lines>k__BackingField:
+  - <Actor>k__BackingField:
+      <ActorType>k__BackingField: 1
+      <ActorName>k__BackingField: Village Chief
+    <SpeechText>k__BackingField: "You\u2026 You\u2019re not from around here, are
+      you?"
+  - <Actor>k__BackingField:
+      <ActorType>k__BackingField: 0
+      <ActorName>k__BackingField: You
+    <SpeechText>k__BackingField: "Hmm\u2026 a time-tear. It\u2019s been generations
+      since one last opened. Stranger\u2026 fate has pulled you here for a reason."
+  - <Actor>k__BackingField:
+      <ActorType>k__BackingField: 1
+      <ActorName>k__BackingField: Village Chief
+    <SpeechText>k__BackingField: "Because you are. Last night, a monster descended
+      from the cliffs. It burned our crops, shattered our homes. We can\u2019t fight
+      it \u2014 our blades are useless against its hide."
+  - <Actor>k__BackingField:
+      <ActorType>k__BackingField: 0
+      <ActorName>k__BackingField: You
+    <SpeechText>k__BackingField: "Not quite. The cave is no ordinary place. It\u2019s
+      protected. Cursed, even. And you \u2014 a man unmarked by this world\u2019s
+      magic \u2014 may be able to pass through it unseen, unchallenged\u2026 if you\u2019re
+      clever."
+  - <Actor>k__BackingField:
+      <ActorType>k__BackingField: 1
+      <ActorName>k__BackingField: Village Chief
+    <SpeechText>k__BackingField: "Hmm\u2026 a time-tear. It\u2019s been generations
+      since one last opened. Stranger\u2026 fate has pulled you here for a reason."
+  - <Actor>k__BackingField:
+      <ActorType>k__BackingField: 0
+      <ActorName>k__BackingField: You
+    <SpeechText>k__BackingField: "Not just sneak. Think. The cave is old and full
+      of trickery. Illusions. Shadows that fear the light. Riddles that guard the
+      path. But you\u2026 you have the mind of someone not shaped by our rules. That
+      may be your strength."
+  - <Actor>k__BackingField:
+      <ActorType>k__BackingField: 1
+      <ActorName>k__BackingField: Village Chief
+    <SpeechText>k__BackingField: "Help us survive the night, and I\u2019ll tell you
+      all I know of time-tears\u2026 and how to return through them. Just\u2026 come
+      back alive."
